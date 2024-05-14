@@ -1,0 +1,20 @@
+@import "../../styles/Variables.scss";
+
+.choose_gender {
+  width: $auth_inputs_width;
+}
+
+.choose_text {
+  font-size: 12px;
+  margin-top: 4px;
+  width: 100%;
+  text-align: center;
+}
+
+.choose_boxes {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}

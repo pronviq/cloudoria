@@ -1,0 +1,24 @@
+.checkbox_cont {
+  display: flex;
+  align-items: center;
+  // background-color: red;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.checkbox {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  box-shadow: 0 0 1px 1px black;
+  &.active {
+    background: url("../../images/circle.svg") center center no-repeat;
+    background-size: 130%;
+  }
+}
+
+.checkbox_text {
+  font-size: 12px;
+  margin-left: 4px;
+}

@@ -1,0 +1,16 @@
+@import "../styles/Variables.scss";
+
+.registration {
+  display: flex;
+  width: 250px;
+  height: 300px;
+  border-radius: 20px;
+  flex-direction: column;
+  box-shadow: 0 0 5px -1px black;
+  align-items: center;
+  // rotate: 180deg
+  transform: translateZ(-$auth_translateZ) rotateY(180deg);
+  margin-left: -250px;
+  background-color: white;
+  transform-style: preserve-3d;
+}

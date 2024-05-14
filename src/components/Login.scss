@@ -1,0 +1,98 @@
+@import "../styles/Variables.scss";
+
+.login {
+  display: flex;
+  width: 250px;
+  height: 300px;
+  border-radius: 20px;
+  flex-direction: column;
+  box-shadow: 0 0 5px -1px black;
+  align-items: center;
+  transform: translateZ($auth_translateZ);
+  background-color: white;
+  transform-style: preserve-3d;
+}
+
+.login_title {
+  display: flex;
+  margin-top: 50px;
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 10px;
+  transform: translateZ($auth_translateZ);
+}
+
+.title_cloud {
+  background: url("../images/cloud.svg") center center no-repeat;
+  width: 30px;
+  height: 30px;
+  background-size: 100%;
+}
+
+.title_text {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
+    Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  margin-left: 2px;
+}
+
+.login_form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translateZ($auth_translateZ);
+}
+
+.login_input {
+  width: $auth_inputs_width;
+  height: 24px;
+  margin-top: 6px;
+  border-radius: 6px;
+  padding: 4px;
+}
+
+.email_cont,
+.password_cont {
+  display: flex;
+  flex-direction: column;
+}
+
+.auth_error {
+  overflow: hidden;
+  font-size: 11px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: $auth_inputs_width;
+  color: red;
+}
+
+.login_confirm,
+.switch_button {
+  width: 150px;
+  height: 22px;
+  margin-top: 15px;
+  border-radius: 4px;
+  transform: translateZ($auth_translateZ);
+}
+
+.unactive {
+  color: gray;
+  border-color: gray;
+  &:hover {
+    cursor: default;
+  }
+  &:active {
+    border-color: gray;
+  }
+}
+
+.switch_button {
+  margin-top: 6px;
+}
+
+.forgot_password {
+  margin-top: auto;
+  margin-bottom: 5px;
+  border: none;
+  color: gray;
+  transform: translateZ($auth_translateZ);
+}
