@@ -1,16 +1,15 @@
 import React from "react";
 import "./Main.scss";
+import FilterDropDown from "./ui/FilterDropDown";
+import UserSettings from "./ui/UserSettings";
 
 const Main: React.FC = () => {
   return (
     <main className="main">
       <header className="header">
         <div className="header_title">Все файлы</div>
-        <div className="view_selector"></div>
-        <div className="sort_selector"></div>
-        <button className="avatar_btn">
-          <img src="" alt="" className="avatar"></img>
-        </button>
+        <FilterDropDown />
+        <UserSettings />
       </header>
     </main>
   );

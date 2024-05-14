@@ -1,6 +1,7 @@
 import { AxiosResponse } from "axios";
 import { AuthResponse } from "../models/AuthResponse";
 import $api from "../api/AxiosApi";
+import { useNavigate } from "react-router-dom";
 
 export default class AuthService {
   static async login(email: string, password: string) {
@@ -22,6 +23,7 @@ export default class AuthService {
   }
 
   static async logout() {
+    localStorage.removeItem("token");
     return await $api.get("/logout");
   }
 }

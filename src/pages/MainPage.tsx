@@ -18,6 +18,7 @@ const MainPage: React.FC = () => {
             </button>
             <ul className="navlist">
               <li>Все файлы</li>
+              <li>Избранное</li>
               <li>Корзина</li>
             </ul>
             <div className="freespace">
