@@ -1,28 +1,27 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { IUser } from "../models/IUser";
 
-const initialState = {
+export const initialState: IUser = {
   id: 0,
-  username: "",
-  email: "",
-  disk_space: 0,
-  used_space: 0,
+  username: "johndoe",
+  email: "johndoe@mail.ru",
+  disk_space: 1024 * 500,
+  used_space: 1024 * 102.22,
+  gender: "",
 };
 
 const userSlice = createSlice({
   name: "user",
-  initialState: initialState,
+  initialState,
   reducers: {
-    setUser(state, action) {
-      const user = action.payload.user;
-      state.id = user.id;
-      state.username = user.username;
-      state.email = user.email;
-      state.disk_space = user.disk_space;
-      state.used_space = user.used_space;
+    setUser(state, action: PayloadAction<IUser>) {
+      // console.log("settings user");
+      // console.log(state, action);
+
+      return { ...action.payload };
     },
   },
 });
 
 export const { setUser } = userSlice.actions;
-
 export default userSlice.reducer;

@@ -2,14 +2,18 @@ import React, { useEffect, useRef, useState } from "react";
 import "./UserSettings.scss";
 import AuthService from "../../services/AuthService";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import { initialState, setUser } from "../../redux/userSlice";
 
 const UserSettings: React.FC = () => {
   const [isActive, setActive] = useState<boolean>(false);
+  const user = useAppSelector((state) => state.userReducer);
+
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const btnRef = useRef<HTMLButtonElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
-
-  const navigate = useNavigate();
 
   const handleFalse = (event: MouseEvent) => {
     const target = (event.target as Node) || null;
@@ -19,12 +23,12 @@ const UserSettings: React.FC = () => {
   };
 
   const makeLogout = async () => {
-    try {
-      await AuthService.logout();
-      navigate("/auth");
-    } catch (error) {
-      console.log(error);
-    }
+    await AuthService.logout()
+      .then((_) => {
+        dispatch(setUser(initialState));
+        navigate("/auth");
+      })
+      .catch((error) => console.log(error));
   };
 
   useEffect(() => {
@@ -42,8 +46,8 @@ const UserSettings: React.FC = () => {
           <div className="user_settings_info">
             <img src="https://99px.ru/sstorage/53/2023/01/mid_348279_833663.jpg" alt="" />
             <div className="user_settings_about">
-              <p className="user_nickname">nickname</p>
-              <p className="user_email">email</p>
+              <p className="user_nickname">username: {user.username}</p>
+              <p className="user_email">email: {user.email}</p>
             </div>
           </div>
           <ul className="user_settings_list">

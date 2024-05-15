@@ -1,12 +1,9 @@
 import { AxiosResponse } from "axios";
 import { AuthResponse } from "../models/AuthResponse";
 import $api from "../api/AxiosApi";
-import { useNavigate } from "react-router-dom";
 
 export default class AuthService {
   static async login(user_info: string, password: string): Promise<AxiosResponse> {
-    // console.log(user_info, password);
-
     const response = await $api.post<AuthResponse>("/login", {
       user_info,
       password,
@@ -15,7 +12,7 @@ export default class AuthService {
     return response;
   }
 
-  static async refresh() {
+  static async refresh(): Promise<AxiosResponse> {
     const response = await $api.get<AuthResponse>("/refresh");
     return response;
   }
@@ -35,8 +32,9 @@ export default class AuthService {
     return response;
   }
 
-  static async logout() {
+  static async logout(): Promise<AxiosResponse> {
     localStorage.removeItem("token");
-    return await $api.post("/logout");
+    const response = await $api.post("/logout");
+    return response;
   }
 }

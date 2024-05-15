@@ -1,13 +1,15 @@
-import React, { MouseEvent, useEffect, useRef, useState } from "react";
+import React, { MouseEvent, useState } from "react";
 import "./Login.scss";
 import AuthService from "../services/AuthService";
 import StringValidator from "../utils/StringValidator";
 import { useNavigate } from "react-router-dom";
 import "./Registration.scss";
-import Checkbox from "./ui/Checkbox";
 import ChooseGender from "./ui/ChooseGender";
 import { AxiosError, AxiosResponse } from "axios";
 import { AuthResponse } from "../models/AuthResponse";
+import { IUser } from "../models/IUser";
+import { useAppDispatch } from "../hooks/redux";
+import { setUser } from "../redux/userSlice";
 
 const Registration: React.FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -16,66 +18,53 @@ const Registration: React.FC = () => {
   const [usernameError, setUsernameError] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [passwordError, setPasswordError] = useState<string>("");
-  // const [registrationPossible, setRegistrationPossible] = useState<boolean>(true);
   const [gender, setGender] = useState<string>("");
 
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const validateData = (): boolean => {
     const usernameRegex = /^[A-Za-z]{6,32}$/;
     let isPossible: boolean = true;
-    // if (!registrationPossible) {
-    //   return;
-    // }
     if (!StringValidator.isEmail(email)) {
       setEmailError("Некорректная почта");
       isPossible = false;
     }
-
     if (email.length === 0) {
       setEmailError("Поле не может быть пустым");
       isPossible = false;
     }
-
     if (password.length < 6) {
       setPasswordError("Слишком короткий пароль");
       isPossible = false;
     }
-
     if (password.length > 32) {
       setPasswordError("Слишком длинный пароль");
       isPossible = false;
     }
-
     if (password.length === 0) {
       setPasswordError("Поле не может быть пустым");
       isPossible = false;
     }
-
     if (!usernameRegex.test(username)) {
       setUsernameError("Запрещенные символы");
       isPossible = false;
     }
-
     if (username.length < 6) {
       setUsernameError("Слишком короткий никнейм");
       isPossible = false;
     }
-
     if (username.length > 32) {
       setUsernameError("Слишком длинный никнейм");
       isPossible = false;
     }
-
     if (!gender.length) {
       isPossible = false;
     }
-
     if (username.length === 0) {
       setUsernameError("Поле не может быть пустым");
       isPossible = false;
     }
-
     return isPossible;
   };
 
@@ -88,6 +77,16 @@ const Registration: React.FC = () => {
 
     AuthService.registration(email, username, password, gender)
       .then((response: AxiosResponse<AuthResponse>) => {
+        const user: IUser = {
+          id: response.data?.id,
+          username: response.data?.username,
+          email: response.data?.email,
+          disk_space: response.data?.disk_space,
+          used_space: response.data?.used_space,
+          gender: response.data?.gender,
+        };
+
+        dispatch(setUser(user));
         localStorage.setItem("token", response.data?.access);
         navigate("/");
       })
@@ -161,7 +160,6 @@ const Registration: React.FC = () => {
       >
         Вход
       </button>
-      {/* <button className="forgot_password">Забыли пароль?</button> */}
     </article>
   );
 };

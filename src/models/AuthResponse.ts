@@ -1,7 +1,7 @@
 // export interface AuthResponse {}
 
 export interface AuthResponse {
-  id: boolean;
+  id: number;
   username: string;
   email: string;
   access: string;

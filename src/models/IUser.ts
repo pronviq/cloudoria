@@ -1,7 +1,8 @@
 export interface IUser {
   id: number;
+  username: string;
   email: string;
-  sex: string;
-  password: string;
-  refreshToken: string;
+  disk_space: number;
+  used_space: number;
+  gender: string;
 }

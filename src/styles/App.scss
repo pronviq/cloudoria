@@ -3,6 +3,22 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Courier New", Courier, monospace;
+  // font-family: Montserrat-Regular;
+}
+
+@font-face {
+  font-family: "Montserrat-Regular";
+  src: url("../assets/Montserrat-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Montserrat-Bold";
+  src: url("../assets/Montserrat-Bold.ttf");
+}
+
+@font-face {
+  font-family: "Montserrat-Medium";
+  src: url("../assets/Montserrat-Medium.ttf");
 }
 
 input {

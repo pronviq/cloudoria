@@ -1,11 +1,12 @@
-import React from "react";
+import React, { lazy } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import AuthPage from "./pages/AuthPage";
 import "./styles/App.scss";
-import Settings from "./pages/Settings";
 import MainPage from "./pages/MainPage";
 import { Provider } from "react-redux";
 import store from "./redux/store";
+
+const AuthPage = lazy(() => import("./pages/AuthPage"));
+const Settings = lazy(() => import("./pages/Settings"));
 
 const App: React.FC = () => {
   return (
