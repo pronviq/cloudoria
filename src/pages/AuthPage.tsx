@@ -16,7 +16,7 @@ const LoginPage: React.FC = () => {
       const response = await AuthService.refresh();
       if (response.status === 200) {
         localStorage.setItem("token", response.data.access);
-        // navigate("/");
+        navigate("/");
       }
     } catch (error: any) {
       setIsLoaded(true);

@@ -18,6 +18,15 @@ const UserSettings: React.FC = () => {
     }
   };
 
+  const makeLogout = async () => {
+    try {
+      await AuthService.logout();
+      navigate("/auth");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     document.addEventListener("click", handleFalse);
     return () => document.removeEventListener("click", handleFalse);
@@ -58,13 +67,7 @@ const UserSettings: React.FC = () => {
               </button>
             </li>
             <li>
-              <button
-                onClick={async () => {
-                  await AuthService.logout();
-                  navigate("/");
-                }}
-                className="user_settings_item"
-              >
+              <button onClick={makeLogout} className="user_settings_item">
                 <svg
                   width="16px"
                   height="16px"

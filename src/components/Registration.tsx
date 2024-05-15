@@ -6,77 +6,95 @@ import { useNavigate } from "react-router-dom";
 import "./Registration.scss";
 import Checkbox from "./ui/Checkbox";
 import ChooseGender from "./ui/ChooseGender";
+import { AxiosError, AxiosResponse } from "axios";
+import { AuthResponse } from "../models/AuthResponse";
 
 const Registration: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [emailError, setEmailError] = useState<string>("");
+  const [username, setUsername] = useState<string>("");
+  const [usernameError, setUsernameError] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [passwordError, setPasswordError] = useState<string>("");
-  const [registrationPossible, setRegistrationPossible] = useState<boolean>(false);
+  // const [registrationPossible, setRegistrationPossible] = useState<boolean>(true);
   const [gender, setGender] = useState<string>("");
 
   const navigate = useNavigate();
 
+  const validateData = (): boolean => {
+    const usernameRegex = /^[A-Za-z]{6,32}$/;
+    let isPossible: boolean = true;
+    // if (!registrationPossible) {
+    //   return;
+    // }
+    if (!StringValidator.isEmail(email)) {
+      setEmailError("Некорректная почта");
+      isPossible = false;
+    }
+
+    if (email.length === 0) {
+      setEmailError("Поле не может быть пустым");
+      isPossible = false;
+    }
+
+    if (password.length < 6) {
+      setPasswordError("Слишком короткий пароль");
+      isPossible = false;
+    }
+
+    if (password.length > 32) {
+      setPasswordError("Слишком длинный пароль");
+      isPossible = false;
+    }
+
+    if (password.length === 0) {
+      setPasswordError("Поле не может быть пустым");
+      isPossible = false;
+    }
+
+    if (!usernameRegex.test(username)) {
+      setUsernameError("Запрещенные символы");
+      isPossible = false;
+    }
+
+    if (username.length < 6) {
+      setUsernameError("Слишком короткий никнейм");
+      isPossible = false;
+    }
+
+    if (username.length > 32) {
+      setUsernameError("Слишком длинный никнейм");
+      isPossible = false;
+    }
+
+    if (!gender.length) {
+      isPossible = false;
+    }
+
+    if (username.length === 0) {
+      setUsernameError("Поле не может быть пустым");
+      isPossible = false;
+    }
+
+    return isPossible;
+  };
+
   async function registration(e: MouseEvent) {
     e.preventDefault();
-    if (!registrationPossible) {
+
+    if (!validateData()) {
       return;
     }
 
-    try {
-      const response = await AuthService.registration(email, password, gender);
-      if (response.status === 200) {
+    AuthService.registration(email, username, password, gender)
+      .then((response: AxiosResponse<AuthResponse>) => {
         localStorage.setItem("token", response.data?.access);
         navigate("/");
-      }
-    } catch (error: any) {
-      const message = error.response.data.message;
-      const spliced = message.slice(0, 21);
-      console.log(spliced);
-
-      if (spliced === "Пользователь с почтой") {
-        setEmailError("Почта занята");
-      } else {
-        setEmailError(error.response.data.message);
-      }
-    }
+      })
+      .catch((error: AxiosError) => {
+        setEmailError(error.response?.data as string);
+      });
   }
-
-  const handleEmail = (Email: string): void => {
-    setEmail(Email);
-    setRegistrationPossible(false);
-    setEmailError("");
-    if (Email.length) {
-      if (StringValidator.isEmail(Email)) {
-        setEmailError("");
-      } else {
-        setEmailError("Некорректная почта");
-      }
-    }
-  };
-
-  const handlePassword = (Password: string): void => {
-    setPassword(Password);
-    setPasswordError("");
-    setRegistrationPossible(false);
-    if (Password.length) {
-      if (Password.length < 6) {
-        setPasswordError("Слишком короткий пароль");
-      } else if (Password.length > 32) {
-        setPasswordError("Слишком длинный пароль");
-      }
-    }
-  };
-
-  function checkPossible() {
-    if (!emailError && !passwordError && password.length && email.length && gender.length) {
-      setRegistrationPossible(true);
-    } else {
-      setRegistrationPossible(false);
-    }
-  }
-
-  useEffect(checkPossible, [email, password, gender]);
 
   return (
     <article className="registration">
@@ -87,12 +105,29 @@ const Registration: React.FC = () => {
       <form action="" className="login_form">
         <div className="email_cont">
           <input
-            style={{ borderColor: emailError ? "red" : "black" }}
-            value={email}
-            onChange={(e) => handleEmail(e.target.value)}
+            style={{ borderColor: usernameError ? "red" : "black" }}
+            value={username}
+            onChange={(e) => {
+              setUsername(e.target.value);
+              setUsernameError("");
+            }}
             className="login_input"
             type="text"
-            placeholder="E-mail"
+            placeholder="username"
+          />
+          <p className="auth_error">{usernameError}</p>
+        </div>
+        <div className="email_cont">
+          <input
+            style={{ borderColor: emailError ? "red" : "black" }}
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              setEmailError("");
+            }}
+            className="login_input"
+            type="text"
+            placeholder="e-mail"
           />
           <p className="auth_error">{emailError}</p>
         </div>
@@ -100,18 +135,18 @@ const Registration: React.FC = () => {
           <input
             style={{ borderColor: passwordError ? "red" : "black" }}
             value={password}
-            onChange={(e) => handlePassword(e.target.value)}
+            onChange={(e) => {
+              setPassword(e.target.value);
+              setPasswordError("");
+            }}
             className="login_input"
             type="password"
-            placeholder="Пароль"
+            placeholder="password"
           />
           <p className="auth_error">{passwordError}</p>
         </div>
         <ChooseGender gender={gender} setGender={setGender} />
-        <button
-          onClick={registration}
-          className={"login_confirm" + (registrationPossible ? "" : " unactive")}
-        >
+        <button onClick={registration} className={"login_confirm"}>
           Зарегистрироваться
         </button>
       </form>
@@ -126,7 +161,7 @@ const Registration: React.FC = () => {
       >
         Вход
       </button>
-      <button className="forgot_password">Забыли пароль?</button>
+      {/* <button className="forgot_password">Забыли пароль?</button> */}
     </article>
   );
 };

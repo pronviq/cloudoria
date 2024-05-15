@@ -4,48 +4,31 @@ import AuthService from "../services/AuthService";
 import StringValidator from "../utils/StringValidator";
 import useDebounce from "../hooks/useDebounce";
 import { useLocation, useNavigate } from "react-router-dom";
-import useFetching from "../hooks/useFetching";
+import { AxiosError, AxiosResponse } from "axios";
+import { AuthResponse } from "../models/AuthResponse";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
-  const [emailError, setEmailError] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [bothError, setBothError] = useState<string>("");
-  const [loginPossible, setLoginPossible] = useState<boolean>(false);
-  const debouncedEmailChecker = useDebounce(500, checkEmail);
+  // const [loginPossible, setLoginPossible] = useState<boolean>(false);
   const navigate = useNavigate();
 
   async function login(e: MouseEvent) {
     e.preventDefault();
-    if (!loginPossible) {
-      return;
-    }
+    // if (!loginPossible) {
+    //   return;
+    // }
 
-    try {
-      const response = await AuthService.login(email, password);
-      if (response.status === 200) {
+    await AuthService.login(email, password)
+      .then((response: AxiosResponse<AuthResponse>) => {
         localStorage.setItem("token", response.data?.access);
         navigate("/");
-      }
-    } catch (error: any) {
-      setBothError(error.response.data.message);
-    }
+      })
+      .catch((error: AxiosError) => {
+        setBothError(error.response?.data as string);
+      });
   }
-
-  function checkEmail() {
-    const isCorrect = StringValidator.isEmail(email);
-
-    if (!isCorrect && email.length) {
-      setEmailError("Некорректная почта");
-      setLoginPossible(false);
-    } else if (isCorrect && password.length && email.length) {
-      setLoginPossible(true);
-    }
-  }
-
-  useEffect(() => {
-    debouncedEmailChecker();
-  }, [email, password]);
 
   return (
     <article className="login">
@@ -56,19 +39,19 @@ const Login: React.FC = () => {
       <form action="" className="login_form">
         <div className="email_cont">
           <input
-            style={{ borderColor: bothError || emailError ? "red" : "black" }}
+            style={{ borderColor: bothError ? "red" : "black" }}
             value={email}
             onChange={(e) => {
               setEmail(e.target.value);
-              setEmailError("");
+              // setEmailError("");
               setBothError("");
-              setLoginPossible(false);
+              // setLoginPossible(false);
             }}
             className="login_input"
             type="text"
-            placeholder="E-mail"
+            placeholder="e-mail or username"
           />
-          <p className="auth_error">{emailError}</p>
+          {/* <p className="auth_error">{emailError}</p> */}
         </div>
         <div className="password_cont">
           <input
@@ -80,15 +63,12 @@ const Login: React.FC = () => {
             }}
             className="login_input"
             type="password"
-            placeholder="Пароль"
+            placeholder="password"
           />
           <p className="auth_error">{bothError}</p>
         </div>
 
-        <button
-          onClick={login}
-          className={"login_confirm" + (loginPossible && password.length ? "" : " unactive")}
-        >
+        <button onClick={login} className={"login_confirm"}>
           Войти
         </button>
       </form>
