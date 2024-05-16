@@ -1,0 +1,38 @@
+.themechanger {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px;
+  margin-top: 2px;
+
+  p {
+    font-size: 12px;
+    margin-left: 4px;
+  }
+  &:hover {
+    cursor: pointer;
+  }
+}
+.themeswitcher {
+  margin-left: 20px;
+  margin-right: 5px;
+  width: 40px;
+  height: 18px;
+  box-shadow: 0 0 1px 0.2px black;
+  // outline: 1px solid black;
+  border-radius: 10px;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+}
+.themethumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 14px;
+  width: 14px;
+  // box-shadow: 0 0 5px 0px black;
+  // background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  margin-left: auto;
+  transition: 0.2s linear;
+}

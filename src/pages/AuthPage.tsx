@@ -12,8 +12,10 @@ const LoginPage: React.FC = () => {
   async function checkAuth() {
     try {
       setIsLoaded(false);
-      await new Promise((res) => setTimeout(res, 1000));
+      // await new Promise((res) => setTimeout(res, 1000));
       const response = await AuthService.refresh();
+      // console.log(response.data);
+
       if (response.status === 200) {
         localStorage.setItem("token", response.data.access);
         navigate("/");

@@ -53,6 +53,7 @@ button {
 }
 .loader::before {
   content: "";
+  border-radius: 50%;
   position: absolute;
   width: 8px;
   aspect-ratio: 1;

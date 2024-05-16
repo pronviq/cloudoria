@@ -10,6 +10,7 @@ import { AuthResponse } from "../models/AuthResponse";
 import { IUser } from "../models/IUser";
 import { useAppDispatch } from "../hooks/redux";
 import { setUser } from "../redux/userSlice";
+import CloudSvg from "../images/CloudSvg";
 
 const Registration: React.FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -98,7 +99,7 @@ const Registration: React.FC = () => {
   return (
     <article className="registration">
       <div className="login_title">
-        <div className="title_cloud" />
+        <CloudSvg />
         <h1 className="title_text">CloudStorage</h1>
       </div>
       <form action="" className="login_form">

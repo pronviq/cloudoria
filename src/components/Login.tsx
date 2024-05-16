@@ -1,36 +1,29 @@
-import React, { MouseEvent, useState } from "react";
+import React, { MouseEvent, useEffect, useRef, useState } from "react";
 import "./Login.scss";
 import AuthService from "../services/AuthService";
-import { useNavigate } from "react-router-dom";
+import StringValidator from "../utils/StringValidator";
+import useDebounce from "../hooks/useDebounce";
+import { useLocation, useNavigate } from "react-router-dom";
 import { AxiosError, AxiosResponse } from "axios";
 import { AuthResponse } from "../models/AuthResponse";
-import { useAppDispatch } from "../hooks/redux";
-import { setUser } from "../redux/userSlice";
-import { IUser } from "../models/IUser";
+import CloudSvg from "../images/CloudSvg";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [bothError, setBothError] = useState<string>("");
-  const dispatch = useAppDispatch();
+  // const [loginPossible, setLoginPossible] = useState<boolean>(false);
   const navigate = useNavigate();
 
   async function login(e: MouseEvent) {
     e.preventDefault();
+    // if (!loginPossible) {
+    //   return;
+    // }
 
     await AuthService.login(email, password)
       .then((response: AxiosResponse<AuthResponse>) => {
-        const user: IUser = {
-          id: response.data?.id,
-          username: response.data?.username,
-          email: response.data?.email,
-          disk_space: response.data?.disk_space,
-          used_space: response.data?.used_space,
-          gender: response.data?.gender,
-        };
-
         localStorage.setItem("token", response.data?.access);
-        dispatch(setUser(user));
         navigate("/");
       })
       .catch((error: AxiosError) => {
@@ -41,7 +34,7 @@ const Login: React.FC = () => {
   return (
     <article className="login">
       <div className="login_title">
-        <div className="title_cloud" />
+        <CloudSvg />
         <h1 className="title_text">CloudStorage</h1>
       </div>
       <form action="" className="login_form">
@@ -51,12 +44,15 @@ const Login: React.FC = () => {
             value={email}
             onChange={(e) => {
               setEmail(e.target.value);
+              // setEmailError("");
               setBothError("");
+              // setLoginPossible(false);
             }}
             className="login_input"
             type="text"
             placeholder="e-mail or username"
           />
+          {/* <p className="auth_error">{emailError}</p> */}
         </div>
         <div className="password_cont">
           <input

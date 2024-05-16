@@ -4,6 +4,9 @@ import { useAppSelector } from "../hooks/redux";
 
 const FreeSpace: React.FC = () => {
   const { disk_space, used_space } = useAppSelector((state) => state.userReducer);
+  const selector = useAppSelector((state) => state.userReducer);
+  // console.log(selector);
+
   const totalSpaceMB = Math.floor((disk_space / 1024) * 10) / 10;
   const usedSpaceMB = Math.floor((used_space / 1024) * 10) / 10;
   const usedSpacePercent = (100 / disk_space) * used_space;
