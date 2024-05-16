@@ -12,7 +12,11 @@ import { useAppDispatch } from "../hooks/redux";
 import { setUser } from "../redux/userSlice";
 import CloudSvg from "../images/CloudSvg";
 
-const Registration: React.FC = () => {
+interface IRegistration {
+  setRotate: (n: number) => void;
+}
+
+const Registration: React.FC<IRegistration> = ({ setRotate }) => {
   const [email, setEmail] = useState<string>("");
   const [emailError, setEmailError] = useState<string>("");
   const [username, setUsername] = useState<string>("");
@@ -20,6 +24,8 @@ const Registration: React.FC = () => {
   const [password, setPassword] = useState<string>("");
   const [passwordError, setPasswordError] = useState<string>("");
   const [gender, setGender] = useState<string>("");
+
+  const warningColor = "rgba(255, 0, 0, 0.7)";
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -102,10 +108,10 @@ const Registration: React.FC = () => {
         <CloudSvg />
         <h1 className="title_text">CloudStorage</h1>
       </div>
-      <form action="" className="login_form">
+      <form action="" className="registration_form">
         <div className="email_cont">
           <input
-            style={{ borderColor: usernameError ? "red" : "black" }}
+            style={{ borderColor: usernameError ? warningColor : "" }}
             value={username}
             onChange={(e) => {
               setUsername(e.target.value);
@@ -115,11 +121,16 @@ const Registration: React.FC = () => {
             type="text"
             placeholder="username"
           />
-          <p className="auth_error">{usernameError}</p>
+          <p
+            style={{ "--warningColor": warningColor } as React.CSSProperties}
+            className="auth_error"
+          >
+            {usernameError}
+          </p>
         </div>
         <div className="email_cont">
           <input
-            style={{ borderColor: emailError ? "red" : "black" }}
+            style={{ borderColor: emailError ? warningColor : "" }}
             value={email}
             onChange={(e) => {
               setEmail(e.target.value);
@@ -129,11 +140,16 @@ const Registration: React.FC = () => {
             type="text"
             placeholder="e-mail"
           />
-          <p className="auth_error">{emailError}</p>
+          <p
+            style={{ "--warningColor": warningColor } as React.CSSProperties}
+            className="auth_error"
+          >
+            {emailError}
+          </p>
         </div>
         <div className="password_cont">
           <input
-            style={{ borderColor: passwordError ? "red" : "black" }}
+            style={{ borderColor: passwordError ? warningColor : "" }}
             value={password}
             onChange={(e) => {
               setPassword(e.target.value);
@@ -143,22 +159,19 @@ const Registration: React.FC = () => {
             type="password"
             placeholder="password"
           />
-          <p className="auth_error">{passwordError}</p>
+          <p
+            style={{ "--warningColor": warningColor } as React.CSSProperties}
+            className="auth_error"
+          >
+            {passwordError}
+          </p>
         </div>
         <ChooseGender gender={gender} setGender={setGender} />
         <button onClick={registration} className={"login_confirm"}>
           Зарегистрироваться
         </button>
       </form>
-      <button
-        onClick={() => {
-          const form_container = document.querySelector(".form_container") as HTMLElement;
-          if (form_container) {
-            form_container.style.transform = "rotateY(0deg)";
-          }
-        }}
-        className="switch_button"
-      >
+      <button onClick={() => setRotate(0)} className="switch_button">
         Вход
       </button>
     </article>

@@ -5,15 +5,17 @@
 }
 
 .choose_text {
-  font-size: 12px;
+  font-size: 11px;
   margin-top: 4px;
   width: 100%;
-  text-align: center;
+  color: lightslategray;
+  // text-align: center;
 }
 
 .choose_boxes {
-  margin-top: 8px;
+  margin-top: 4px;
   display: flex;
+  color: lightslategray;
   align-items: center;
   justify-content: center;
   gap: 20px;

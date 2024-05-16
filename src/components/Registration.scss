@@ -3,15 +3,19 @@
 .registration {
   display: flex;
   width: 250px;
-  height: 300px;
+  height: 350px;
   border-radius: 20px;
   flex-direction: column;
-  box-shadow: 0 0 5px -1px black;
+  box-shadow: 0 0 15px -5px;
   align-items: center;
-  // rotate: 180deg
   transform: translateZ(-$auth_translateZ) rotateY(180deg);
   margin-left: -250px;
-  background-color: white;
-  transform-style: preserve-3d;
-  padding-top: 20px;
+  backdrop-filter: blur(10px);
+  padding-top: 50px;
+}
+
+.registration_form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

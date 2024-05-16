@@ -14,11 +14,13 @@ import FavoriteSvg from "../images/FavoriteSvg";
 import FilesSvg from "../images/FilesSvg";
 import CloudSvg from "../images/CloudSvg";
 import UploadSvg from "../images/UploadSvg";
+import { useTheme } from "../components/contexts/theme/Theme.context";
 
 const MainPage: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
+  const { theme } = useTheme();
 
   async function checkAuth() {
     setIsLoaded(false);
@@ -40,7 +42,7 @@ const MainPage: React.FC = () => {
         dispatch(setUser(user));
       })
       .catch((error: AxiosError) => {
-        navigate("/auth");
+        // navigate("/auth");
         setIsLoaded(true);
       })
       .finally(() => setIsLoaded(true));

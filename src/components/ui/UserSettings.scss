@@ -21,8 +21,8 @@
 
 .user_settings_content {
   transition: transform 0.2s ease;
-  box-shadow: 0 0 3px 0 black;
-  background-color: white;
+  box-shadow: 0 0 3px 0;
+  background-color: var(--background);
   position: absolute;
   top: 100%;
   right: 0;
@@ -62,7 +62,6 @@
 .user_settings_info {
   display: flex;
   align-items: center;
-  // background-color: red;
   width: 100%;
   margin-bottom: 5px;
   img {
@@ -81,12 +80,12 @@
 
 .user_nickname {
   font-size: 11px;
-  color: gray;
+  color: var(--font);
   white-space: nowrap;
 }
 
 .user_email {
   font-size: 11px;
-  color: gray;
+  color: var(--font);
   white-space: nowrap;
 }

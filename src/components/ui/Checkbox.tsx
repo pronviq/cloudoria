@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Checkbox.scss";
+import CheckmarkSvg from "../../images/CheckmarkSvg";
 
 interface ICheckbox {
   value: boolean;
@@ -15,7 +16,7 @@ const Checkbox: React.FC<ICheckbox> = ({ value, setValue, text }) => {
         setValue(!value);
       }}
     >
-      <span className={"checkbox" + (value ? " active" : "")}></span>
+      <span className="checkbox">{value && <CheckmarkSvg />}</span>
       <p className="checkbox_text">{text}</p>
     </div>
   );

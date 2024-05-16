@@ -13,7 +13,7 @@ const ChooseGender: React.FC<IChooseGender> = ({ gender, setGender }) => {
 
   return (
     <div className="choose_gender">
-      {/* <p className="choose_text">------ | Пол | ------</p> */}
+      <p className="choose_text"> Пол </p>
       <div className="choose_boxes">
         <Checkbox
           text="Мужской"

@@ -1,4 +1,8 @@
+import { useTheme } from "../components/contexts/theme/Theme.context";
+
 const ExitSvg = () => {
+  const { theme } = useTheme();
+
   return (
     <svg
       width="16px"
@@ -6,7 +10,7 @@ const ExitSvg = () => {
       viewBox="0 0 64 64"
       xmlns="http://www.w3.org/2000/svg"
       strokeWidth="5"
-      stroke="#000"
+      stroke={theme["--svg"]}
       fill="none"
     >
       <polyline points="46.02 21.95 55.93 31.86 46.02 41.77"></polyline>

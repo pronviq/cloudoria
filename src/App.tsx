@@ -3,14 +3,17 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./styles/App.scss";
 import { Provider } from "react-redux";
 import store from "./redux/store";
+import { useTheme } from "./components/contexts/theme/Theme.context";
 
 const AuthPage = lazy(() => import("./pages/AuthPage"));
 const Settings = lazy(() => import("./pages/Settings"));
 const MainPage = lazy(() => import("./pages/MainPage"));
 
 const App: React.FC = () => {
+  const { theme } = useTheme();
+
   return (
-    <div className="app">
+    <div style={{ ...(theme as React.CSSProperties) }} className="app">
       <Provider store={store}>
         <BrowserRouter>
           <Routes>

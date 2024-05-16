@@ -8,6 +8,7 @@ import Registration from "../components/Registration";
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
+  const [rotate, setRotate] = useState<number>(0);
 
   async function checkAuth() {
     try {
@@ -43,9 +44,9 @@ const LoginPage: React.FC = () => {
 
   return (
     <div className="loginpage">
-      <div className="form_container">
-        <Login />
-        <Registration />
+      <div className="form_container" style={{ transform: `rotateY(${rotate}deg)` }}>
+        <Login setRotate={setRotate} />
+        <Registration setRotate={setRotate} />
       </div>
     </div>
   );

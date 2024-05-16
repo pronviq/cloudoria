@@ -3,46 +3,52 @@
 .login {
   display: flex;
   width: 250px;
-  height: 300px;
+  height: 350px;
   border-radius: 20px;
   flex-direction: column;
-  box-shadow: 0 0 5px -1px black;
+  box-shadow: 0 0 15px -5px;
   align-items: center;
   transform: translateZ($auth_translateZ);
-  background-color: white;
-  transform-style: preserve-3d;
+  backdrop-filter: blur(30px);
   padding-top: 50px;
 }
 
 .login_title {
   display: flex;
-  // margin-top: 50px;
   width: 100%;
   justify-content: center;
   margin-bottom: 10px;
-  transform: translateZ($auth_translateZ);
 }
 
 .title_text {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
     Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   margin-left: 2px;
+  color: lightslategray;
 }
 
 .login_form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  transform: translateZ($auth_translateZ);
 }
 
 .login_input {
   width: $auth_inputs_width;
   height: 24px;
   margin-top: 6px;
-  border-radius: 6px;
+  border-radius: 4px;
+  // border-bottom: 1px solid;
+  border: none;
+  border-bottom: 1px solid;
+  outline: 0;
   font-size: 12px;
   padding: 4px;
+  &:focus {
+    // background-color: red;
+    border: none;
+    border-bottom: 1px solid;
+  }
 }
 
 .email_cont,
@@ -53,31 +59,20 @@
 
 .auth_error {
   overflow: hidden;
-  font-size: 11px;
+  font-size: 9px;
   white-space: nowrap;
   text-overflow: ellipsis;
   width: $auth_inputs_width;
-  color: red;
+  color: var(--warningColor);
 }
 
 .login_confirm,
 .switch_button {
-  width: 150px;
+  width: 160px;
   height: 22px;
+  border: 1px solid;
   margin-top: 15px;
   border-radius: 4px;
-  transform: translateZ($auth_translateZ);
-}
-
-.unactive {
-  color: gray;
-  border-color: gray;
-  &:hover {
-    cursor: default;
-  }
-  &:active {
-    border-color: gray;
-  }
 }
 
 .switch_button {
@@ -88,6 +83,4 @@
   margin-top: auto;
   margin-bottom: 5px;
   border: none;
-  color: gray;
-  transform: translateZ($auth_translateZ);
 }

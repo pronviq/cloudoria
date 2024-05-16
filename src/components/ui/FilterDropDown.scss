@@ -13,34 +13,17 @@
 .filter_head {
   border-radius: 5px;
   width: 40px;
-  border: 1px solid rgb(138, 138, 138);
+  border: 1px solid;
   height: 20px;
   margin-right: 4px;
   display: flex;
   align-items: center;
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.1);
-  }
-  &:active {
-    border: 1px solid rgb(138, 138, 138);
-  }
-}
-
-.filter_ico {
-  width: 20px;
-  height: 20px;
-}
-
-.down_ico {
-  width: 15px;
-  height: 15px;
-  transition: rotate 0.2s linear;
 }
 
 .filter_content {
   position: absolute;
-  background-color: white;
-  box-shadow: 0 0 3px 0 black;
+  // background-color: white;
+  box-shadow: 0 0 3px 0;
   top: 100%;
   margin-top: 6px;
   right: 0;
@@ -78,9 +61,6 @@
     }
     p {
       margin-left: 4px;
-    }
-    &:hover {
-      background-color: $button_hover_color;
     }
   }
 }

@@ -7,10 +7,12 @@ import { initialState, setUser } from "../../redux/userSlice";
 import SettingsSvg from "../../images/SettingsSvg";
 import ExitSvg from "../../images/ExitSvg";
 import ThemeChanger from "./ThemeChanger";
+import { useTheme } from "../contexts/theme/Theme.context";
 
 const UserSettings: React.FC = () => {
   const [isActive, setActive] = useState<boolean>(false);
   const user = useAppSelector((state) => state.userReducer);
+  const { theme } = useTheme();
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -20,6 +22,7 @@ const UserSettings: React.FC = () => {
 
   const handleFalse = (event: MouseEvent) => {
     const target = (event.target as Node) || null;
+
     if (!contentRef.current?.contains(target) && !btnRef.current?.contains(target)) {
       setActive(false);
     }

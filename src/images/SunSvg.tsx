@@ -1,7 +1,6 @@
 const SunSvg = () => {
   return (
     <svg
-      onClick={(e) => e.stopPropagation()}
       width="12px"
       height="12px"
       fill="yellow"

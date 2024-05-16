@@ -12,7 +12,6 @@
   transform-style: preserve-3d;
   align-items: center;
   transition: transform 0.5s linear;
-  transform: rotateY(0deg);
 }
 
 .layer {
@@ -23,7 +22,7 @@
   writing-mode: vertical-lr;
   text-orientation: upright;
   height: 400px;
-  background-color: red;
+  // background-color: red;
   display: flex;
   justify-content: center;
   align-items: center;
