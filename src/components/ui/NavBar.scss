@@ -1,0 +1,68 @@
+@import "../../styles/Variables.scss";
+
+.nav {
+  width: $nav_width;
+  border: 1px solid;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.nav_head {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: $nav_content_width;
+  border-bottom: 1px solid;
+  margin: 6px;
+}
+
+.nav_title {
+  font-size: 20px;
+  margin-left: 4px;
+}
+
+.upload_btn {
+  border-radius: 10px;
+  border: dashed 1px;
+  border-top: none;
+  margin-top: 15px;
+  width: $nav_content_width;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.upload_title {
+  font-size: 15px;
+  margin-right: 5px;
+}
+
+.navlist {
+  width: $nav_content_width;
+  height: 100%;
+  margin-top: 8px;
+  list-style-type: none;
+  appearance: none;
+}
+
+.navlist_item {
+  padding: 2px 4px 2px 4px;
+  border: 0;
+  border-radius: 5px;
+  margin: 4px 0 0 5px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  p {
+    margin-left: 4px;
+  }
+
+  &:hover {
+    background-color: $button_hover_color;
+  }
+  &:active {
+    border: 0;
+  }
+}

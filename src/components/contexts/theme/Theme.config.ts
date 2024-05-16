@@ -4,8 +4,8 @@ import { Theme, ThemeType } from "./Theme.model";
 export const THEMES: Record<ThemeType, Theme> = {
   light: {
     "--font": Color.BLACK,
-    "--background": Color.WHITE,
-    "--border": Color.LIGHTSLATEGRAY,
+    "--background": Color.BEIGE,
+    "--border": Color.BEIGE,
     "--svg": Color.BLACK,
     "--shadow": Color.BLACK,
 
