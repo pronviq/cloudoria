@@ -3,6 +3,7 @@
 .filter_dd {
   margin-right: 10px;
   margin-left: auto;
+  z-index: 100;
   align-items: center;
   justify-content: center;
   display: flex;
@@ -11,24 +12,30 @@
 }
 
 .filter_head {
+  // background-color: red;
   border-radius: 5px;
   width: 40px;
-  border: 1px solid;
+  border: none;
+  box-shadow: 0 0 1px 0.5px;
   height: 20px;
   margin-right: 4px;
   display: flex;
   align-items: center;
+  &:active {
+    border: none;
+  }
 }
 
 .filter_content {
   position: absolute;
-  // background-color: white;
   box-shadow: 0 0 3px 0;
+  backdrop-filter: blur(10px);
   top: 100%;
   margin-top: 6px;
   right: 0;
   border-radius: 6px;
   overflow: hidden;
+  @include animated_dropdown;
 }
 
 .filter_content_list {

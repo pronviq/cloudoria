@@ -1,14 +1,14 @@
-import { useTheme } from "../components/contexts/theme/Theme.context";
+import React from "react";
+import { useTheme } from "../contexts/theme/Theme.context";
 
-const FavoriteSvg = () => {
+const FavoriteSvg = ({ ...props }) => {
   const { theme } = useTheme();
 
   return (
     <svg
-      width="20px"
-      height="20px"
+      {...props}
       viewBox="0 0 64 64"
-      fill="none"
+      fill={props.isfill === "true" ? theme["--svg"] : "none"}
       xmlns="http://www.w3.org/2000/svg"
     >
       <path

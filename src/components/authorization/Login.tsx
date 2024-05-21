@@ -1,12 +1,16 @@
 import React, { MouseEvent, useEffect, useRef, useState } from "react";
 import "./Login.scss";
-import AuthService from "../services/AuthService";
-import StringValidator from "../utils/StringValidator";
-import useDebounce from "../hooks/useDebounce";
+import AuthService from "../../services/AuthService";
+import StringValidator from "../../utils/StringValidator";
+import useDebounce from "../../hooks/useDebounce";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AxiosError, AxiosResponse } from "axios";
-import { AuthResponse } from "../models/AuthResponse";
-import CloudSvg from "../images/CloudSvg";
+import { AuthResponse } from "../../models/Auth.model";
+import CloudSvg from "../../images/CloudSvg";
+import { IUser } from "../../models/User.model";
+import { useAppDispatch } from "../../hooks/redux";
+import { setUser } from "../../redux/userSlice";
+import UserService from "../../services/UserService";
 
 interface ILogin {
   setRotate: (n: number) => void;
@@ -17,6 +21,7 @@ const Login: React.FC<ILogin> = ({ setRotate }) => {
   const [password, setPassword] = useState<string>("");
   const [bothError, setBothError] = useState<string>("");
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const warningColor = "rgba(255, 0, 0, 0.7)";
 
@@ -25,7 +30,10 @@ const Login: React.FC<ILogin> = ({ setRotate }) => {
 
     await AuthService.login(email, password)
       .then((response: AxiosResponse<AuthResponse>) => {
+        const user = UserService.responseToUser(response);
+        dispatch(setUser(user));
         localStorage.setItem("token", response.data?.access);
+
         navigate("/");
       })
       .catch((error: AxiosError) => {
@@ -41,6 +49,7 @@ const Login: React.FC<ILogin> = ({ setRotate }) => {
       </div>
       <form action="" className="login_form">
         <input
+          maxLength={40}
           style={{ borderColor: bothError ? warningColor : "" }}
           value={email}
           onChange={(e) => {
@@ -53,6 +62,7 @@ const Login: React.FC<ILogin> = ({ setRotate }) => {
         />
 
         <input
+          maxLength={40}
           style={{ borderColor: bothError ? warningColor : "" }}
           value={password}
           onChange={(e) => {

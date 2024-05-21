@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import "./NavBar.scss";
 import FreeSpace from "../../components/FreeSpace";
 import TrashSvg from "../../images/TrashSvg";
@@ -6,8 +6,12 @@ import FavoriteSvg from "../../images/FavoriteSvg";
 import FilesSvg from "../../images/FilesSvg";
 import CloudSvg from "../../images/CloudSvg";
 import UploadSvg from "../../images/UploadSvg";
+import CreateDir from "./CreateDir";
+import { Link } from "react-router-dom";
 
 const NavBar: React.FC = () => {
+  console.log("navbar render");
+
   return (
     <nav className="nav">
       <div className="nav_head">
@@ -18,23 +22,31 @@ const NavBar: React.FC = () => {
         <div className="upload_title">Загрузить</div>
         <UploadSvg />
       </button>
+      <CreateDir />
+
       <ul className="navlist">
         <li>
-          <button className="navlist_item">
-            <FilesSvg />
-            <p>Все файлы</p>
+          <button>
+            <Link className="navlist_item" to="/">
+              <FilesSvg />
+              <p>Все файлы</p>
+            </Link>
           </button>
         </li>
         <li>
-          <button className="navlist_item">
-            <FavoriteSvg />
-            <p>Избранное</p>
+          <button>
+            <Link className="navlist_item" to="/favorites">
+              <FavoriteSvg width="20px" />
+              <p>Избранное</p>
+            </Link>
           </button>
         </li>
         <li>
-          <button className="navlist_item">
-            <TrashSvg />
-            <p>Корзина</p>
+          <button>
+            <Link className="navlist_item" to="/trash">
+              <TrashSvg width="20px" />
+              <p>Корзина</p>
+            </Link>
           </button>
         </li>
       </ul>
@@ -44,4 +56,4 @@ const NavBar: React.FC = () => {
   );
 };
 
-export default NavBar;
+export default memo(NavBar);

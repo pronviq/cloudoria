@@ -1,5 +1,7 @@
 // export interface AuthResponse {}
 
+import { ThemeType } from "../contexts/theme/Theme.model";
+
 export interface AuthResponse {
   id: number;
   username: string;
@@ -10,4 +12,6 @@ export interface AuthResponse {
   used_space: number;
   avatar_path: string;
   gender: string;
+  root_directory: number;
+  theme: ThemeType;
 }

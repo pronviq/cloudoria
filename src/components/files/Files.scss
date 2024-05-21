@@ -1,0 +1,14 @@
+@import "../../styles/Variables.scss";
+
+.files {
+  width: 100%;
+  height: calc(100% - $header_height);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 6px 0 10px 0;
+
+  // background-color: red;
+}

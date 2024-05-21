@@ -1,28 +1,32 @@
 import { AxiosResponse } from "axios";
-import { AuthResponse } from "../models/AuthResponse";
+import { AuthResponse } from "../models/Auth.model";
 import $api from "../api/AxiosApi";
 
+interface ILogin {
+  (user_info: string, password: string): Promise<AxiosResponse<AuthResponse>>;
+}
+
+interface IRegistration {
+  (email: string, username: string, password: string, gender: string): Promise<
+    AxiosResponse<AuthResponse>
+  >;
+}
+
 export default class AuthService {
-  static async login(user_info: string, password: string): Promise<AxiosResponse> {
+  static login: ILogin = async (user_info, password) => {
     const response = await $api.post<AuthResponse>("/login", {
       user_info,
       password,
     });
-
     return response;
-  }
+  };
 
-  static async refresh(): Promise<AxiosResponse> {
+  static refresh: () => Promise<AxiosResponse<AuthResponse>> = async () => {
     const response = await $api.get<AuthResponse>("/refresh");
     return response;
-  }
+  };
 
-  static async registration(
-    email: string,
-    username: string,
-    password: string,
-    gender: string
-  ): Promise<AxiosResponse> {
+  static registration: IRegistration = async (email, username, password, gender) => {
     const response = await $api.post<AuthResponse>("/registration", {
       email,
       username,
@@ -30,11 +34,11 @@ export default class AuthService {
       gender,
     });
     return response;
-  }
+  };
 
-  static async logout(): Promise<AxiosResponse> {
+  static logout: () => Promise<AxiosResponse<void>> = async () => {
     localStorage.removeItem("token");
-    const response = await $api.post("/logout");
+    const response = await $api.post<void>("/logout");
     return response;
-  }
+  };
 }

@@ -1,4 +1,4 @@
-import { Color } from "../../../models/Color";
+import { Color } from "../../models/Color.model";
 
 export type ThemeType = "dark" | "light";
 

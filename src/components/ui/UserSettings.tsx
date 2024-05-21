@@ -7,12 +7,12 @@ import { initialState, setUser } from "../../redux/userSlice";
 import SettingsSvg from "../../images/SettingsSvg";
 import ExitSvg from "../../images/ExitSvg";
 import ThemeChanger from "./ThemeChanger";
-import { useTheme } from "../contexts/theme/Theme.context";
+import { Transition } from "react-transition-group";
+import { Link } from "react-router-dom";
 
 const UserSettings: React.FC = () => {
   const [isActive, setActive] = useState<boolean>(false);
   const user = useAppSelector((state) => state.userReducer);
-  const { theme } = useTheme();
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -34,7 +34,7 @@ const UserSettings: React.FC = () => {
         dispatch(setUser(initialState));
         navigate("/auth");
       })
-      .catch((error) => console.log(error));
+      .catch((error) => navigate("/auth"));
   };
 
   useEffect(() => {
@@ -47,34 +47,38 @@ const UserSettings: React.FC = () => {
       <button onClick={() => setActive((p) => !p)} ref={btnRef} className="user_settings_btn">
         <img src="https://99px.ru/sstorage/53/2023/01/mid_348279_833663.jpg" alt="" />
       </button>
-      {isActive && (
-        <div ref={contentRef} className="user_settings_content">
-          <div className="user_settings_info">
-            <img src="https://99px.ru/sstorage/53/2023/01/mid_348279_833663.jpg" alt="" />
-            <div className="user_settings_about">
-              <p className="user_nickname">{user.username}</p>
-              <p className="user_email">{user.email}</p>
+      <Transition mountOnEnter unmountOnExit in={isActive} timeout={50}>
+        {(state) => (
+          <div ref={contentRef} className={`user_settings_content ${state}`}>
+            <div className="user_settings_info">
+              <img src="https://99px.ru/sstorage/53/2023/01/mid_348279_833663.jpg" alt="" />
+              <div className="user_settings_about">
+                <p className="user_nickname">{user.username}</p>
+                <p className="user_email">{user.email}</p>
+              </div>
             </div>
+            <ul className="user_settings_list">
+              <li>
+                <ThemeChanger />
+              </li>
+              <li>
+                <button>
+                  <Link className="user_settings_item" to={"/settings"}>
+                    <SettingsSvg />
+                    <p>Настройки</p>
+                  </Link>
+                </button>
+              </li>
+              <li>
+                <button onClick={makeLogout} className="user_settings_item">
+                  <ExitSvg />
+                  <p>Выйти</p>
+                </button>
+              </li>
+            </ul>
           </div>
-          <ul className="user_settings_list">
-            <li>
-              <ThemeChanger />
-            </li>
-            <li>
-              <button className="user_settings_item">
-                <SettingsSvg />
-                <p>Настройки</p>
-              </button>
-            </li>
-            <li>
-              <button onClick={makeLogout} className="user_settings_item">
-                <ExitSvg />
-                <p>Выйти</p>
-              </button>
-            </li>
-          </ul>
-        </div>
-      )}
+        )}
+      </Transition>
     </div>
   );
 };

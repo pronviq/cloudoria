@@ -4,6 +4,8 @@ import ScalesSvg from "../../images/ScalesSvg";
 import DateSvg from "../../images/DateSvg";
 import FilterSvg from "../../images/FilterSvg";
 import ArrowSvg from "../../images/ArrowSvg";
+import { Transition } from "react-transition-group";
+// import { Transition } from "react-transition-group";
 
 const FilterDropDown: React.FC = () => {
   const [isActive, setActive] = useState<boolean>(false);
@@ -30,45 +32,47 @@ const FilterDropDown: React.FC = () => {
         <FilterSvg />
         <ArrowSvg isActive={isActive} />
       </button>
-      {isActive && (
-        <div ref={contentRef} className="filter_content">
-          <ul className="filter_content_list">
-            <li className="filter_content_item">
-              <button
-                onClick={() => setSortStyle("alphabet")}
-                style={{
-                  backgroundColor: sortStyle === "alphabet" ? activeBackgroundColor : "",
-                }}
-              >
-                <div className="filter_az">Az</div>
-                <p>По алфавиту</p>
-              </button>
-            </li>
-            <li className="filter_content_item">
-              <button
-                onClick={() => setSortStyle("size")}
-                style={{
-                  backgroundColor: sortStyle === "size" ? activeBackgroundColor : "",
-                }}
-              >
-                <ScalesSvg />
-                <p>По размеру</p>
-              </button>
-            </li>
-            <li className="filter_content_item">
-              <button
-                onClick={() => setSortStyle("date")}
-                style={{
-                  backgroundColor: sortStyle === "date" ? activeBackgroundColor : "",
-                }}
-              >
-                <DateSvg />
-                <p>По дате</p>
-              </button>
-            </li>
-          </ul>
-        </div>
-      )}
+      <Transition mountOnEnter unmountOnExit in={isActive} timeout={50}>
+        {(state) => (
+          <div ref={contentRef} className={`filter_content ${state}`}>
+            <ul className="filter_content_list">
+              <li className="filter_content_item">
+                <button
+                  onClick={() => setSortStyle("alphabet")}
+                  style={{
+                    backgroundColor: sortStyle === "alphabet" ? activeBackgroundColor : "",
+                  }}
+                >
+                  <div className="filter_az">Az</div>
+                  <p>По алфавиту</p>
+                </button>
+              </li>
+              <li className="filter_content_item">
+                <button
+                  onClick={() => setSortStyle("size")}
+                  style={{
+                    backgroundColor: sortStyle === "size" ? activeBackgroundColor : "",
+                  }}
+                >
+                  <ScalesSvg />
+                  <p>По размеру</p>
+                </button>
+              </li>
+              <li className="filter_content_item">
+                <button
+                  onClick={() => setSortStyle("date")}
+                  style={{
+                    backgroundColor: sortStyle === "date" ? activeBackgroundColor : "",
+                  }}
+                >
+                  <DateSvg />
+                  <p>По дате</p>
+                </button>
+              </li>
+            </ul>
+          </div>
+        )}
+      </Transition>
     </div>
   );
 };

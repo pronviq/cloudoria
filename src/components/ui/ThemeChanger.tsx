@@ -2,25 +2,28 @@ import React, { useEffect, useState } from "react";
 import "./ThemeChanger.scss";
 import MoonSvg from "../../images/MoonSvg";
 import SunSvg from "../../images/SunSvg";
-import { useTheme } from "../contexts/theme/Theme.context";
+import { useTheme } from "../../contexts/theme/Theme.context";
+import UserService from "../../services/UserService";
+import { useAppSelector } from "../../hooks/redux";
 
 const ThemeChanger: React.FC = () => {
   const { setCurrentTheme, theme } = useTheme();
   const [isActive, setActive] = useState<boolean>(theme.theme === "dark");
-  // console.log(...theme);
 
-  useEffect(() => {
-    if (isActive) {
-      setCurrentTheme("dark");
-    } else {
-      setCurrentTheme("light");
+  const changeTheme = async () => {
+    try {
+      await UserService.updateTheme(isActive ? "light" : "dark");
+      setCurrentTheme(isActive ? "light" : "dark");
+      setActive((p) => !p);
+    } catch (error) {
+      console.log(error);
     }
-  }, [isActive]);
+  };
 
   return (
-    <div onClick={() => setActive((p) => !p)} className="themechanger">
+    <div onClick={changeTheme} className="themechanger">
       <p>Тема</p>
-      <div className="themeswitcher" style={{ ...(theme as React.CSSProperties) }}>
+      <div className="themeswitcher">
         <div style={{ marginLeft: isActive ? "22px" : "0px" }} className={"themethumb"}>
           {isActive ? <MoonSvg /> : <SunSvg />}
         </div>

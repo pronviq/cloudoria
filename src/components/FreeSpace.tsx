@@ -4,17 +4,19 @@ import { useAppSelector } from "../hooks/redux";
 
 const FreeSpace: React.FC = () => {
   const { disk_space, used_space } = useAppSelector((state) => state.userReducer);
-  const selector = useAppSelector((state) => state.userReducer);
-  // console.log(selector);
+  // const selector = useAppSelector((state) => state.userReducer);
 
-  const totalSpaceMB = Math.floor((disk_space / 1024) * 10) / 10;
-  const usedSpaceMB = Math.floor((used_space / 1024) * 10) / 10;
+  const totalSpaceMB = disk_space / 1024 / 1024 / 8;
+  const usedSpaceMB = used_space / 1024 / 1024 / 8;
+
   const usedSpacePercent = (100 / disk_space) * used_space;
+  const freeSpace = Math.floor((totalSpaceMB - usedSpaceMB) * 10) / 10;
+  const totalSpace = Math.floor(totalSpaceMB * 10) / 10;
 
   return (
     <div className="freespace">
       <div className="freespace_text">
-        Свободно {totalSpaceMB - usedSpaceMB} МБ из {totalSpaceMB} МБ
+        Свободно {freeSpace} МБ из {totalSpace} МБ
       </div>
       <div className="freespace_track">
         <div style={{ width: usedSpacePercent + "%" }} className="freespace_progress"></div>

@@ -2,6 +2,32 @@ $auth_translateZ: 40px;
 $auth_inputs_width: 180px;
 
 $nav_content_width: 190px;
-$nav_width: 300px;
+$nav_width: 220px;
 
-$button_hover_color: rgba(0, 0, 0, 0.1);
+$header_height: 50px;
+
+$mainpage_padding: 20px;
+
+@mixin animated_dropdown {
+  transition: 0.1s linear;
+  &.entering {
+    margin-top: -20px;
+    opacity: 0;
+    position: absolute;
+    &:hover {
+      cursor: default;
+    }
+  }
+  &.entered {
+    margin-top: 6px;
+    opacity: 1;
+  }
+  &.exiting {
+    margin-top: -20px;
+    opacity: 1;
+  }
+  &.exited {
+    margin-top: -20px;
+    opacity: 0;
+  }
+}

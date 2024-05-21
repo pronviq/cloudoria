@@ -1,0 +1,78 @@
+@import "../../styles/Variables.scss";
+
+.createdir {
+}
+
+.createdir_header {
+}
+
+.createdir_input {
+  width: 150px;
+  height: 40px;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 0 0 3px 1px var(--background);
+  padding-left: 10px;
+  font-size: 14px;
+  color: var(--background) !important;
+  &:focus {
+    border: none;
+    scale: 1;
+  }
+}
+
+.createdir_action {
+  color: var(--background) !important;
+  border: 1px solid var(--background) !important;
+  padding: 3px;
+  border-radius: 4px;
+}
+
+.createdir_create {
+}
+
+.createdir_cancel {
+}
+
+.createdir_menu {
+  opacity: 0.95;
+  color: var(--background);
+  background-color: var(--font);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  $width: 400px;
+  // border: 1px solid red;
+  backdrop-filter: blur(10px);
+  $height: 200px;
+  display: flex;
+  position: absolute;
+  width: $width;
+  height: $height;
+  border-radius: 10px;
+  // background-color: red;
+  margin-left: calc(-1 * $mainpage_padding);
+  margin-top: calc(-1 * $mainpage_padding);
+  left: calc(50% - $width / 2);
+  top: calc(50% - $height / 2);
+  z-index: 100;
+  z-index: 106;
+}
+
+.createdir_bg {
+  z-index: 105;
+  backdrop-filter: brightness(80%);
+  // pointer-events: none;
+  width: 100vw;
+  position: fixed;
+  height: 100vh;
+  left: 0;
+  top: 0;
+}
+
+.createdir_error {
+  color: red;
+  font-size: 12px;
+}

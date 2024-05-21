@@ -1,16 +1,17 @@
 import React, { MouseEvent, useState } from "react";
 import "./Login.scss";
-import AuthService from "../services/AuthService";
-import StringValidator from "../utils/StringValidator";
+import AuthService from "../../services/AuthService";
+import StringValidator from "../../utils/StringValidator";
 import { useNavigate } from "react-router-dom";
 import "./Registration.scss";
-import ChooseGender from "./ui/ChooseGender";
+import ChooseGender from "./ChooseGender";
 import { AxiosError, AxiosResponse } from "axios";
-import { AuthResponse } from "../models/AuthResponse";
-import { IUser } from "../models/IUser";
-import { useAppDispatch } from "../hooks/redux";
-import { setUser } from "../redux/userSlice";
-import CloudSvg from "../images/CloudSvg";
+import { AuthResponse } from "../../models/Auth.model";
+import { IUser } from "../../models/User.model";
+import { useAppDispatch } from "../../hooks/redux";
+import { setUser } from "../../redux/userSlice";
+import CloudSvg from "../../images/CloudSvg";
+import UserService from "../../services/UserService";
 
 interface IRegistration {
   setRotate: (n: number) => void;
@@ -30,69 +31,16 @@ const Registration: React.FC<IRegistration> = ({ setRotate }) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const validateData = (): boolean => {
-    const usernameRegex = /^[A-Za-z]{6,32}$/;
-    let isPossible: boolean = true;
-    if (!StringValidator.isEmail(email)) {
-      setEmailError("Некорректная почта");
-      isPossible = false;
-    }
-    if (email.length === 0) {
-      setEmailError("Поле не может быть пустым");
-      isPossible = false;
-    }
-    if (password.length < 6) {
-      setPasswordError("Слишком короткий пароль");
-      isPossible = false;
-    }
-    if (password.length > 32) {
-      setPasswordError("Слишком длинный пароль");
-      isPossible = false;
-    }
-    if (password.length === 0) {
-      setPasswordError("Поле не может быть пустым");
-      isPossible = false;
-    }
-    if (!usernameRegex.test(username)) {
-      setUsernameError("Запрещенные символы");
-      isPossible = false;
-    }
-    if (username.length < 6) {
-      setUsernameError("Слишком короткий никнейм");
-      isPossible = false;
-    }
-    if (username.length > 32) {
-      setUsernameError("Слишком длинный никнейм");
-      isPossible = false;
-    }
-    if (!gender.length) {
-      isPossible = false;
-    }
-    if (username.length === 0) {
-      setUsernameError("Поле не может быть пустым");
-      isPossible = false;
-    }
-    return isPossible;
-  };
-
   async function registration(e: MouseEvent) {
     e.preventDefault();
 
-    if (!validateData()) {
-      return;
-    }
+    // if (!validateData()) {
+    //   return;
+    // }
 
     AuthService.registration(email, username, password, gender)
       .then((response: AxiosResponse<AuthResponse>) => {
-        const user: IUser = {
-          id: response.data?.id,
-          username: response.data?.username,
-          email: response.data?.email,
-          disk_space: response.data?.disk_space,
-          used_space: response.data?.used_space,
-          gender: response.data?.gender,
-        };
-
+        const user = UserService.responseToUser(response);
         dispatch(setUser(user));
         localStorage.setItem("token", response.data?.access);
         navigate("/");
@@ -111,6 +59,7 @@ const Registration: React.FC<IRegistration> = ({ setRotate }) => {
       <form action="" className="registration_form">
         <div className="email_cont">
           <input
+            maxLength={40}
             style={{ borderColor: usernameError ? warningColor : "" }}
             value={username}
             onChange={(e) => {
@@ -130,6 +79,7 @@ const Registration: React.FC<IRegistration> = ({ setRotate }) => {
         </div>
         <div className="email_cont">
           <input
+            maxLength={40}
             style={{ borderColor: emailError ? warningColor : "" }}
             value={email}
             onChange={(e) => {
@@ -149,6 +99,7 @@ const Registration: React.FC<IRegistration> = ({ setRotate }) => {
         </div>
         <div className="password_cont">
           <input
+            maxLength={40}
             style={{ borderColor: passwordError ? warningColor : "" }}
             value={password}
             onChange={(e) => {

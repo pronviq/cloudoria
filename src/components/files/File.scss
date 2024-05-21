@@ -1,0 +1,79 @@
+.listfile {
+  padding: 4px 0px 4px 8px;
+  margin: 4px 15px 0 15px;
+  border: none;
+  border-radius: 4px;
+  display: grid;
+  grid-template: 1fr / 40px 200px 1fr 100px 50px 60px 25px 25px;
+  width: calc(100% - 30px);
+  height: 40px;
+  div {
+    font-family: Montserrat-Regular;
+    align-self: center;
+    font-size: 13px;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+  &:active {
+    border: none;
+  }
+}
+
+.directorysvg {
+  grid-column-start: 1;
+  align-self: center;
+  margin-top: -4px;
+}
+
+.listfile_name {
+  // background-color: red;
+  // width: 100%;
+  grid-column-start: 2;
+  text-overflow: ellipsis;
+  // background-color: red;
+  width: 100%;
+  display: flex;
+  overflow: hidden;
+  // white-space: nowrap;
+  justify-self: start;
+}
+
+.listfile_date {
+  // background-color: green;
+  opacity: 0.5;
+  grid-column-start: 4;
+}
+
+.listfile_time {
+  // background-color: blue;
+  opacity: 0.5;
+  grid-column-start: 5;
+}
+
+.listfile_size {
+  // background-color: brown;
+  opacity: 0.5;
+  grid-column-start: 6;
+}
+
+.listfile_svg {
+  // background-color: yellow;
+  width: 20px;
+  align-self: center;
+  opacity: 0.6;
+  &::after {
+    position: absolute;
+    // content: attr(data-title);
+    content: " ";
+    width: 50px;
+    height: 30px;
+    left: 0;
+    top: 0;
+    background-color: red;
+  }
+  &:hover {
+    opacity: 1;
+  }
+}

@@ -7,13 +7,33 @@
 }
 
 .app {
+  $duration: 0.3s;
+
+  transition-property: color, border-color, background-color;
+  transition-duration: $duration;
+  transition-behavior: linear;
+
   color: var(--font);
   border-color: var(--border);
   background-color: var(--background);
   box-shadow: var(--shadow);
+  height: 100vh;
+  width: 100vw;
+
+  svg,
+  path,
+  circle,
+  a {
+    transition-property: all;
+    transition-duration: $duration;
+    transition-behavior: linear;
+  }
   button {
     color: var(--font);
     border-color: var(--border);
+    transition-property: color, border-color;
+    transition-duration: $duration;
+    transition-behavior: linear;
     &:active {
       border-color: var(--border);
     }
@@ -31,6 +51,11 @@
   }
   input {
     border-color: var(--border);
+    color: var(--font);
+  }
+
+  a {
+    text-decoration: none;
     color: var(--font);
   }
 }
@@ -68,33 +93,5 @@ button {
   }
   &:hover {
     cursor: pointer;
-  }
-}
-
-.loader {
-  width: 70px;
-  aspect-ratio: 1;
-  background: radial-gradient(farthest-side, #ffa516 90%, #0000) center/16px 16px,
-    radial-gradient(farthest-side, green 90%, #0000) bottom/12px 12px;
-  background-repeat: no-repeat;
-  animation: l17 1s infinite linear;
-  position: relative;
-}
-.loader::before {
-  content: "";
-  border-radius: 50%;
-  position: absolute;
-  width: 8px;
-  aspect-ratio: 1;
-  inset: auto 0 16px;
-  margin: auto;
-  background: #ccc;
-  transform-origin: 50% calc(100% + 10px);
-  animation: inherit;
-  animation-duration: 0.5s;
-}
-@keyframes l17 {
-  100% {
-    transform: rotate(1turn);
   }
 }

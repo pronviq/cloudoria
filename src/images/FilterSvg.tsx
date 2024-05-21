@@ -1,4 +1,4 @@
-import { useTheme } from "../components/contexts/theme/Theme.context";
+import { useTheme } from "../contexts/theme/Theme.context";
 
 const FilterSvg = () => {
   const { theme } = useTheme();

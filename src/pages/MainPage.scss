@@ -3,35 +3,32 @@
 .mainpage {
   width: 100vw;
   height: 100vh;
-  padding: 20px;
+  padding: $mainpage_padding;
   min-height: 300px;
 }
 
-.mainpage_forloader {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .container {
-  overflow: hidden;
-  border-radius: 20px;
+  // overflow: hidden;as
+  border-radius: 10px;
   height: 100%;
   width: 100%;
   display: flex;
+  // box-shadow: 0 0 5px 0px;
   flex-direction: column;
+  position: relative;
 }
 
 .content {
   width: 100%;
   height: 100%;
   display: flex;
+  position: relative;
 }
 
 .footer {
-  border: 1px solid;
+  // border-top: 1px solid;
   height: 20px;
   width: 100%;
+  // background-color: red;
+  // margin-top: 10px;
 }

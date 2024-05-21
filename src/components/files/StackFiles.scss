@@ -1,0 +1,39 @@
+.stack_simplebar {
+  width: 100%;
+  height: 50px;
+  overflow-x: auto;
+  margin-left: 10px;
+	margin-right: 10px;
+}
+
+.stack_files {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 50px;
+  span,
+  .stack_file {
+    white-space: nowrap;
+    font-family: Montserrat-Bold;
+    font-size: 12px;
+    opacity: 0.5;
+    user-select: none;
+  }
+}
+
+.stack_file {
+  font-family: inherit;
+  padding: 1px 4px 2px 4px;
+  border-radius: 3px;
+  border: none;
+  margin-top: -2px;
+  &:active {
+    border: none;
+  }
+  &:hover {
+    background-color: transparent !important;
+    opacity: 1;
+    font-family: Montserrat-Bold;
+    // filter: brightness(200%);
+  }
+}

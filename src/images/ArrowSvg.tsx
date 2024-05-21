@@ -1,5 +1,5 @@
 import React from "react";
-import { useTheme } from "../components/contexts/theme/Theme.context";
+import { useTheme } from "../contexts/theme/Theme.context";
 
 interface IArrowSvg {
   isActive: boolean;

@@ -1,8 +1,8 @@
 const SunSvg = () => {
   return (
     <svg
-      width="12px"
-      height="12px"
+      width="11px"
+      height="11px"
       fill="yellow"
       stroke="black"
       strokeWidth=".4"
