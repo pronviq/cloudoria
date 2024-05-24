@@ -1,12 +1,49 @@
 import { AxiosResponse } from "axios";
-import { AuthResponse } from "../models/Auth.model";
 import $api from "../api/AxiosApi";
-import { IFile, IFiles } from "../models/File.model";
-import { useAppDispatch } from "../hooks/redux";
-import { setCurrentFiles } from "../redux/fileSlice";
-import { IUser } from "../models/User.model";
+import { IFile } from "../models/File.model";
+import { updateSize } from "../redux/userSlice";
 
 export default class FileService {
+  static async searchFiles(q: string): Promise<AxiosResponse<IFile[]>> {
+    return await $api.get<IFile[]>(`/searchfiles?q=${q}`);
+  }
+
+  static async getTrash(): Promise<AxiosResponse<IFile[]>> {
+    return await $api.get<IFile[]>("/gettrash");
+  }
+
+  static async getFavorites(): Promise<AxiosResponse<IFile[]>> {
+    return await $api.get<IFile[]>("/getfavorites");
+  }
+
+  static async uploadFile(file: File, parent_id: number) {
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("parent_file", parent_id.toString());
+      formData.append("name", file.name);
+      // console.log(file);
+
+      const response = await $api.post<IFile>("/uploadfile", formData, {
+        onUploadProgress: (progressEvent) => {
+          // @ts-ignore
+          const totalLength = progressEvent.total;
+
+          // console.log("total", totalLength);
+          if (totalLength) {
+            let progress = Math.round((progressEvent.loaded * 100) / totalLength);
+            // console.log(progress);
+          }
+        },
+      });
+
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
+
   static async deleteFile(file: IFile) {
     try {
       const response = await $api.delete(`/deletefile?id=${file.id}`);
@@ -23,7 +60,8 @@ export default class FileService {
         prop: "is_favorite",
         value: !file.is_favorite,
       });
-      return response.data;
+
+      return true;
     } catch (error) {
       return false;
     }
@@ -36,7 +74,8 @@ export default class FileService {
         prop: "is_trash",
         value: !file.is_trash,
       });
-      return response.data;
+
+      return true;
     } catch (error) {
       return false;
     }

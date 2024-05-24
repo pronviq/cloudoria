@@ -6,8 +6,8 @@ const FreeSpace: React.FC = () => {
   const { disk_space, used_space } = useAppSelector((state) => state.userReducer);
   // const selector = useAppSelector((state) => state.userReducer);
 
-  const totalSpaceMB = disk_space / 1024 / 1024 / 8;
-  const usedSpaceMB = used_space / 1024 / 1024 / 8;
+  const totalSpaceMB = disk_space / 1024 / 1024;
+  const usedSpaceMB = used_space / 1024 / 1024;
 
   const usedSpacePercent = (100 / disk_space) * used_space;
   const freeSpace = Math.floor((totalSpaceMB - usedSpaceMB) * 10) / 10;

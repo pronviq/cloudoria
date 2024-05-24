@@ -3,10 +3,11 @@ import { AuthResponse } from "../models/Auth.model";
 import $api from "../api/AxiosApi";
 import { IUser } from "../models/User.model";
 import { ThemeType } from "../contexts/theme/Theme.model";
+import { IFiles } from "../models/File.model";
 
 export default class UserService {
   static async fetchUsers(): Promise<AxiosResponse<IUser[]>> {
-    return $api.get<IUser[]>("/getdata");
+    return await $api.get<IUser[]>("/getdata");
   }
 
   static async updateTheme(theme: ThemeType): Promise<AxiosResponse> {

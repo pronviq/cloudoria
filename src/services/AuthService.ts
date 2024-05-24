@@ -1,6 +1,6 @@
-import { AxiosResponse } from "axios";
+import axios, { AxiosResponse } from "axios";
 import { AuthResponse } from "../models/Auth.model";
-import $api from "../api/AxiosApi";
+import $api, { API_URL } from "../api/AxiosApi";
 
 interface ILogin {
   (user_info: string, password: string): Promise<AxiosResponse<AuthResponse>>;
@@ -18,11 +18,16 @@ export default class AuthService {
       user_info,
       password,
     });
+
     return response;
   };
 
   static refresh: () => Promise<AxiosResponse<AuthResponse>> = async () => {
-    const response = await $api.get<AuthResponse>("/refresh");
+    const response = await axios.get<AuthResponse>(API_URL + "/refresh", {
+      withCredentials: true,
+    });
+    // console.log(response);
+
     return response;
   };
 

@@ -2,7 +2,9 @@ import axios, { AxiosInstance, AxiosResponse } from "axios";
 import store from "../redux/store";
 import { initialState, setUser } from "../redux/userSlice";
 
-export const API_URL = "http://localhost:711/api";
+// export const API_URL = "http://localhost:711/api";
+// export const API_URL = "http://45.12.75.100:711/api";
+export const API_URL = "http://192.168.0.12:711/api";
 
 const $api: AxiosInstance = axios.create({
   baseURL: API_URL,
@@ -10,7 +12,7 @@ const $api: AxiosInstance = axios.create({
 });
 
 $api.interceptors.request.use((config) => {
-  console.log(`\x1b[32m--- Token has intercepted on url: ${config.baseURL} ...\x1b[0m`);
+  console.log(`\x1b[32m--- Token has intercepted on url: ${config.baseURL} ---\x1b[0m`);
 
   const token = localStorage.getItem("token");
   if (token) {
@@ -40,6 +42,7 @@ $api.interceptors.response.use(
         store.dispatch(setUser(initialState));
       }
     }
+
     // console.log(error.config._isRetry, error.response.status);
 
     if (error.config._isRetry && error.response.status === 401) {

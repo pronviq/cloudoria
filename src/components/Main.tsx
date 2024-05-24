@@ -2,22 +2,20 @@ import React, { memo } from "react";
 import "./Main.scss";
 import FilterDropDown from "./ui/FilterDropDown";
 import UserSettings from "./ui/UserSettings";
-import Files from "./files/Files";
-import { useAppSelector } from "../hooks/redux";
 import StackFiles from "./files/StackFiles";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
+import Search from "./Search";
 
 const Main: React.FC = () => {
-  console.log("main rendeer");
+  const location = useLocation();
 
   return (
     <main className="main">
       <header className="header">
-        <StackFiles />
+        {location.pathname === "/search" ? <Search /> : <StackFiles />}
         <FilterDropDown />
         <UserSettings />
       </header>
-      {/* <Files /> */}
       <Outlet />
     </main>
   );

@@ -27,11 +27,11 @@
 }
 
 .spinner_loader {
-  width: 50px;
-  padding: 8px;
+  width: 25px;
+  padding: 4px;
   aspect-ratio: 1;
   border-radius: 50%;
-  background: #27a08e;
+  background: var(--font);
   --_m: conic-gradient(#0000 10%, #000), linear-gradient(#000 0 0) content-box;
   -webkit-mask: var(--_m);
   mask: var(--_m);
@@ -51,12 +51,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 
 .files_loader {
   font-weight: bold;
   font-family: monospace;
-  font-size: 30px;
+  font-size: 10px;
   display: inline-grid;
   overflow: hidden;
   &::before,

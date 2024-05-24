@@ -17,6 +17,19 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
+    updateSize(state, action: PayloadAction<number>) {
+      // console.log("update size", action.payload, state.used_space);
+
+      console.log(
+        Number(state.used_space),
+        " + ",
+        Number(action.payload),
+        " -> ",
+        Number(state.used_space + action.payload)
+      );
+      state.used_space = Number(state.used_space) + Number(action.payload);
+    },
+
     setUser(state, action: PayloadAction<IUser>) {
       return { ...action.payload };
     },
@@ -31,5 +44,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { setUser, setUserProperty } = userSlice.actions;
+export const { setUser, setUserProperty, updateSize } = userSlice.actions;
 export default userSlice.reducer;

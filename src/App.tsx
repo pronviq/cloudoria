@@ -61,6 +61,7 @@ const App: React.FC = () => {
             <Route element={<MainPage />} path="/">
               <Route element={<Files />} path="/favorites" />
               <Route element={<Files />} path="/trash" />
+              <Route element={<Files />} path="/search" />
               <Route element={<Files />} path="/" />
             </Route>
             <Route element={<NotFound />} path="*" />

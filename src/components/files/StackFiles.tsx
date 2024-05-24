@@ -4,11 +4,13 @@ import "./StackFiles.scss";
 import { IFile } from "../../models/File.model";
 import { setCurrentDir, updateStack } from "../../redux/fileSlice";
 import SimpleBar from "simplebar-react";
+import { useLocation } from "react-router-dom";
 
 const StackFiles: React.FC = () => {
   const stack = useAppSelector((state) => state.fileReducer.stack);
   const root_directory = useAppSelector((state) => state.userReducer.root_directory);
   const dispatch = useAppDispatch();
+  const location = useLocation();
   // console.log(stack);
 
   const handleStack = (item: IFile, i: number) => {
@@ -18,7 +20,6 @@ const StackFiles: React.FC = () => {
         newStack.push(val);
       }
     });
-    // console.log(newStack);
 
     dispatch(setCurrentDir(item.id));
     dispatch(updateStack(newStack));
@@ -33,7 +34,9 @@ const StackFiles: React.FC = () => {
     <SimpleBar className="stack_simplebar">
       <div className="stack_files">
         <button onClick={() => handleCurrent()} className="stack_file">
-          Все файлы
+          {location.pathname === "/favorites" && "Избранное"}
+          {location.pathname === "/" && "Все файлы"}
+          {location.pathname === "/trash" && "Корзина"}
         </button>
         {stack.map((item, i) => (
           <React.Fragment key={i}>

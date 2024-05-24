@@ -37,7 +37,7 @@ const CreateDir: React.FC = () => {
   return (
     <div className="createdir">
       <button onClick={() => setActive(true)} className="upload_btn">
-        <div className="upload_title">Создать</div>
+        <div className="upload_title">Где Создать</div>
         <CreateSvg />
       </button>
       {isActive && (

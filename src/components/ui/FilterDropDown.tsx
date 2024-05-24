@@ -9,7 +9,7 @@ import { Transition } from "react-transition-group";
 
 const FilterDropDown: React.FC = () => {
   const [isActive, setActive] = useState<boolean>(false);
-  const [sortStyle, setSortStyle] = useState<string>("alphabet");
+  const [sortStyle, setSortStyle] = useState<string>("");
   const activeBackgroundColor = "rgba(128, 128, 128, 0.2)";
   const btnRef = useRef<HTMLButtonElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -20,6 +20,8 @@ const FilterDropDown: React.FC = () => {
       setActive(false);
     }
   };
+
+  useEffect(() => {}, []);
 
   useEffect(() => {
     document.addEventListener("click", handleFalse);

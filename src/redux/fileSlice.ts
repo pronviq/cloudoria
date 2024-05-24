@@ -1,5 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { IFile, IFiles } from "../models/File.model";
+import { updateSize } from "./userSlice";
 
 const initialState: IFiles = {
   currentDir: -1,
@@ -24,6 +25,7 @@ export const fileSlice = createSlice({
     switchTrash(state, action: PayloadAction<ISwitcher>) {
       const payload = action.payload;
       state.currentFiles[payload.index].is_trash = !state.currentFiles[payload.index].is_trash;
+      state.currentFiles.splice(payload.index, 1);
     },
 
     updateStack(state, action: PayloadAction<IFile[]>) {
@@ -57,4 +59,5 @@ export const {
   switchTrash,
   deleteFile,
 } = fileSlice.actions;
+
 export default fileSlice.reducer;

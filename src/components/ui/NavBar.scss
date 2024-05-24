@@ -43,6 +43,7 @@
     border: none;
     &:active {
       border: none;
+      cursor: pointer;
     }
   }
 }
@@ -70,5 +71,16 @@
   justify-content: center;
   &:active {
     border: none;
+  }
+}
+
+label[for="file_upload"] {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &:hover {
+    cursor: pointer;
   }
 }
