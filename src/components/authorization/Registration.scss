@@ -6,16 +6,18 @@
   height: 350px;
   border-radius: 20px;
   flex-direction: column;
-  box-shadow: 0 0 15px -5px;
+  box-shadow: 0 0 10px -5px;
   align-items: center;
   transform: translateZ(-$auth_translateZ) rotateY(180deg);
   margin-left: -250px;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(40px) brightness(95%);
   padding-top: 50px;
 }
 
-.registration_form {
+.registration_buttons {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 5px;
+  margin-top: 15px;
 }

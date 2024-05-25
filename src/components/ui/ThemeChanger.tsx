@@ -12,9 +12,9 @@ const ThemeChanger: React.FC = () => {
 
   const changeTheme = async () => {
     try {
-      await UserService.updateTheme(isActive ? "light" : "dark");
       setCurrentTheme(isActive ? "light" : "dark");
       setActive((p) => !p);
+      await UserService.updateTheme(isActive ? "light" : "dark");
     } catch (error) {
       console.log(error);
     }

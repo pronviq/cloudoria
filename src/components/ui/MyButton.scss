@@ -1,0 +1,26 @@
+@import "../../styles/Variables.scss";
+
+.mybutton {
+  border: 1px solid;
+  opacity: $unactive_opacity;
+  width: 160px;
+  height: 22px;
+  border-radius: 4px;
+  @mixin for-hover {
+    opacity: 1;
+    background-color: transparent !important;
+  }
+  @media (hover: hover) {
+    &:hover {
+      @include for-hover();
+    }
+  }
+  @media (hover: none) {
+    &:active {
+      @include for-hover();
+    }
+    &:hover {
+      background-color: transparent;
+    }
+  }
+}

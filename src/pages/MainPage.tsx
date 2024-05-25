@@ -7,11 +7,8 @@ const MainPage: React.FC = ({}) => {
   return (
     <div className="mainpage">
       <div className="container">
-        <div className="content">
-          <NavBar />
-          <Main />
-        </div>
-        <footer className="footer"></footer>
+        <NavBar />
+        <Main />
       </div>
     </div>
   );

@@ -1,11 +1,10 @@
 import React from "react";
-import "./File.scss";
+import "./ListFile.scss";
 import { IFile } from "../../models/File.model";
 import DirectorySvg from "../../images/DirectorySvg";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import {
   deleteFile,
-  pushFile,
   setCurrentDir,
   switchFavorite,
   switchTrash,
@@ -14,21 +13,22 @@ import {
 import FavoriteSvg from "../../images/FavoriteSvg";
 import TrashSvg from "../../images/TrashSvg";
 import FileService from "../../services/FileService";
-import { useLocation } from "react-router-dom";
 import ReloadSvg from "../../images/ReloadSvg";
 import BurnSvg from "../../images/BurnSvg";
 import GetSize from "../../utils/GetSize";
-import CutName from "../../utils/CutName";
 import { updateSize } from "../../redux/userSlice";
 import { API_URL } from "../../api/AxiosApi";
 import JustFileSvg from "../../images/JustFileSvg";
+import { AnimatePresence, motion } from "framer-motion";
+import { AnimatedListFile } from "../../models/Animation.model";
 
 interface FileInterface {
   file: IFile;
   index: number;
+  duration: number;
 }
 
-const ListFile: React.FC<FileInterface> = ({ file, index }) => {
+const ListFile: React.FC<FileInterface> = ({ file, index, duration }) => {
   const dispatch = useAppDispatch();
   const stack = useAppSelector((state) => state.fileReducer.stack);
 
@@ -42,22 +42,17 @@ const ListFile: React.FC<FileInterface> = ({ file, index }) => {
 
   const handleFavorite = async (e: Event) => {
     e.stopPropagation();
-    dispatch(switchFavorite({ index }));
-    await FileService.switchFavorite(file);
+    await FileService.switchFavorite(file, index);
   };
 
   const handleTrash = async (e: Event) => {
     e.stopPropagation();
-    dispatch(switchTrash({ index }));
-    await FileService.switchTrash(file);
+    await FileService.switchTrash(file, index);
   };
 
   const handleDelete = async (e: Event) => {
     e.stopPropagation();
-    if (await FileService.deleteFile(file)) {
-      dispatch(deleteFile({ index }));
-      dispatch(updateSize(file.size * -1));
-    }
+    await FileService.deleteFile(file, index);
   };
 
   const { size, unit } = GetSize(file.size);
@@ -67,46 +62,59 @@ const ListFile: React.FC<FileInterface> = ({ file, index }) => {
   const name = file.name.replace(/\.[^.]*$/, "");
 
   return (
-    <>
-      <button onClick={() => setDir(file)} className="listfile">
-        {file.type === "dir" ? (
-          <DirectorySvg className="directorysvg" size={25} />
-        ) : file.type === "image/png" ? (
-          <img
-            width={30}
-            height={30}
-            className="directorysvg"
-            src={API_URL + "/getpreview/" + file.id}
-            alt="preview"
-          ></img>
-        ) : (
-          <JustFileSvg format={type?.toUpperCase().slice(1, type.length)} width={30} />
-        )}
-        <div className="listfile_info">
-          <div className="listfile_name">{name}</div>
-          <div className="listfile_type">{type}</div>
-        </div>
-        <div className="listfile_date">{file.timestamp.slice(0, 10)} </div>
-        <div className="listfile_time">{file.timestamp.slice(11, 16)}</div>
-        <div className="listfile_size">{size}</div>
-        <div className="listfile_unit">{unit}</div>
-        {!file.is_trash ? (
-          <>
-            <FavoriteSvg
-              isfill={file.is_favorite.toString()}
-              onClick={handleFavorite}
-              className="listfile_svg"
+    <AnimatePresence>
+      <motion.div transition={{ duration: duration }} {...AnimatedListFile}>
+        <button onClick={() => setDir(file)} className="listfile">
+          {file.type === "dir" ? (
+            <DirectorySvg className="listfile_file" size={25} />
+          ) : file.type === "image/png" ? (
+            <img
+              width={30}
+              height={30}
+              className="listfile_file"
+              src={API_URL + "/getpreview/" + file.id}
+              alt="preview"
+            ></img>
+          ) : (
+            <JustFileSvg
+              className="listfile_file"
+              format={type?.toUpperCase().slice(1, type.length)}
+              width={30}
             />
-            <TrashSvg onClick={handleTrash} className="listfile_svg" />
-          </>
-        ) : (
-          <>
-            <ReloadSvg onClick={handleTrash} className="listfile_svg" />
-            <BurnSvg onClick={handleDelete} className="listfile_svg" />
-          </>
-        )}
-      </button>
-    </>
+          )}
+          <div className="listfile_info">
+            <div className="listfile_name">{name}</div>
+            <div className="listfile_type">{type}</div>
+          </div>
+          <div className="listfile_date">{file.timestamp.slice(0, 10)} </div>
+          <div className="listfile_time">{file.timestamp.slice(11, 16)}</div>
+          <div className="listfile_size">{size}</div>
+          <div className="listfile_unit">{unit}</div>
+          {!file.is_trash ? (
+            <>
+              <div
+                data-title={file.is_favorite ? "Удалить из избранного" : "Добавить в избранное"}
+                className="listfile_svg"
+              >
+                <FavoriteSvg isfill={file.is_favorite.toString()} onClick={handleFavorite} />
+              </div>
+              <div data-title="Переместить в корзину" className="listfile_svg">
+                <TrashSvg onClick={handleTrash} />
+              </div>
+            </>
+          ) : (
+            <>
+              <div data-title="Восстановить файл" className="listfile_svg">
+                <ReloadSvg onClick={handleTrash} />
+              </div>
+              <div data-title="Удалить навсегда" className="listfile_svg">
+                <BurnSvg onClick={handleDelete} />
+              </div>
+            </>
+          )}
+        </button>
+      </motion.div>
+    </AnimatePresence>
   );
 };
 

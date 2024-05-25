@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import ListFile from "./ListFile";
 import SimpleBar from "simplebar-react";
 import FileService from "../../services/FileService";
-import { setCurrentFiles } from "../../redux/fileSlice";
+import { setCurrentFiles, setLoading } from "../../redux/fileSlice";
 import UserService from "../../services/UserService";
 import AuthService from "../../services/AuthService";
 import { useLocation } from "react-router-dom";
@@ -14,16 +14,15 @@ const Files: React.FC = () => {
   const currentDir = useAppSelector((state) => state.fileReducer.currentDir);
   const user = useAppSelector((state) => state.userReducer);
   const stack = useAppSelector((state) => state.fileReducer.stack);
-  console.log("files render");
-
-  const [isLoading, setLoading] = useState<boolean>(true);
+  const isLoading = useAppSelector((state) => state.fileReducer.isLoading);
 
   const dispatch = useAppDispatch();
   const location = useLocation();
 
   const fetchFiles = async () => {
     try {
-      setLoading(true);
+      dispatch(setLoading(true));
+
       if (location.pathname === "/favorites" && stack.length === 0) {
         const response = await FileService.getFavorites();
         const data = response.data;
@@ -44,7 +43,7 @@ const Files: React.FC = () => {
     } catch (error) {
       console.log(error);
     } finally {
-      setLoading(false);
+      dispatch(setLoading(false));
     }
   };
 
@@ -64,9 +63,9 @@ const Files: React.FC = () => {
 
   return (
     <div className="files">
-      <SimpleBar style={{ maxHeight: "100%" }}>
+      <SimpleBar className="files_simplebar" style={{ maxHeight: "100%", height: "100%" }}>
         {files?.map((file, i) => (
-          <ListFile index={i} key={i} file={file} />
+          <ListFile duration={(0.5 / files.length) * (i + 1)} index={i} key={i} file={file} />
         ))}
       </SimpleBar>
     </div>

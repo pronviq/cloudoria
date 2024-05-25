@@ -9,28 +9,6 @@ $headbar_padding: 10px;
 
 $header_height: 50px;
 
-$mainpage_padding: 20px;
+$mainpage_padding: 0px;
 
-@mixin animated_dropdown {
-  transition: 0.1s linear;
-  &.entering {
-    margin-top: -20px;
-    opacity: 0;
-    position: absolute;
-    &:hover {
-      cursor: default;
-    }
-  }
-  &.entered {
-    margin-top: 6px;
-    opacity: 1;
-  }
-  &.exiting {
-    margin-top: -20px;
-    opacity: 1;
-  }
-  &.exited {
-    margin-top: -20px;
-    opacity: 0;
-  }
-}
+$unactive_opacity: 0.8;

@@ -1,3 +1,5 @@
+@import "../../styles/Variables.scss";
+
 .checkbox_cont {
   display: flex;
   align-items: center;
@@ -8,6 +10,7 @@
 
 .checkbox {
   width: 14px;
+  opacity: 0.6;
   height: 14px;
   border-radius: 50%;
   box-shadow: 0 0 1px 1px;
@@ -15,5 +18,6 @@
 
 .checkbox_text {
   font-size: 12px;
+  opacity: $unactive_opacity;
   margin-left: 6px;
 }

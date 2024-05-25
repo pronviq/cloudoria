@@ -1,16 +1,11 @@
-import React from "react";
 import { useTheme } from "../contexts/theme/Theme.context";
 
-interface IArrowSvg {
-  isActive: boolean;
-}
-
-const ArrowSvg: React.FC<IArrowSvg> = ({ isActive }) => {
+const ArrowSvg = ({ ...props }) => {
   const { theme } = useTheme();
 
   return (
     <svg
-      style={{ rotate: isActive ? "180deg" : "0deg", transition: "ease .2s " }}
+      style={{ ...props }}
       width="15px"
       height="15px"
       className="down_ico"

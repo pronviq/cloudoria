@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { startTransition, useEffect, useRef, useState } from "react";
 import "./UserSettings.scss";
 import AuthService from "../../services/AuthService";
 import { useNavigate } from "react-router-dom";
@@ -7,8 +7,9 @@ import { initialState, setUser } from "../../redux/userSlice";
 import SettingsSvg from "../../images/SettingsSvg";
 import ExitSvg from "../../images/ExitSvg";
 import ThemeChanger from "./ThemeChanger";
-import { Transition } from "react-transition-group";
 import { Link } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
+import { AnimatedDropDown } from "../../models/Animation.model";
 
 const UserSettings: React.FC = () => {
   const [isActive, setActive] = useState<boolean>(false);
@@ -47,9 +48,10 @@ const UserSettings: React.FC = () => {
       <button onClick={() => setActive((p) => !p)} ref={btnRef} className="user_settings_btn">
         <img src="https://99px.ru/sstorage/53/2023/01/mid_348279_833663.jpg" alt="" />
       </button>
-      <Transition mountOnEnter unmountOnExit in={isActive} timeout={50}>
-        {(state) => (
-          <div ref={contentRef} className={`user_settings_content ${state}`}>
+
+      <AnimatePresence>
+        {isActive && (
+          <motion.div {...AnimatedDropDown} ref={contentRef} className={`user_settings_content`}>
             <div className="user_settings_info">
               <img src="https://99px.ru/sstorage/53/2023/01/mid_348279_833663.jpg" alt="" />
               <div className="user_settings_about">
@@ -63,7 +65,15 @@ const UserSettings: React.FC = () => {
               </li>
               <li>
                 <button>
-                  <Link className="user_settings_item" to={"/settings"}>
+                  <Link
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      e.preventDefault();
+                      startTransition(() => navigate("/settings"));
+                    }}
+                    className="user_settings_item"
+                    to={"/settings"}
+                  >
                     <SettingsSvg />
                     <p>Настройки</p>
                   </Link>
@@ -76,9 +86,9 @@ const UserSettings: React.FC = () => {
                 </button>
               </li>
             </ul>
-          </div>
+          </motion.div>
         )}
-      </Transition>
+      </AnimatePresence>
     </div>
   );
 };

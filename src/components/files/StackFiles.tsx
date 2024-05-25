@@ -37,6 +37,7 @@ const StackFiles: React.FC = () => {
           {location.pathname === "/favorites" && "Избранное"}
           {location.pathname === "/" && "Все файлы"}
           {location.pathname === "/trash" && "Корзина"}
+          {location.pathname === "/settings" && "Настройки"}
         </button>
         {stack.map((item, i) => (
           <React.Fragment key={i}>

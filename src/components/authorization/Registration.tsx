@@ -12,6 +12,10 @@ import { useAppDispatch } from "../../hooks/redux";
 import { setUser } from "../../redux/userSlice";
 import CloudSvg from "../../images/CloudSvg";
 import UserService from "../../services/UserService";
+import MyInput from "../ui/MyInput";
+import EyeOpenSvg from "../../images/EyeOpenSvg";
+import EyeClosedSvg from "../../images/EyeClosedSvg";
+import MyButton from "../ui/MyButton";
 
 interface IRegistration {
   setRotate: (n: number) => void;
@@ -25,6 +29,7 @@ const Registration: React.FC<IRegistration> = ({ setRotate }) => {
   const [password, setPassword] = useState<string>("");
   const [passwordError, setPasswordError] = useState<string>("");
   const [gender, setGender] = useState<string>("");
+  const [isVisible, setVisible] = useState<boolean>(false);
 
   const warningColor = "rgba(255, 0, 0, 0.7)";
 
@@ -52,79 +57,66 @@ const Registration: React.FC<IRegistration> = ({ setRotate }) => {
 
   return (
     <article className="registration">
-      <div className="login_title">
+      <div className="auth_title">
         <CloudSvg />
         <h1 className="title_text">CloudStorage</h1>
       </div>
-      <form action="" className="registration_form">
+      <form action="" className="auth_form">
         <div className="email_cont">
-          <input
-            maxLength={40}
-            style={{ borderColor: usernameError ? warningColor : "" }}
+          <MyInput
             value={username}
-            onChange={(e) => {
-              setUsername(e.target.value);
+            onChange={(val) => {
+              setUsername(val);
               setUsernameError("");
             }}
-            className="login_input"
+            error={usernameError}
             type="text"
             placeholder="username"
           />
-          <p
-            style={{ "--warningColor": warningColor } as React.CSSProperties}
-            className="auth_error"
-          >
-            {usernameError}
-          </p>
         </div>
-        <div className="email_cont">
-          <input
-            maxLength={40}
-            style={{ borderColor: emailError ? warningColor : "" }}
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-              setEmailError("");
-            }}
-            className="login_input"
-            type="text"
-            placeholder="e-mail"
-          />
-          <p
-            style={{ "--warningColor": warningColor } as React.CSSProperties}
-            className="auth_error"
-          >
-            {emailError}
-          </p>
-        </div>
-        <div className="password_cont">
-          <input
-            maxLength={40}
-            style={{ borderColor: passwordError ? warningColor : "" }}
-            value={password}
-            onChange={(e) => {
-              setPassword(e.target.value);
-              setPasswordError("");
-            }}
-            className="login_input"
-            type="password"
-            placeholder="password"
-          />
-          <p
-            style={{ "--warningColor": warningColor } as React.CSSProperties}
-            className="auth_error"
-          >
-            {passwordError}
-          </p>
-        </div>
+        <MyInput
+          value={email}
+          onChange={(val) => {
+            setEmail(val);
+            setEmailError("");
+          }}
+          error={emailError}
+          type="text"
+          placeholder="e-mail"
+        />
+        <MyInput
+          value={password}
+          onChange={(val) => {
+            setPassword(val);
+            setPasswordError("");
+          }}
+          error={passwordError}
+          type={isVisible ? "text" : "password"}
+          placeholder="password"
+          children={
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                setVisible((prev) => !prev);
+              }}
+              className="password_eye"
+            >
+              {isVisible ? <EyeOpenSvg /> : <EyeClosedSvg />}
+            </button>
+          }
+        />
         <ChooseGender gender={gender} setGender={setGender} />
-        <button onClick={registration} className={"login_confirm"}>
-          Зарегистрироваться
-        </button>
+        <div className="registration_buttons">
+          <MyButton text="Зарегистрироваться" onClick={registration} />
+          <MyButton
+            text="Вход"
+            onClick={(e) => {
+              e.preventDefault();
+              setRotate(0);
+            }}
+          />
+        </div>
       </form>
-      <button onClick={() => setRotate(0)} className="switch_button">
-        Вход
-      </button>
     </article>
   );
 };

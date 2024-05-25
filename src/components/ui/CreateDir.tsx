@@ -5,6 +5,8 @@ import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import FileService from "../../services/FileService";
 import { IFile } from "../../models/File.model";
 import { pushFile } from "../../redux/fileSlice";
+import { updateSize } from "../../redux/userSlice";
+import MyInput from "./MyInput";
 
 const CreateDir: React.FC = () => {
   const [isActive, setActive] = useState<boolean>(false);
@@ -24,6 +26,7 @@ const CreateDir: React.FC = () => {
 
       // console.log("dir is", dir);
       dispatch(pushFile(dir));
+      dispatch(updateSize(dir.size));
       setActive(false);
     } catch (err: any) {
       setError(err.response?.data || err.message);
@@ -37,24 +40,22 @@ const CreateDir: React.FC = () => {
   return (
     <div className="createdir">
       <button onClick={() => setActive(true)} className="upload_btn">
-        <div className="upload_title">Где Создать</div>
+        <div className="upload_title">Создать</div>
         <CreateSvg />
       </button>
       {isActive && (
         <>
           <div className="createdir_menu">
             <div className="createdir_header">Укажите название папки </div>
-            <input
-              ref={inputRef}
-              value={name}
-              onChange={(e) => {
+            <MyInput
+              onChange={(val) => {
                 setError("");
-                setName(e.target.value);
+                setName(val);
               }}
               type="text"
-              placeholder="Название"
-              className="createdir_input"
+              value={name}
             />
+
             <button onClick={createDir} className="createdir_action">
               Создать
             </button>

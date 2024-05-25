@@ -16,8 +16,12 @@ const Checkbox: React.FC<ICheckbox> = ({ value, setValue, text }) => {
         setValue(!value);
       }}
     >
-      <span className="checkbox">{value && <CheckmarkSvg />}</span>
-      <p className="checkbox_text">{text}</p>
+      <span style={{ opacity: value ? "1" : "" }} className="checkbox">
+        {value && <CheckmarkSvg />}
+      </span>
+      <p style={{ opacity: value ? "1" : "" }} className="checkbox_text">
+        {text}
+      </p>
     </div>
   );
 };

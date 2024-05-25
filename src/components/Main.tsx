@@ -4,7 +4,7 @@ import FilterDropDown from "./ui/FilterDropDown";
 import UserSettings from "./ui/UserSettings";
 import StackFiles from "./files/StackFiles";
 import { Outlet, useLocation } from "react-router-dom";
-import Search from "./Search";
+import Search from "./ui/Search";
 
 const Main: React.FC = () => {
   const location = useLocation();

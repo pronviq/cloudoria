@@ -1,4 +1,3 @@
-import React from "react";
 import { useTheme } from "../contexts/theme/Theme.context";
 
 const JustFileSvg = ({ ...props }) => {

@@ -57,8 +57,8 @@ const App: React.FC = () => {
           <Routes>
             {/* <Route element={<AuthPage />} path="/auth" /> */}
             <Route element={<Redirect to="/" />} path="/auth" />
-            <Route element={<Settings />} path="/settings" />
             <Route element={<MainPage />} path="/">
+              <Route element={<Settings />} path="/settings" />
               <Route element={<Files />} path="/favorites" />
               <Route element={<Files />} path="/trash" />
               <Route element={<Files />} path="/search" />

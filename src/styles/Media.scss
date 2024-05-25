@@ -1,0 +1,48 @@
+@media (min-width: 1191px) {
+  // pc
+  .nav_display {
+    display: none !important;
+  }
+
+  .nav {
+    margin-left: 0px !important;
+  }
+}
+
+@media only screen and (max-width: 1190px) and (min-width: 769px) {
+  // ipad pro
+  .nav_display {
+    display: none !important;
+  }
+
+  .nav {
+    margin-left: 0px !important;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  // ipad-mobile
+  .listfile {
+    grid-template: 1fr / 40px 1fr 0px 80px 0px 30px 30px 25px 25px !important;
+  }
+  .listfile_time {
+    display: none;
+  }
+  .main {
+    width: 100% !important;
+  }
+  .nav {
+    position: absolute;
+    z-index: 1;
+  }
+}
+
+@media only screen and (max-width: 512px) {
+  .listfile_date,
+  .listfile_time {
+    display: none;
+  }
+  .listfile {
+    grid-template: 1fr / 40px 1fr 0px 0px 0px 30px 20px 20px 20px !important;
+  }
+}

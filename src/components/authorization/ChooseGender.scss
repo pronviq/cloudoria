@@ -6,13 +6,13 @@
 
 .choose_text {
   font-size: 11px;
-  margin-top: 4px;
+  margin-top: 8px;
   width: 100%;
-  // text-align: center;
+  opacity: $unactive_opacity;
 }
 
 .choose_boxes {
-  margin-top: 4px;
+  margin-top: 6px;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -1,12 +1,35 @@
 @import "../../styles/Variables.scss";
 
 .nav {
-  width: $nav_width;
-  border-right: 1px solid;
   height: 100%;
+  width: $nav_width;
+  display: flex;
+}
+
+.nav_content {
+  align-items: center;
+  border-right: 1px solid;
+  height: inherit;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: var(--background);
+}
+
+.nav_display {
   display: flex;
   align-items: center;
-  flex-direction: column;
+  justify-content: center;
+  width: 20px;
+  // background-color: red;
+  border: none;
+  height: inherit;
+  &:active {
+    border: none;
+  }
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .nav_head {

@@ -8,6 +8,7 @@ interface DirectoryProps {
 const DirectorySvg: React.FC<DirectoryProps> = ({ size, className }) => {
   return (
     <svg
+      style={{ marginTop: "-4px" }}
       className={className}
       viewBox="0 0 80 80"
       xmlns="http://www.w3.org/2000/svg"

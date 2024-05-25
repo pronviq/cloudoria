@@ -11,6 +11,10 @@ import { IUser } from "../../models/User.model";
 import { useAppDispatch } from "../../hooks/redux";
 import { setUser } from "../../redux/userSlice";
 import UserService from "../../services/UserService";
+import EyeOpenSvg from "../../images/EyeOpenSvg";
+import EyeClosedSvg from "../../images/EyeClosedSvg";
+import MyInput from "../ui/MyInput";
+import MyButton from "../ui/MyButton";
 
 interface ILogin {
   setRotate: (n: number) => void;
@@ -20,10 +24,10 @@ const Login: React.FC<ILogin> = ({ setRotate }) => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [bothError, setBothError] = useState<string>("");
+  const [isVisible, setVisible] = useState<boolean>(false);
+
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-
-  const warningColor = "rgba(255, 0, 0, 0.7)";
 
   async function login(e: MouseEvent) {
     e.preventDefault();
@@ -43,47 +47,55 @@ const Login: React.FC<ILogin> = ({ setRotate }) => {
 
   return (
     <article className="login">
-      <div className="login_title">
+      <div className="auth_title">
         <CloudSvg />
         <h1 className="title_text">CloudStorage</h1>
       </div>
-      <form action="" className="login_form">
-        <input
-          maxLength={40}
-          style={{ borderColor: bothError ? warningColor : "" }}
+      <form action="" className="auth_form">
+        <MyInput
           value={email}
-          onChange={(e) => {
-            setEmail(e.target.value);
+          onChange={(val) => {
+            setEmail(val);
             setBothError("");
           }}
-          className="login_input"
+          error={bothError ? true : false}
           type="text"
           placeholder="e-mail or username"
         />
 
-        <input
-          maxLength={40}
-          style={{ borderColor: bothError ? warningColor : "" }}
+        <MyInput
           value={password}
-          onChange={(e) => {
-            setPassword(e.target.value);
+          onChange={(val) => {
+            setPassword(val);
             setBothError("");
           }}
-          className="login_input"
-          type="password"
+          error={bothError}
+          type={isVisible ? "text" : "password"}
           placeholder="password"
+          children={
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                setVisible((prev) => !prev);
+              }}
+              className="password_eye"
+            >
+              {isVisible ? <EyeOpenSvg /> : <EyeClosedSvg />}
+            </button>
+          }
         />
-        <p style={{ "--warningColor": warningColor } as React.CSSProperties} className="auth_error">
-          {bothError}
-        </p>
 
-        <button onClick={login} className={"login_confirm"}>
-          Войти
-        </button>
+        <div className="login_buttons">
+          <MyButton text="Войти" onClick={login} />
+          <MyButton
+            text="Регистрация"
+            onClick={(e) => {
+              e.preventDefault();
+              setRotate(180);
+            }}
+          />
+        </div>
       </form>
-      <button onClick={() => setRotate(180)} className="switch_button">
-        Регистрация
-      </button>
       <button className="forgot_password">Забыли пароль?</button>
     </article>
   );

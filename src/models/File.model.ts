@@ -2,6 +2,7 @@ export interface IFiles {
   currentDir: number;
   currentFiles: IFile[];
   stack: IFile[];
+  isLoading: boolean;
 }
 
 export interface IFile {

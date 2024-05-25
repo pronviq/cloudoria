@@ -5,6 +5,10 @@ import DateSvg from "../../images/DateSvg";
 import FilterSvg from "../../images/FilterSvg";
 import ArrowSvg from "../../images/ArrowSvg";
 import { Transition } from "react-transition-group";
+import { AnimatePresence, motion } from "framer-motion";
+import { AnimatedDropDown } from "../../models/Animation.model";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import { setCurrentFiles } from "../../redux/fileSlice";
 // import { Transition } from "react-transition-group";
 
 const FilterDropDown: React.FC = () => {
@@ -13,6 +17,8 @@ const FilterDropDown: React.FC = () => {
   const activeBackgroundColor = "rgba(128, 128, 128, 0.2)";
   const btnRef = useRef<HTMLButtonElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  const files = useAppSelector((state) => state.fileReducer.currentFiles);
+  const dispatch = useAppDispatch();
 
   const handleFalse = (event: MouseEvent) => {
     const target = (event.target as Node) || null;
@@ -21,7 +27,25 @@ const FilterDropDown: React.FC = () => {
     }
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    if (sortStyle) {
+      let sortedFiles = [...files];
+      switch (sortStyle) {
+        case "alphabet":
+          sortedFiles.sort((a, b) => a.name.localeCompare(b.name));
+          break;
+        case "size":
+          sortedFiles.sort((a, b) => b.size - a.size);
+          break;
+        case "date":
+          sortedFiles.sort((a, b) => Date.parse(a.timestamp) - Date.parse(b.timestamp));
+          break;
+        default:
+          sortedFiles = sortedFiles;
+      }
+      dispatch(setCurrentFiles(sortedFiles));
+    }
+  }, [sortStyle]);
 
   useEffect(() => {
     document.addEventListener("click", handleFalse);
@@ -32,11 +56,11 @@ const FilterDropDown: React.FC = () => {
     <div className="filter_dd">
       <button ref={btnRef} onClick={() => setActive((p) => !p)} className="filter_head">
         <FilterSvg />
-        <ArrowSvg isActive={isActive} />
+        <ArrowSvg transition="ease .2s" rotate={isActive ? "180deg" : "0deg"} />
       </button>
-      <Transition mountOnEnter unmountOnExit in={isActive} timeout={50}>
-        {(state) => (
-          <div ref={contentRef} className={`filter_content ${state}`}>
+      <AnimatePresence>
+        {isActive && (
+          <motion.div {...AnimatedDropDown} ref={contentRef} className={`filter_content`}>
             <ul className="filter_content_list">
               <li className="filter_content_item">
                 <button
@@ -72,9 +96,9 @@ const FilterDropDown: React.FC = () => {
                 </button>
               </li>
             </ul>
-          </div>
+          </motion.div>
         )}
-      </Transition>
+      </AnimatePresence>
     </div>
   );
 };

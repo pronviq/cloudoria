@@ -1,9 +1,15 @@
 import { AxiosResponse } from "axios";
 import $api from "../api/AxiosApi";
 import { IFile } from "../models/File.model";
+import { deleteFile, switchFavorite, switchTrash } from "../redux/fileSlice";
 import { updateSize } from "../redux/userSlice";
+import store from "../redux/store";
+
+const dispatch = store.dispatch;
 
 export default class FileService {
+  static async setDirectory(file: IFile) {}
+
   static async searchFiles(q: string): Promise<AxiosResponse<IFile[]>> {
     return await $api.get<IFile[]>(`/searchfiles?q=${q}`);
   }
@@ -19,6 +25,8 @@ export default class FileService {
   static async uploadFile(file: File, parent_id: number) {
     try {
       const formData = new FormData();
+      console.log(file);
+
       formData.append("file", file);
       formData.append("parent_file", parent_id.toString());
       formData.append("name", file.name);
@@ -44,17 +52,21 @@ export default class FileService {
     }
   }
 
-  static async deleteFile(file: IFile) {
+  static async deleteFile(file: IFile, index: number) {
     try {
+      dispatch(deleteFile({ index }));
+      dispatch(updateSize(file.size * -1));
       const response = await $api.delete(`/deletefile?id=${file.id}`);
+
       return true;
     } catch (error) {
       return false;
     }
   }
 
-  static async switchFavorite(file: IFile) {
+  static async switchFavorite(file: IFile, index: number) {
     try {
+      dispatch(switchFavorite({ index }));
       const response = await $api.put("/changevalue", {
         id: file.id,
         prop: "is_favorite",
@@ -67,8 +79,10 @@ export default class FileService {
     }
   }
 
-  static async switchTrash(file: IFile) {
+  static async switchTrash(file: IFile, index: number) {
     try {
+      dispatch(switchTrash({ index }));
+
       const response = await $api.put("/changevalue", {
         id: file.id,
         prop: "is_trash",

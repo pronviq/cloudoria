@@ -6,6 +6,7 @@ const initialState: IFiles = {
   currentDir: -1,
   currentFiles: [],
   stack: [],
+  isLoading: true,
 };
 
 interface ISwitcher {
@@ -16,6 +17,10 @@ export const fileSlice = createSlice({
   name: "fileSlice",
   initialState: initialState,
   reducers: {
+    setLoading(state, action: PayloadAction<boolean>) {
+      state.isLoading = action.payload;
+    },
+
     switchFavorite(state, action: PayloadAction<ISwitcher>) {
       const payload = action.payload;
       state.currentFiles[payload.index].is_favorite =
@@ -58,6 +63,7 @@ export const {
   switchFavorite,
   switchTrash,
   deleteFile,
+  setLoading,
 } = fileSlice.actions;
 
 export default fileSlice.reducer;
