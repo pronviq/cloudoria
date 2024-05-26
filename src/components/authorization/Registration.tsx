@@ -1,4 +1,4 @@
-import React, { MouseEvent, useState } from "react";
+import React, { MouseEvent, useRef, useState } from "react";
 import "./Login.scss";
 import AuthService from "../../services/AuthService";
 import StringValidator from "../../utils/StringValidator";
@@ -36,13 +36,11 @@ const Registration: React.FC<IRegistration> = ({ setRotate }) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  async function registration(e: MouseEvent) {
-    e.preventDefault();
+  const usernameRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
 
-    // if (!validateData()) {
-    //   return;
-    // }
-
+  async function registration() {
     AuthService.registration(email, username, password, gender)
       .then((response: AxiosResponse<AuthResponse>) => {
         const user = UserService.responseToUser(response);
@@ -64,6 +62,7 @@ const Registration: React.FC<IRegistration> = ({ setRotate }) => {
       <form action="" className="auth_form">
         <div className="email_cont">
           <MyInput
+            reference={usernameRef}
             value={username}
             onChange={(val) => {
               setUsername(val);
@@ -72,9 +71,16 @@ const Registration: React.FC<IRegistration> = ({ setRotate }) => {
             error={usernameError}
             type="text"
             placeholder="username"
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                emailRef.current?.focus();
+              }
+            }}
           />
         </div>
         <MyInput
+          reference={emailRef}
           value={email}
           onChange={(val) => {
             setEmail(val);
@@ -83,8 +89,15 @@ const Registration: React.FC<IRegistration> = ({ setRotate }) => {
           error={emailError}
           type="text"
           placeholder="e-mail"
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              passwordRef.current?.focus();
+            }
+          }}
         />
         <MyInput
+          reference={passwordRef}
           value={password}
           onChange={(val) => {
             setPassword(val);
@@ -104,10 +117,19 @@ const Registration: React.FC<IRegistration> = ({ setRotate }) => {
               {isVisible ? <EyeOpenSvg /> : <EyeClosedSvg />}
             </button>
           }
+          onKeyDown={(e) => {
+            if (e.key === "Enter") e.preventDefault();
+          }}
         />
         <ChooseGender gender={gender} setGender={setGender} />
         <div className="registration_buttons">
-          <MyButton text="Зарегистрироваться" onClick={registration} />
+          <MyButton
+            text="Зарегистрироваться"
+            onClick={(e) => {
+              e.preventDefault();
+              registration();
+            }}
+          />
           <MyButton
             text="Вход"
             onClick={(e) => {

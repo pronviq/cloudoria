@@ -26,12 +26,13 @@ const Login: React.FC<ILogin> = ({ setRotate }) => {
   const [bothError, setBothError] = useState<string>("");
   const [isVisible, setVisible] = useState<boolean>(false);
 
+  const usernameRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
+
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  async function login(e: MouseEvent) {
-    e.preventDefault();
-
+  async function login() {
     await AuthService.login(email, password)
       .then((response: AxiosResponse<AuthResponse>) => {
         const user = UserService.responseToUser(response);
@@ -53,6 +54,7 @@ const Login: React.FC<ILogin> = ({ setRotate }) => {
       </div>
       <form action="" className="auth_form">
         <MyInput
+          reference={usernameRef}
           value={email}
           onChange={(val) => {
             setEmail(val);
@@ -61,9 +63,16 @@ const Login: React.FC<ILogin> = ({ setRotate }) => {
           error={bothError ? true : false}
           type="text"
           placeholder="e-mail or username"
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              passwordRef.current?.focus();
+            }
+          }}
         />
 
         <MyInput
+          reference={passwordRef}
           value={password}
           onChange={(val) => {
             setPassword(val);
@@ -83,10 +92,22 @@ const Login: React.FC<ILogin> = ({ setRotate }) => {
               {isVisible ? <EyeOpenSvg /> : <EyeClosedSvg />}
             </button>
           }
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              login();
+            }
+          }}
         />
 
         <div className="login_buttons">
-          <MyButton text="Войти" onClick={login} />
+          <MyButton
+            text="Войти"
+            onClick={(e) => {
+              e.preventDefault();
+              login();
+            }}
+          />
           <MyButton
             text="Регистрация"
             onClick={(e) => {

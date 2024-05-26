@@ -10,7 +10,7 @@
   align-items: center;
   transform: translateZ(-$auth_translateZ) rotateY(180deg);
   margin-left: -250px;
-  backdrop-filter: blur(40px) brightness(95%);
+  background-color: var(--background);
   padding-top: 50px;
 }
 

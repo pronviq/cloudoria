@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { KeyboardEvent, ReactNode, RefObject } from "react";
 import "./MyInput.scss";
 
 interface IMyInput {
@@ -8,14 +8,27 @@ interface IMyInput {
   children?: ReactNode;
   type: "text" | "password";
   placeholder?: string;
+  reference?: RefObject<HTMLInputElement>;
+  onKeyDown?: (e: KeyboardEvent<HTMLInputElement>) => void;
 }
 
-const MyInput: React.FC<IMyInput> = ({ value, onChange, error, children, type, placeholder }) => {
+const MyInput: React.FC<IMyInput> = ({
+  value,
+  onChange,
+  error,
+  children,
+  type,
+  placeholder,
+  reference,
+  onKeyDown,
+}) => {
   const warningColor = "rgba(255, 0, 0, 0.7)";
 
   return (
     <div className="myinput">
       <input
+        ref={reference}
+        onKeyDown={onKeyDown}
         maxLength={40}
         style={{ borderColor: error ? warningColor : "" }}
         value={value}

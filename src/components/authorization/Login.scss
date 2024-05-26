@@ -9,7 +9,7 @@
   box-shadow: 0 0 10px -5px;
   align-items: center;
   transform: translateZ($auth_translateZ);
-  backdrop-filter: blur(40px) brightness(95%);
+  background-color: var(--background);
   padding-top: 70px;
 }
 
