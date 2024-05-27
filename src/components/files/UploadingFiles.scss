@@ -1,0 +1,56 @@
+// height in Animation.model
+
+.loadingstack {
+  position: absolute;
+  background-color: var(--background);
+  border: 1px solid;
+  border-bottom: none;
+  width: 300px;
+
+  right: 0;
+  bottom: 0;
+  margin-right: 20px;
+  border-radius: 8px 8px 0 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+}
+
+$header_height: 40px;
+
+.loadingstack_header {
+  padding-left: 10px;
+  padding-top: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: $header_height;
+  width: 100%;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.loadingstack_title {
+  font-family: sans-serif;
+}
+
+.loadingstack_close {
+  height: $header_height;
+  width: $header_height;
+  border-radius: 8px;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &:active {
+    border: none;
+  }
+}
+
+.loadingstack_content {
+  flex-grow: 1;
+  height: calc(100% - $header_height);
+  // background-color: blue;
+}

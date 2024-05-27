@@ -1,10 +1,10 @@
 import React, { memo } from "react";
 import "./Main.scss";
-import FilterDropDown from "./ui/FilterDropDown";
-import UserSettings from "./ui/UserSettings";
+import FilterDropDown from "./ui/header/FilterDropDown";
+import UserSettings from "./ui/header/UserSettings";
 import StackFiles from "./files/StackFiles";
 import { Outlet, useLocation } from "react-router-dom";
-import Search from "./ui/Search";
+import Search from "./ui/header/Search";
 
 const Main: React.FC = () => {
   const location = useLocation();

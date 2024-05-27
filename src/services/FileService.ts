@@ -1,9 +1,10 @@
 import { AxiosResponse } from "axios";
 import $api from "../api/AxiosApi";
-import { IFile } from "../models/File.model";
+import { IFile, IUploadingFile } from "../models/File.model";
 import { deleteFile, switchFavorite, switchTrash } from "../redux/fileSlice";
 import { updateSize } from "../redux/userSlice";
 import store from "../redux/store";
+import { changeProgress, makeError, pushUFile } from "../redux/uploadSlice";
 
 const dispatch = store.dispatch;
 
@@ -23,31 +24,36 @@ export default class FileService {
   }
 
   static async uploadFile(file: File, parent_id: number) {
+    const i_file: IUploadingFile = {
+      name: file.name,
+      id: Date.now(),
+      size: file.size,
+      progress: 0,
+      type: file.type,
+    };
+    dispatch(pushUFile(i_file));
+
     try {
       const formData = new FormData();
-      console.log(file);
 
       formData.append("file", file);
       formData.append("parent_file", parent_id.toString());
       formData.append("name", file.name);
-      // console.log(file);
 
       const response = await $api.post<IFile>("/uploadfile", formData, {
         onUploadProgress: (progressEvent) => {
-          // @ts-ignore
           const totalLength = progressEvent.total;
-
-          // console.log("total", totalLength);
           if (totalLength) {
             let progress = Math.round((progressEvent.loaded * 100) / totalLength);
-            // console.log(progress);
+            dispatch(changeProgress({ id: i_file.id, progress }));
           }
         },
       });
 
       return response.data;
     } catch (error) {
-      console.log(error);
+      // console.log(error);
+      dispatch(makeError(i_file));
       return false;
     }
   }

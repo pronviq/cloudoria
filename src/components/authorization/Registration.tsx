@@ -12,10 +12,10 @@ import { useAppDispatch } from "../../hooks/redux";
 import { setUser } from "../../redux/userSlice";
 import CloudSvg from "../../images/CloudSvg";
 import UserService from "../../services/UserService";
-import MyInput from "../ui/MyInput";
+import MyInput from "../ui/MyElements/MyInput";
 import EyeOpenSvg from "../../images/EyeOpenSvg";
 import EyeClosedSvg from "../../images/EyeClosedSvg";
-import MyButton from "../ui/MyButton";
+import MyButton from "../ui/MyElements/MyButton";
 
 interface IRegistration {
   setRotate: (n: number) => void;

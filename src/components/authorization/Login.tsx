@@ -13,8 +13,8 @@ import { setUser } from "../../redux/userSlice";
 import UserService from "../../services/UserService";
 import EyeOpenSvg from "../../images/EyeOpenSvg";
 import EyeClosedSvg from "../../images/EyeClosedSvg";
-import MyInput from "../ui/MyInput";
-import MyButton from "../ui/MyButton";
+import MyInput from "../ui/MyElements/MyInput";
+import MyButton from "../ui/MyElements/MyButton";
 
 interface ILogin {
   setRotate: (n: number) => void;

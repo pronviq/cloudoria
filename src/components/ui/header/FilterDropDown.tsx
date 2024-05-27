@@ -1,14 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./FilterDropDown.scss";
-import ScalesSvg from "../../images/ScalesSvg";
-import DateSvg from "../../images/DateSvg";
-import FilterSvg from "../../images/FilterSvg";
-import ArrowSvg from "../../images/ArrowSvg";
+import ScalesSvg from "../../../images/ScalesSvg";
+import DateSvg from "../../../images/DateSvg";
+import FilterSvg from "../../../images/FilterSvg";
+import ArrowSvg from "../../../images/ArrowSvg";
 import { Transition } from "react-transition-group";
 import { AnimatePresence, motion } from "framer-motion";
-import { AnimatedDropDown } from "../../models/Animation.model";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { setCurrentFiles } from "../../redux/fileSlice";
+import { AnimatedDropDown } from "../../../models/Animation.model";
+import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
+import { setCurrentFiles } from "../../../redux/fileSlice";
 // import { Transition } from "react-transition-group";
 
 const FilterDropDown: React.FC = () => {

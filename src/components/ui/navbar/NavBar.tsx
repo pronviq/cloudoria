@@ -1,19 +1,19 @@
 import React, { ChangeEventHandler, memo, useState } from "react";
 import "./NavBar.scss";
-import FreeSpace from "../../components/FreeSpace";
-import TrashSvg from "../../images/TrashSvg";
-import FavoriteSvg from "../../images/FavoriteSvg";
-import FilesSvg from "../../images/FilesSvg";
-import CloudSvg from "../../images/CloudSvg";
-import UploadSvg from "../../images/UploadSvg";
+import FreeSpace from "../../FreeSpace";
+import TrashSvg from "../../../images/TrashSvg";
+import FavoriteSvg from "../../../images/FavoriteSvg";
+import FilesSvg from "../../../images/FilesSvg";
+import CloudSvg from "../../../images/CloudSvg";
+import UploadSvg from "../../../images/UploadSvg";
 import CreateDir from "./CreateDir";
 import { Link } from "react-router-dom";
-import FileService from "../../services/FileService";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { pushFile, setCurrentDir, updateStack } from "../../redux/fileSlice";
-import { updateSize } from "../../redux/userSlice";
-import SearchSvg from "../../images/SearchSvg";
-import ArrowSvg from "../../images/ArrowSvg";
+import FileService from "../../../services/FileService";
+import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
+import { pushFile, setCurrentDir, updateStack } from "../../../redux/fileSlice";
+import { updateSize } from "../../../redux/userSlice";
+import SearchSvg from "../../../images/SearchSvg";
+import ArrowSvg from "../../../images/ArrowSvg";
 import { AnimatePresence, motion } from "framer-motion";
 
 const NavBar: React.FC = () => {

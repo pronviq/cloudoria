@@ -1,15 +1,15 @@
 import React, { startTransition, useEffect, useRef, useState } from "react";
 import "./UserSettings.scss";
-import AuthService from "../../services/AuthService";
+import AuthService from "../../../services/AuthService";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { initialState, setUser } from "../../redux/userSlice";
-import SettingsSvg from "../../images/SettingsSvg";
-import ExitSvg from "../../images/ExitSvg";
-import ThemeChanger from "./ThemeChanger";
+import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
+import { initialState, setUser } from "../../../redux/userSlice";
+import SettingsSvg from "../../../images/SettingsSvg";
+import ExitSvg from "../../../images/ExitSvg";
+import ThemeChanger from "../ThemeChanger";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import { AnimatedDropDown } from "../../models/Animation.model";
+import { AnimatedDropDown } from "../../../models/Animation.model";
 
 const UserSettings: React.FC = () => {
   const [isActive, setActive] = useState<boolean>(false);

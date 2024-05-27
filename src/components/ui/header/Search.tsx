@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import FileService from "../../services/FileService";
+import FileService from "../../../services/FileService";
 import "./Search.scss";
-import { useAppDispatch } from "../../hooks/redux";
-import { setCurrentFiles, setLoading } from "../../redux/fileSlice";
-import useDebounce from "../../hooks/useDebounce";
+import { useAppDispatch } from "../../../hooks/redux";
+import { setCurrentFiles, setLoading } from "../../../redux/fileSlice";
+import useDebounce from "../../../hooks/useDebounce";
 
 const Search = () => {
   const dispatch = useAppDispatch();

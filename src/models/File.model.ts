@@ -17,3 +17,16 @@ export interface IFile {
   timestamp: string;
   is_trash: boolean;
 }
+
+export interface IUploadingFiles {
+  files: IUploadingFile[];
+}
+
+export interface IUploadingFile {
+  name: string;
+  id: number;
+  size: number;
+  progress: number;
+  type: string;
+  error?: boolean;
+}

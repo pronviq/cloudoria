@@ -21,6 +21,7 @@ import { API_URL } from "../../api/AxiosApi";
 import JustFileSvg from "../../images/JustFileSvg";
 import { AnimatePresence, motion } from "framer-motion";
 import { AnimatedListFile } from "../../models/Animation.model";
+import FileSvg from "../../images/FileSvg";
 
 interface FileInterface {
   file: IFile;
@@ -57,17 +58,18 @@ const ListFile: React.FC<FileInterface> = ({ file, index, duration }) => {
 
   const { size, unit } = GetSize(file.size);
   const dot_split_array = file.name.split(".");
-  let type;
-  if (dot_split_array.length > 1) type = "." + dot_split_array.pop();
+  let ext;
+  if (dot_split_array.length > 1) ext = "." + dot_split_array.pop();
   const name = file.name.replace(/\.[^.]*$/, "");
+  const type = file.type.split("/").shift();
 
   return (
     <AnimatePresence>
       <motion.div transition={{ duration: duration }} {...AnimatedListFile}>
         <button onClick={() => setDir(file)} className="listfile">
-          {file.type === "dir" ? (
+          {type === "dir" ? (
             <DirectorySvg className="listfile_file" size={25} />
-          ) : file.type === "image/png" ? (
+          ) : type === "image" ? (
             <img
               width={30}
               height={30}
@@ -75,16 +77,18 @@ const ListFile: React.FC<FileInterface> = ({ file, index, duration }) => {
               src={API_URL + "/getpreview/" + file.id}
               alt="preview"
             ></img>
+          ) : type === "text" ? (
+            <FileSvg className="listfile_file" />
           ) : (
             <JustFileSvg
               className="listfile_file"
-              format={type?.toUpperCase().slice(1, type.length)}
+              format={ext?.toUpperCase().slice(1, ext.length)}
               width={30}
             />
           )}
           <div className="listfile_info">
             <div className="listfile_name">{name}</div>
-            <div className="listfile_type">{type}</div>
+            <div className="listfile_type">{ext}</div>
           </div>
           <div className="listfile_date">{file.timestamp.slice(0, 10)} </div>
           <div className="listfile_time">{file.timestamp.slice(11, 16)}</div>

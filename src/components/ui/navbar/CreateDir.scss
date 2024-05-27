@@ -1,0 +1,67 @@
+@import "../../../styles/Variables.scss";
+
+.createdir_menu {
+  $width: 300px;
+  $height: 150px;
+  width: $width;
+  height: $height;
+
+  background-color: rgb(165, 135, 94);
+
+  margin-left: calc(50vw - $width / 2);
+  margin-top: calc(50svh - $height / 2);
+  left: 0;
+  top: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  border: 1px solid;
+  position: absolute;
+  border-radius: 10px;
+
+  z-index: 110;
+}
+
+.createdir_header {
+  width: 100%;
+  margin-top: 15px;
+  font-size: 14px;
+  text-align: center;
+  padding: 4px;
+}
+
+.createdir_input {
+  height: 50px;
+  margin-top: 15px;
+  // background-color: pink;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.createdir_action {
+  padding: 3px;
+  border-radius: 4px;
+  width: 80px;
+  user-select: none;
+}
+
+.createdir_bg {
+  z-index: 105;
+  width: 100vw;
+  position: fixed;
+  height: 100svh;
+  backdrop-filter: brightness(80%) blur(0.5px);
+  left: 0;
+  top: 0;
+}
+
+.createdir_error {
+  // width: 100%;
+  margin-top: -4px;
+  font-size: 10px;
+  color: red;
+  opacity: $unactive_opacity;
+}
