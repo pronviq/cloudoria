@@ -7,8 +7,9 @@ import { IFile } from "../../../models/File.model";
 import { pushFile } from "../../../redux/fileSlice";
 import { updateSize } from "../../../redux/userSlice";
 import MyInput from "../MyElements/MyInput";
-import { AnimatedCreateDir, AnimatedDropDown } from "../../../models/Animation.model";
+import { AnimatedCreateDir } from "../../../models/Animation.model";
 import { AnimatePresence, motion } from "framer-motion";
+import { useLocation } from "react-router-dom";
 
 const CreateDir: React.FC = () => {
   const [isActive, setActive] = useState<boolean>(false);
@@ -17,17 +18,13 @@ const CreateDir: React.FC = () => {
 
   const inputRef = useRef<HTMLInputElement | null>(null);
   const currentDir = useAppSelector((state) => state.fileReducer.currentDir);
-  const user = useAppSelector((state) => state.userReducer);
   const dispatch = useAppDispatch();
+  const location = useLocation();
 
   const createDir = async () => {
     try {
-      // console.log("curr dir", currentDir);
-
       const dir: IFile = await FileService.createDir(currentDir, name);
-
-      // console.log("dir is", dir);
-      dispatch(pushFile(dir));
+      location.pathname === "/" && dispatch(pushFile(dir));
       dispatch(updateSize(dir.size));
       setActive(false);
     } catch (err: any) {
@@ -36,14 +33,14 @@ const CreateDir: React.FC = () => {
   };
 
   useEffect(() => {
-    // inputRef.current?.select();
-  }, []);
+    inputRef.current?.focus();
+  }, [isActive]);
 
   return (
     <div className="createdir">
       <button onClick={() => setActive(true)} className="upload_btn">
         <div className="upload_title">Создать</div>
-        <CreateSvg />
+        <CreateSvg width="20px" />
       </button>
 
       <AnimatePresence>
@@ -54,6 +51,7 @@ const CreateDir: React.FC = () => {
                 <div className="createdir_header">Укажите название папки </div>
                 <div className="createdir_input">
                   <MyInput
+                    reference={inputRef}
                     onChange={(val) => {
                       setError("");
                       setName(val);

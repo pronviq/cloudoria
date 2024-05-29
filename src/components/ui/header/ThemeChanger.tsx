@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./ThemeChanger.scss";
-import MoonSvg from "../../images/MoonSvg";
-import SunSvg from "../../images/SunSvg";
-import { useTheme } from "../../contexts/theme/Theme.context";
-import UserService from "../../services/UserService";
-import { useAppSelector } from "../../hooks/redux";
+import MoonSvg from "../../../images/MoonSvg";
+import SunSvg from "../../../images/SunSvg";
+import { useTheme } from "../../../contexts/theme/Theme.context";
+import UserService from "../../../services/UserService";
+import { useAppSelector } from "../../../hooks/redux";
 
 const ThemeChanger: React.FC = () => {
   const { setCurrentTheme, theme } = useTheme();

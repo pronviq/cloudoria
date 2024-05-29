@@ -24,7 +24,9 @@ const UploadingFiles: React.FC = () => {
   return (
     <div className="loadingstack">
       <header onClick={() => setActive((i) => !i)} className="loadingstack_header">
-        <div className="loadingstack_title">Загрузка файлов {percentage}%</div>
+        <div className="loadingstack_title">
+          {percentage !== 100 ? "Загрузка файлов " + percentage + "%" : "Все файлы загружены"}
+        </div>
         <div className="loadingstack_close">
           <ArrowSvg rotate={isActive ? "0deg" : "180deg"} />
         </div>

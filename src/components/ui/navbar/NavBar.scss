@@ -21,7 +21,6 @@
   align-items: center;
   justify-content: center;
   width: 20px;
-  // background-color: red;
   border: none;
   height: inherit;
   &:active {
@@ -37,18 +36,37 @@
   align-items: center;
   justify-content: center;
   width: $nav_content_width;
-  margin: 6px;
-  margin-top: 15px;
+  width: 100%;
+  margin-top: 8px;
+  // background-color: chocolate;
+  height: $header_height;
+  margin-bottom: -5px;
+}
+
+.upload_btn {
+  border-radius: 8px;
+  margin-top: 10px;
+  padding: 2px;
+  border: 1px dashed;
+  width: $nav_content_width;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // background-color: #c850c0;
+  height: 30px;
+}
+
+.upload_title {
+  font-size: 14px;
+  margin-right: 5px;
 }
 
 .nav_title {
   font-size: 20px;
   margin-left: 4px;
-}
-
-.upload_title {
-  font-size: 15px;
-  margin-right: 5px;
+  background-image: linear-gradient(43deg, #4158d0 0%, #c850c0 46%, #ffcc70 100%);
+  background-clip: text;
+  color: transparent;
 }
 
 .navlist {
@@ -72,27 +90,23 @@
 
 .navlist_item {
   font-size: 14px;
-  margin: 4px 0 0 5px;
+  height: 22px;
   display: flex;
+  position: relative;
   align-items: center;
+  margin-top: 2px;
   p {
     margin-left: 4px;
   }
-}
-
-.upload_btn {
-  border-radius: 10px;
-  // border: dashed 1px;
-  box-shadow: 0 0 3px 0.5px;
-  margin-top: 10px;
-  border: none;
-  padding: 2px;
-  width: $nav_content_width;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  &:active {
-    border: none;
+  &:before {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    content: "";
+    position: absolute;
+    // border-image: linear-gradient(center, #ffcc70, #c850c0, #4158d0) 1;0
+    // border: 1px solid;
   }
 }
 

@@ -29,7 +29,7 @@ $api.interceptors.response.use(
   async (error: any) => {
     const originalRequest = error.config;
 
-    if (error.response.status === 401 && error.config && !error.config._isRetry) {
+    if (error.response?.status === 401 && error.config && !error.config._isRetry) {
       console.log("\x1b[33m401. Обновляю токен...\x1b[0m");
       try {
         originalRequest._isRetry = true;

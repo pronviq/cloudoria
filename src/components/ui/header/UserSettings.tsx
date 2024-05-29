@@ -6,10 +6,11 @@ import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { initialState, setUser } from "../../../redux/userSlice";
 import SettingsSvg from "../../../images/SettingsSvg";
 import ExitSvg from "../../../images/ExitSvg";
-import ThemeChanger from "../ThemeChanger";
+import ThemeChanger from "./ThemeChanger";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { AnimatedDropDown } from "../../../models/Animation.model";
+import AvatarSvg from "../../../images/AvatarSvg";
 
 const UserSettings: React.FC = () => {
   const [isActive, setActive] = useState<boolean>(false);
@@ -46,14 +47,16 @@ const UserSettings: React.FC = () => {
   return (
     <div className="user_settings">
       <button onClick={() => setActive((p) => !p)} ref={btnRef} className="user_settings_btn">
-        <img src="https://99px.ru/sstorage/53/2023/01/mid_348279_833663.jpg" alt="" />
+        {/* <img src="https://99px.ru/sstorage/53/2023/01/mid_348279_833663.jpg" alt="" /> */}
+        <AvatarSvg />
       </button>
 
       <AnimatePresence>
         {isActive && (
           <motion.div {...AnimatedDropDown} ref={contentRef} className={`user_settings_content`}>
             <div className="user_settings_info">
-              <img src="https://99px.ru/sstorage/53/2023/01/mid_348279_833663.jpg" alt="" />
+              <AvatarSvg width="35px" />
+              {/* <img src="https://99px.ru/sstorage/53/2023/01/mid_348279_833663.jpg" alt="" /> */}
               <div className="user_settings_about">
                 <p className="user_nickname">{user.username}</p>
                 <p className="user_email">{user.email}</p>
@@ -69,6 +72,7 @@ const UserSettings: React.FC = () => {
                     onClick={(e) => {
                       e.stopPropagation();
                       e.preventDefault();
+                      setActive(false);
                       startTransition(() => navigate("/settings"));
                     }}
                     className="user_settings_item"

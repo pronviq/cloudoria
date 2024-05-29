@@ -1,16 +1,10 @@
 import { useTheme } from "../contexts/theme/Theme.context";
 
-const CreateSvg = () => {
+const CreateSvg = ({ ...props }) => {
   const { theme } = useTheme();
 
   return (
-    <svg
-      width="25px"
-      height="25px"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg style={{ ...props }} viewBox="0 0 24 24" fill="none">
       <path
         d="M15 12L12 12M12 12L9 12M12 12L12 9M12 12L12 15"
         stroke={theme["--svg"]}

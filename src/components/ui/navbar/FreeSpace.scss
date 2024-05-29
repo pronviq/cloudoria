@@ -1,4 +1,4 @@
-@import "../styles/Variables.scss";
+@import "../../../styles/Variables.scss";
 
 .freespace {
   width: $nav_content_width;
@@ -19,16 +19,33 @@
 }
 
 .freespace_track {
+  position: relative;
   border-radius: 5px;
   width: 100%;
-  height: 8px;
+  height: 14px;
   border: 1px solid;
   margin-top: auto;
+  overflow: hidden;
   margin-bottom: 2px;
 }
 
 .freespace_progress {
+  position: absolute;
   height: 100%;
   width: 40%;
-  background-color: gray;
+  top: 0;
+  left: 0;
+  // background-color: rgb(255, 95, 121);
+  background-color: #4158d0;
+}
+
+.freespace_perc {
+  width: 100%;
+  position: absolute;
+  text-align: center;
+  color: white;
+  font-size: 13px;
+  top: 0;
+  left: 0;
+  height: 100%;
 }

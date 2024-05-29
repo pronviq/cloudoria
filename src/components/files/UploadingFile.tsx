@@ -9,7 +9,6 @@ import { removeUFile } from "../../redux/uploadSlice";
 
 const UploadingFile: React.FC<{ file: IUploadingFile }> = ({ file }) => {
   const dispatch = useAppDispatch();
-  console.log(file);
 
   const handleRemove = () => {
     dispatch(removeUFile(file));

@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import { AuthResponse } from "../models/Auth.model";
+import { AuthResponse, ISession } from "../models/Auth.model";
 import $api, { API_URL } from "../api/AxiosApi";
 
 interface ILogin {
@@ -44,6 +44,16 @@ export default class AuthService {
   static logout: () => Promise<AxiosResponse<void>> = async () => {
     localStorage.removeItem("token");
     const response = await $api.post<void>("/logout");
+    return response;
+  };
+
+  static getSessions = async (): Promise<AxiosResponse<ISession[]>> => {
+    const response = await $api.get<ISession[]>("/getsessions");
+    return response;
+  };
+
+  static terminateSession = async (id: number): Promise<AxiosResponse<any>> => {
+    const response = await $api.get(`/terminate?id=${id}`);
     return response;
   };
 }

@@ -18,6 +18,13 @@ export const AnimatedLoadingStack = {
   transition: { duration: 0.2 },
 };
 
+export const AnimatedSelection = {
+  initial: { marginTop: "-40px", opacity: 0 },
+  animate: { marginTop: "0px", opacity: 1 },
+  exit: { marginTop: "-40px", opacity: 0 },
+  transition: { duration: 0.2 },
+};
+
 export const AnimatedCreateDir = {
   // initial: { transform: "rotate(180deg)" },
   // animate: { transform: "rotate(0deg)" },

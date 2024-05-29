@@ -6,10 +6,10 @@
   width: $width;
   height: $height;
 
-  background-color: rgb(165, 135, 94);
+  background-color: rgb(255, 217, 164);
 
   margin-left: calc(50vw - $width / 2);
-  margin-top: calc(50svh - $height / 2);
+  margin-top: calc(50svh - $height);
   left: 0;
   top: 0;
 
@@ -35,7 +35,6 @@
 .createdir_input {
   height: 50px;
   margin-top: 15px;
-  // background-color: pink;
   display: flex;
   flex-direction: column;
   align-items: center;

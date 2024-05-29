@@ -49,7 +49,7 @@ const Login: React.FC<ILogin> = ({ setRotate }) => {
   return (
     <article className="login">
       <div className="auth_title">
-        <CloudSvg />
+        <CloudSvg width="45px" />
         <h1 className="title_text">CloudStorage</h1>
       </div>
       <form action="" className="auth_form">

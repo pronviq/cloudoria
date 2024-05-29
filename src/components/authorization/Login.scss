@@ -17,8 +17,13 @@
   display: flex;
   width: 100%;
   justify-content: center;
-  margin-bottom: 10px;
-  opacity: 0.9;
+}
+
+.title_text {
+  margin-top: 5px;
+  background-image: linear-gradient(43deg, #4158d0 0%, #c850c0 46%, #ffcc70 100%);
+  background-clip: text;
+  color: transparent;
 }
 
 .password_eye {

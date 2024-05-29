@@ -56,7 +56,7 @@ const Registration: React.FC<IRegistration> = ({ setRotate }) => {
   return (
     <article className="registration">
       <div className="auth_title">
-        <CloudSvg />
+        <CloudSvg width="45px" />
         <h1 className="title_text">CloudStorage</h1>
       </div>
       <form action="" className="auth_form">

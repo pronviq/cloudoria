@@ -30,7 +30,7 @@ const Files: React.FC = () => {
       } else if (location.pathname === "/trash") {
         const response = await FileService.getTrash();
         const data = response.data;
-        console.log("data is", data);
+        // console.log("data is", data);
 
         dispatch(setCurrentFiles(data));
       } else if (
@@ -51,6 +51,8 @@ const Files: React.FC = () => {
     fetchFiles();
   }, [location, currentDir]);
 
+  // console.log(files);
+
   if (isLoading) {
     return (
       <div className="files">
@@ -64,9 +66,13 @@ const Files: React.FC = () => {
   return (
     <div className="files">
       <SimpleBar className="files_simplebar" style={{ maxHeight: "100%", height: "100%" }}>
-        {files?.map((file, i) => (
-          <ListFile duration={(0.5 / files.length) * (i + 1)} index={i} key={i} file={file} />
-        ))}
+        {files?.map(
+          (file, i) =>
+            ((file.is_trash && location.pathname === "/trash") ||
+              (!file.is_trash && location.pathname !== "/trash")) && (
+              <ListFile duration={(0.5 / files.length) * (i + 1)} index={i} key={i} file={file} />
+            )
+        )}
       </SimpleBar>
     </div>
   );

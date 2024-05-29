@@ -3,6 +3,7 @@ export interface IFiles {
   currentFiles: IFile[];
   stack: IFile[];
   isLoading: boolean;
+  selected: number;
 }
 
 export interface IFile {
@@ -16,6 +17,7 @@ export interface IFile {
   parent_file: number;
   timestamp: string;
   is_trash: boolean;
+  is_selected: boolean;
 }
 
 export interface IUploadingFiles {
@@ -28,5 +30,5 @@ export interface IUploadingFile {
   size: number;
   progress: number;
   type: string;
-  error?: boolean;
+  error?: string;
 }

@@ -9,6 +9,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { AnimatedDropDown } from "../../../models/Animation.model";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { setCurrentFiles } from "../../../redux/fileSlice";
+import { useLocation } from "react-router-dom";
 // import { Transition } from "react-transition-group";
 
 const FilterDropDown: React.FC = () => {
@@ -19,6 +20,7 @@ const FilterDropDown: React.FC = () => {
   const contentRef = useRef<HTMLDivElement>(null);
   const files = useAppSelector((state) => state.fileReducer.currentFiles);
   const dispatch = useAppDispatch();
+  const location = useLocation();
 
   const handleFalse = (event: MouseEvent) => {
     const target = (event.target as Node) || null;
@@ -45,7 +47,7 @@ const FilterDropDown: React.FC = () => {
       }
       dispatch(setCurrentFiles(sortedFiles));
     }
-  }, [sortStyle]);
+  }, [sortStyle, location]);
 
   useEffect(() => {
     document.addEventListener("click", handleFalse);

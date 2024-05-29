@@ -5,12 +5,14 @@ import UserSettings from "./ui/header/UserSettings";
 import StackFiles from "./files/StackFiles";
 import { Outlet, useLocation } from "react-router-dom";
 import Search from "./ui/header/Search";
+import FileSelection from "./files/FileSelection";
 
 const Main: React.FC = () => {
   const location = useLocation();
 
   return (
     <main className="main">
+      {<FileSelection />}
       <header className="header">
         {location.pathname === "/search" ? <Search /> : <StackFiles />}
         <FilterDropDown />

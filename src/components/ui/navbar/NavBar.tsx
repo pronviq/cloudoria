@@ -1,6 +1,6 @@
 import React, { ChangeEventHandler, memo, useState } from "react";
 import "./NavBar.scss";
-import FreeSpace from "../../FreeSpace";
+import FreeSpace from "./FreeSpace";
 import TrashSvg from "../../../images/TrashSvg";
 import FavoriteSvg from "../../../images/FavoriteSvg";
 import FilesSvg from "../../../images/FilesSvg";
@@ -10,7 +10,7 @@ import CreateDir from "./CreateDir";
 import { Link } from "react-router-dom";
 import FileService from "../../../services/FileService";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
-import { pushFile, setCurrentDir, updateStack } from "../../../redux/fileSlice";
+import { dropSelection, pushFile, setCurrentDir, updateStack } from "../../../redux/fileSlice";
 import { updateSize } from "../../../redux/userSlice";
 import SearchSvg from "../../../images/SearchSvg";
 import ArrowSvg from "../../../images/ArrowSvg";
@@ -47,6 +47,7 @@ const NavBar: React.FC = () => {
   const handleLocation = () => {
     setActive(false);
     dispatch(updateStack([]));
+    dispatch(dropSelection());
     dispatch(setCurrentDir(user.root_directory));
   };
 
@@ -57,7 +58,7 @@ const NavBar: React.FC = () => {
     >
       <div className="nav_content">
         <div className="nav_head">
-          <CloudSvg />
+          <CloudSvg height="45px" />
           <h1 className="nav_title">CloudStorage</h1>
         </div>
         <input onChange={handleUpload} id="file_upload" hidden={true} type="file" multiple />
@@ -73,7 +74,7 @@ const NavBar: React.FC = () => {
           <li>
             <button onClick={handleLocation}>
               <Link className="navlist_item" to="/">
-                <FilesSvg />
+                <FilesSvg height="100%" />
                 <p>Все файлы</p>
               </Link>
             </button>
@@ -81,24 +82,24 @@ const NavBar: React.FC = () => {
           <li>
             <button onClick={handleLocation}>
               <Link className="navlist_item" to="/favorites">
-                <FavoriteSvg width="20px" />
+                <FavoriteSvg height="100%" />
                 <p>Избранное</p>
               </Link>
             </button>
           </li>
           <li>
             <button onClick={handleLocation}>
-              <Link className="navlist_item" to="/search">
-                <SearchSvg width="20px" />
-                <p>Поиск</p>
+              <Link className="navlist_item" to="/trash">
+                <TrashSvg height="100%" />
+                <p>Корзина</p>
               </Link>
             </button>
           </li>
           <li>
             <button onClick={handleLocation}>
-              <Link className="navlist_item" to="/trash">
-                <TrashSvg width="20px" />
-                <p>Корзина</p>
+              <Link className="navlist_item" to="/search">
+                <SearchSvg height="100%" />
+                <p>Поиск</p>
               </Link>
             </button>
           </li>

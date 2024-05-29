@@ -1,6 +1,6 @@
 import React from "react";
 import "./FreeSpace.scss";
-import { useAppSelector } from "../hooks/redux";
+import { useAppSelector } from "../../../hooks/redux";
 
 const FreeSpace: React.FC = () => {
   const { disk_space, used_space } = useAppSelector((state) => state.userReducer);
@@ -20,6 +20,7 @@ const FreeSpace: React.FC = () => {
       </div>
       <div className="freespace_track">
         <div style={{ width: usedSpacePercent + "%" }} className="freespace_progress"></div>
+        <div className="freespace_perc">{Math.round(usedSpacePercent) + "%"}</div>
       </div>
     </div>
   );

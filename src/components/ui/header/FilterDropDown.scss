@@ -12,25 +12,21 @@
 }
 
 .filter_head {
-  // background-color: red;
-  border-radius: 5px;
-  width: 40px;
-  border: none;
-  box-shadow: 0 0 1px 0.5px;
-  height: 20px;
+  width: 42px;
+  height: 22px;
   margin-right: 4px;
   display: flex;
+  border-radius: 4px;
+  border: 1px dotted;
+  justify-content: center;
   align-items: center;
-  &:active {
-    border: none;
-  }
 }
 
 .filter_content {
   position: absolute;
-  box-shadow: 0 0 3px 0;
-  backdrop-filter: blur(10px);
   top: 100%;
+  border: 1px dotted;
+  background-color: var(--background);
   margin-top: 6px;
   right: 0;
   border-radius: 6px;

@@ -1,27 +1,20 @@
-import React from "react";
+import React, { ReactEventHandler, useRef, useState } from "react";
 import "./ListFile.scss";
 import { IFile } from "../../models/File.model";
 import DirectorySvg from "../../images/DirectorySvg";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import {
-  deleteFile,
-  setCurrentDir,
-  switchFavorite,
-  switchTrash,
-  updateStack,
-} from "../../redux/fileSlice";
+import { setCurrentDir, switchSelection, updateStack } from "../../redux/fileSlice";
 import FavoriteSvg from "../../images/FavoriteSvg";
 import TrashSvg from "../../images/TrashSvg";
 import FileService from "../../services/FileService";
 import ReloadSvg from "../../images/ReloadSvg";
 import BurnSvg from "../../images/BurnSvg";
 import GetSize from "../../utils/GetSize";
-import { updateSize } from "../../redux/userSlice";
-import { API_URL } from "../../api/AxiosApi";
 import JustFileSvg from "../../images/JustFileSvg";
 import { AnimatePresence, motion } from "framer-motion";
 import { AnimatedListFile } from "../../models/Animation.model";
 import FileSvg from "../../images/FileSvg";
+import { API_URL } from "../../api/AxiosApi";
 
 interface FileInterface {
   file: IFile;
@@ -32,6 +25,11 @@ interface FileInterface {
 const ListFile: React.FC<FileInterface> = ({ file, index, duration }) => {
   const dispatch = useAppDispatch();
   const stack = useAppSelector((state) => state.fileReducer.stack);
+  const selected = useAppSelector((state) => state.fileReducer.selected);
+
+  let isMouseDown = false;
+  const [isSelected, setSelected] = useState<boolean>(false);
+  let selectionRef = useRef<NodeJS.Timeout>();
 
   const setDir = (file: IFile) => {
     if (file.is_trash || file.type !== "dir") return;
@@ -56,6 +54,31 @@ const ListFile: React.FC<FileInterface> = ({ file, index, duration }) => {
     await FileService.deleteFile(file, index);
   };
 
+  const handleDown = () => {
+    isMouseDown = true;
+    clearTimeout(selectionRef.current);
+    selectionRef.current = setTimeout(() => {
+      if (isMouseDown && !selected) {
+        handleSelect();
+        setSelected(true);
+      }
+    }, 500);
+  };
+
+  const handleSelect = () => {
+    dispatch(switchSelection({ index }));
+  };
+
+  const handleUp = () => {
+    isMouseDown = false;
+    if (selected === 0) {
+      setDir(file);
+    } else if (!isSelected) {
+      handleSelect();
+    }
+    setSelected(false);
+  };
+
   const { size, unit } = GetSize(file.size);
   const dot_split_array = file.name.split(".");
   let ext;
@@ -66,7 +89,12 @@ const ListFile: React.FC<FileInterface> = ({ file, index, duration }) => {
   return (
     <AnimatePresence>
       <motion.div transition={{ duration: duration }} {...AnimatedListFile}>
-        <button onClick={() => setDir(file)} className="listfile">
+        <button
+          onPointerUp={handleUp}
+          onPointerDown={handleDown}
+          className="listfile"
+          style={{ backgroundColor: file.is_selected ? "rgba(80, 94, 253, 0.3)" : "" }}
+        >
           {type === "dir" ? (
             <DirectorySvg className="listfile_file" size={25} />
           ) : type === "image" ? (
@@ -75,7 +103,7 @@ const ListFile: React.FC<FileInterface> = ({ file, index, duration }) => {
               height={30}
               className="listfile_file"
               src={API_URL + "/getpreview/" + file.id}
-              alt="preview"
+              alt=""
             ></img>
           ) : type === "text" ? (
             <FileSvg className="listfile_file" />
@@ -100,10 +128,19 @@ const ListFile: React.FC<FileInterface> = ({ file, index, duration }) => {
                 data-title={file.is_favorite ? "Удалить из избранного" : "Добавить в избранное"}
                 className="listfile_svg"
               >
-                <FavoriteSvg isfill={file.is_favorite.toString()} onClick={handleFavorite} />
+                <FavoriteSvg
+                  isfill={file.is_favorite.toString()}
+                  onMouseDown={(e: Event) => e.stopPropagation()}
+                  onMouseUp={(e: Event) => e.stopPropagation()}
+                  onClick={handleFavorite}
+                />
               </div>
               <div data-title="Переместить в корзину" className="listfile_svg">
-                <TrashSvg onClick={handleTrash} />
+                <TrashSvg
+                  onMouseDown={(e: Event) => e.stopPropagation()}
+                  onMouseUp={(e: Event) => e.stopPropagation()}
+                  onClick={handleTrash}
+                />
               </div>
             </>
           ) : (

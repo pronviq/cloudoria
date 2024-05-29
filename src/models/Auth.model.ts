@@ -15,3 +15,15 @@ export interface AuthResponse {
   root_directory: number;
   theme: ThemeType;
 }
+
+export interface ISession {
+  id: number;
+  token: string;
+  ip: string;
+  user_id: number;
+  email: string;
+  browser: string;
+  os: string;
+  isCurrent: boolean;
+  timestamp: string;
+}

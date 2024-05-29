@@ -24,7 +24,8 @@ const Search = () => {
     try {
       const response = await FileService.searchFiles(val);
       const data = response.data;
-      dispatch(setCurrentFiles(data));
+      const files = data.filter((file) => !file.is_trash);
+      dispatch(setCurrentFiles(files));
     } catch (error) {
     } finally {
       dispatch(setLoading(false));

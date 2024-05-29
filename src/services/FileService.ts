@@ -58,11 +58,11 @@ export default class FileService {
     }
   }
 
-  static async deleteFile(file: IFile, index: number) {
+  static async deleteFile(file: IFile, index: number, needDispatch: boolean = true) {
     try {
-      dispatch(deleteFile({ index }));
-      dispatch(updateSize(file.size * -1));
-      const response = await $api.delete(`/deletefile?id=${file.id}`);
+      needDispatch && dispatch(deleteFile({ index }));
+      needDispatch && dispatch(updateSize(file.size * -1));
+      $api.delete(`/deletefile?id=${file.id}`);
 
       return true;
     } catch (error) {
@@ -73,7 +73,7 @@ export default class FileService {
   static async switchFavorite(file: IFile, index: number) {
     try {
       dispatch(switchFavorite({ index }));
-      const response = await $api.put("/changevalue", {
+      $api.put("/changevalue", {
         id: file.id,
         prop: "is_favorite",
         value: !file.is_favorite,
@@ -85,11 +85,11 @@ export default class FileService {
     }
   }
 
-  static async switchTrash(file: IFile, index: number) {
+  static async switchTrash(file: IFile, index: number, needDispatch: boolean = true) {
     try {
-      dispatch(switchTrash({ index }));
+      needDispatch && dispatch(switchTrash({ index }));
 
-      const response = await $api.put("/changevalue", {
+      $api.put("/changevalue", {
         id: file.id,
         prop: "is_trash",
         value: !file.is_trash,

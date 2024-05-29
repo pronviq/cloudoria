@@ -1,0 +1,100 @@
+.sessions_cont {
+  width: calc(100% - 10px * 2);
+  margin: 10px;
+  padding: 4px;
+  position: relative;
+}
+
+.sessions_bg {
+  opacity: 0.5;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  background-color: var(--hover);
+  border: 1px solid;
+}
+
+.sessions {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.sessions_title {
+  font-size: 16px;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.session {
+  width: min-content;
+  height: 50px;
+  align-items: center;
+  display: grid;
+  grid-template-columns: 40px 1fr 150px;
+  margin-top: 2px;
+  gap: 5px;
+  padding: 0 5px 0 5px;
+  div {
+    font-family: sans-serif;
+  }
+}
+
+.session_img {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.session_about {
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+
+.session_ip {
+  color: violet;
+  font-size: 14px;
+}
+
+.session_info {
+  font-size: 11px;
+  opacity: 0.5;
+}
+
+.session_determine {
+  width: min-content;
+  white-space: nowrap;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 12px;
+  color: red !important;
+  opacity: 0.6;
+  margin-left: 5px;
+  border: none;
+  &:active {
+    border: none;
+  }
+  @media (hover: hover) {
+    &:hover {
+      opacity: 1;
+    }
+  }
+  @media (hover: none) {
+    &:active {
+      opacity: 1;
+    }
+  }
+}
+
+.session_current {
+  font-size: 12px;
+  margin-left: 5px;
+  color: lime;
+  opacity: 0.6;
+}
