@@ -3,6 +3,7 @@ import { useTheme } from "../contexts/theme/Theme.context";
 
 const TrashSvg = ({ ...props }) => {
   const { theme } = useTheme();
+  if (!theme) return <></>;
 
   return (
     <svg style={{ ...props }} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

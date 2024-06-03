@@ -2,6 +2,7 @@ import { useTheme } from "../contexts/theme/Theme.context";
 
 const CreateSvg = ({ ...props }) => {
   const { theme } = useTheme();
+  if (!theme) return <></>;
 
   return (
     <svg style={{ ...props }} viewBox="0 0 24 24" fill="none">

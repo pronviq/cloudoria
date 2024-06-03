@@ -3,6 +3,7 @@ import { useTheme } from "../contexts/theme/Theme.context";
 
 const FavoriteSvg = ({ ...props }) => {
   const { theme } = useTheme();
+  if (!theme) return <></>;
 
   return (
     <svg

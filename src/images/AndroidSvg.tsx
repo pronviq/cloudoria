@@ -1,8 +1,6 @@
 import { useTheme } from "../contexts/theme/Theme.context";
 
 const AndroidSvg = ({ ...props }) => {
-  const { theme } = useTheme();
-
   return (
     <svg style={{ ...props }} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path

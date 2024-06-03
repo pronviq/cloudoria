@@ -13,10 +13,13 @@ import "./styles/Simplebar.scss";
 import UserService from "./services/UserService";
 import { setCurrentDir } from "./redux/fileSlice";
 import Files from "./components/files/Files";
+import AuthPage from "./pages/AuthPage";
+import MainPage from "./pages/MainPage";
+import Settings from "./pages/Settings";
 
-const AuthPage = lazy(() => import("./pages/AuthPage"));
-const Settings = lazy(() => import("./pages/Settings"));
-const MainPage = lazy(() => import("./pages/MainPage"));
+// const AuthPage = lazy(() => import("./pages/AuthPage"));
+// const Settings = lazy(() => import("./pages/Settings"));
+// const MainPage = lazy(() => import("./pages/MainPage"));
 
 const App: React.FC = () => {
   const { theme, setCurrentTheme } = useTheme();

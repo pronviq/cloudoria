@@ -2,6 +2,7 @@ import { useTheme } from "../contexts/theme/Theme.context";
 
 const FilterSvg = () => {
   const { theme } = useTheme();
+  if (!theme) return <></>;
 
   return (
     <svg
