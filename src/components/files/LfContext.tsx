@@ -11,11 +11,13 @@ import ReloadSvg from "../../images/ReloadSvg";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { switchSelection } from "../../redux/fileSlice";
 import { setContextMenu } from "../../redux/contextSlice";
+import { useLocation } from "react-router-dom";
 
 const LfContext: React.FC = () => {
   const dispatch = useAppDispatch();
   const context = useAppSelector((s) => s.contextReducer);
   const file = useAppSelector((s) => s.fileReducer.currentFiles)[context.index || 0];
+  const location = useLocation();
 
   const handleFalse = () => {
     dispatch(setContextMenu({ file: null, index: null, x: null, y: null }));
@@ -55,6 +57,10 @@ const LfContext: React.FC = () => {
     link.click();
     link.remove();
   };
+
+  useEffect(() => {
+    handleFalse();
+  }, [location.pathname]);
 
   useEffect(() => {
     document.addEventListener("click", handleFalse);
