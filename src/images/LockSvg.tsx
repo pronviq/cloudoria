@@ -4,12 +4,7 @@ const LockSvg = ({ ...props }) => {
   const { theme } = useTheme();
 
   return (
-    <svg
-      style={{ ...props }}
-      viewBox="0 0 24 24"
-      fill={theme["--svg"]}
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg style={{ ...props }} viewBox="0 0 24 24" fill={theme["--svg"]}>
       <path
         d="M13.5 16.5854C13.5 17.4138 12.8284 18.0854 12 18.0854C11.1716 18.0854 10.5 17.4138 10.5 16.5854C10.5 15.7569 11.1716 15.0854 12 15.0854C12.8284 15.0854 13.5 15.7569 13.5 16.5854Z"
         // fill="#0F0F0F"

@@ -4,7 +4,7 @@ const EyeOpenSvg = ({ ...props }) => {
   const { theme } = useTheme();
 
   return (
-    <svg {...props} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none">
+    <svg {...props} viewBox="0 0 24 24" fill="none">
       <path
         fillRule="evenodd"
         clipRule="evenodd"

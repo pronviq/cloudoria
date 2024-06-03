@@ -1,6 +1,6 @@
 const FileSvg = ({ ...props }) => {
   return (
-    <svg {...props} viewBox="0 0 84 84" xmlns="http://www.w3.org/2000/svg" fill="none">
+    <svg {...props} viewBox="0 0 84 84" fill="none">
       <path
         fill="#fff"
         d="M10 6.667A6.667 6.667 0 0 1 16.667 0h33.905c1.768 0 3.464.702 4.714 1.953l12.761 12.761A6.667 6.667 0 0 1 70 19.428v53.905A6.667 6.667 0 0 1 63.333 80H16.667A6.667 6.667 0 0 1 10 73.333V6.667Z"

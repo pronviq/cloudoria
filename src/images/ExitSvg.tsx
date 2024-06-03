@@ -4,14 +4,7 @@ const ExitSvg = () => {
   const { theme } = useTheme();
 
   return (
-    <svg
-      width="16px"
-      height="16px"
-      viewBox="0 0 24 24"
-      xmlns="http://www.w3.org/2000/svg"
-      strokeWidth="5"
-      fill="none"
-    >
+    <svg width="16px" height="16px" viewBox="0 0 24 24" strokeWidth="5" fill="none">
       <path
         opacity="0.9"
         d="M9 4.5H8C5.64298 4.5 4.46447 4.5 3.73223 5.23223C3 5.96447 3 7.14298 3 9.5V14.5C3 16.857 3 18.0355 3.73223 18.7678C4.46447 19.5 5.64298 19.5 8 19.5H9"
