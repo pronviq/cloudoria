@@ -11,12 +11,17 @@ export const initialState: IUser = {
   isAuth: false,
   root_directory: 0,
   theme: "light",
+  avatar: "",
 };
 
 const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
+    updateAvatar(state, action: PayloadAction<string>) {
+      state.avatar = action.payload;
+    },
+
     updateSize(state, action: PayloadAction<number>) {
       state.used_space = Number(state.used_space) + Number(action.payload);
     },
@@ -35,5 +40,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { setUser, setUserProperty, updateSize } = userSlice.actions;
+export const { setUser, updateAvatar, setUserProperty, updateSize } = userSlice.actions;
 export default userSlice.reducer;

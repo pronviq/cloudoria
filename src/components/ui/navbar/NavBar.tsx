@@ -14,7 +14,9 @@ import { dropSelection, pushFile, setCurrentDir, updateStack } from "../../../re
 import { updateSize } from "../../../redux/userSlice";
 import SearchSvg from "../../../images/SearchSvg";
 import ArrowSvg from "../../../images/ArrowSvg";
-import { AnimatePresence, motion } from "framer-motion";
+import Title from "./Title";
+import CreateSvg from "../../../images/CreateSvg";
+import { setName } from "../../../redux/popupSlice";
 
 const NavBar: React.FC = () => {
   const currentDir = useAppSelector((state) => state.fileReducer.currentDir);
@@ -23,7 +25,7 @@ const NavBar: React.FC = () => {
   const user = useAppSelector((state) => state.userReducer);
   const currfiles = useAppSelector((state) => state.fileReducer.currentFiles);
 
-  const handleUpload: ChangeEventHandler<HTMLInputElement> = (e) => {
+  const handleUpload: ChangeEventHandler<HTMLInputElement> = async (e) => {
     try {
       if (e.target.files) {
         const keys = Object.keys(e.target.files);
@@ -57,10 +59,7 @@ const NavBar: React.FC = () => {
       style={{ marginLeft: isActive ? "0px" : "-203px", transition: "margin .1s linear" }}
     >
       <div className="nav_content">
-        <div className="nav_head">
-          <CloudSvg height="45px" />
-          <h1 className="nav_title">CloudStorage</h1>
-        </div>
+        <Title />
         <input onChange={handleUpload} id="file_upload" hidden={true} type="file" multiple />
         <button className="upload_btn">
           <label htmlFor="file_upload">
@@ -68,7 +67,10 @@ const NavBar: React.FC = () => {
             <UploadSvg />
           </label>
         </button>
-        <CreateDir />
+        <button onClick={() => dispatch(setName("directory"))} className="upload_btn">
+          <div className="upload_title">Создать</div>
+          <CreateSvg width="20px" />
+        </button>
 
         <ul className="navlist">
           <li>

@@ -3,6 +3,7 @@ import { ISession } from "../../models/Auth.model";
 import { useEffect, useState } from "react";
 import "./Sessions.scss";
 import Session from "./Session";
+import UserSvg from "../../images/UsersSvg";
 
 const Sessions = () => {
   const [sessions, setSessions] = useState<ISession[]>([]);
@@ -18,11 +19,13 @@ const Sessions = () => {
 
   return (
     <div className="sessions_cont">
-      <div className="sessions_bg" />
-      <div className="sessions_title">Ваши сеансы:</div>
+      <div className="sessions_title">
+        <UserSvg height="100%" />
+        Ваши сеансы
+      </div>
       <div className="sessions">
         {sessions.map((session, i) => (
-          <Session session={session} i={i} sessions={sessions} setSessions={setSessions} />
+          <Session key={i} session={session} i={i} sessions={sessions} setSessions={setSessions} />
         ))}
       </div>
     </div>

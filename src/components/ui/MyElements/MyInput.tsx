@@ -10,6 +10,7 @@ interface IMyInput {
   placeholder?: string;
   reference?: RefObject<HTMLInputElement>;
   onKeyDown?: (e: KeyboardEvent<HTMLInputElement>) => void;
+  className?: string;
 }
 
 const MyInput: React.FC<IMyInput> = ({
@@ -21,6 +22,7 @@ const MyInput: React.FC<IMyInput> = ({
   placeholder,
   reference,
   onKeyDown,
+  className,
 }) => {
   const warningColor = "rgba(255, 0, 0, 0.7)";
 
@@ -33,7 +35,7 @@ const MyInput: React.FC<IMyInput> = ({
         style={{ borderColor: error ? warningColor : "" }}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="myinput_field"
+        className={"myinput_field" + (className ? ` ${className}` : "")}
         type={type}
         placeholder={placeholder}
       />

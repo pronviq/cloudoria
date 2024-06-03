@@ -3,27 +3,21 @@
 .login {
   display: flex;
   width: 250px;
-  height: 350px;
+  height: 320px;
   border-radius: 20px;
   flex-direction: column;
   box-shadow: 0 0 10px -5px;
   align-items: center;
   transform: translateZ($auth_translateZ);
   background-color: var(--background);
-  padding-top: 70px;
+  padding-top: 50px;
+  backdrop-filter: blur(40px);
 }
 
 .auth_title {
   display: flex;
-  width: 100%;
   justify-content: center;
-}
-
-.title_text {
-  margin-top: 5px;
-  background-image: linear-gradient(43deg, #4158d0 0%, #c850c0 46%, #ffcc70 100%);
-  background-clip: text;
-  color: transparent;
+  width: 100%;
 }
 
 .password_eye {

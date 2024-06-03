@@ -6,7 +6,7 @@ const BurnSvg = ({ ...props }) => {
 
   return (
     <svg
-      {...props}
+      style={{ ...props }}
       fill={theme["--svg"]}
       viewBox="0 0 32 32"
       version="1.1"

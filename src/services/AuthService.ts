@@ -26,7 +26,6 @@ export default class AuthService {
     const response = await axios.get<AuthResponse>(API_URL + "/refresh", {
       withCredentials: true,
     });
-    // console.log(response);
 
     return response;
   };
@@ -56,4 +55,27 @@ export default class AuthService {
     const response = await $api.get(`/terminate?id=${id}`);
     return response;
   };
+
+  static validateReg = (email: string, password: string, username: string): IValidate => {
+    let emailErr = "";
+    let passwordErr = "";
+    let usernameErr = "";
+
+    if (password.length < 2) passwordErr = "Слишком короткий пароль";
+    if (password.length > 64) passwordErr = "Слишком длинный пароль";
+
+    if (username.length < 2) usernameErr = "Слишком короткое имя";
+    if (username.length > 32) usernameErr = "Слишком длинное имя";
+
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!regex.test(email) || email.length < 3) emailErr = "Некорректная почта";
+
+    return { emailErr, passwordErr, usernameErr };
+  };
+}
+
+interface IValidate {
+  emailErr?: string;
+  passwordErr?: string;
+  usernameErr?: string;
 }

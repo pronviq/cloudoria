@@ -9,7 +9,6 @@ import { AxiosResponse } from "axios";
 import { AuthResponse } from "./models/Auth.model";
 import { initialState, setUser } from "./redux/userSlice";
 import Loader from "./components/Loader";
-import NotFound from "./pages/404";
 import "./styles/Simplebar.scss";
 import UserService from "./services/UserService";
 import { setCurrentDir } from "./redux/fileSlice";
@@ -34,6 +33,7 @@ const App: React.FC = () => {
       .then((response: AxiosResponse<AuthResponse>) => {
         const user = UserService.responseToUser(response);
         localStorage.setItem("token", response.data.access);
+
         dispatch(setUser(user));
         setCurrentTheme(user.theme);
         dispatch(setCurrentDir(user.root_directory));
@@ -56,7 +56,6 @@ const App: React.FC = () => {
         {user.isAuth ? (
           <Routes>
             {/* <Route element={<AuthPage />} path="/auth" /> */}
-            <Route element={<Redirect to="/" />} path="/auth" />
             <Route element={<MainPage />} path="/">
               <Route element={<Settings />} path="/settings" />
               <Route element={<Files />} path="/favorites" />
@@ -64,12 +63,11 @@ const App: React.FC = () => {
               <Route element={<Files />} path="/search" />
               <Route element={<Files />} path="/" />
             </Route>
-            <Route element={<NotFound />} path="*" />
+            <Route element={<Redirect to="/" />} path="/*" />
           </Routes>
         ) : (
           <Routes>
             <Route element={<AuthPage />} path="/auth" />
-            {/* <Route element={<MainPage />} path="/" /> */}
             <Route element={<Redirect to="/auth" />} path="*" />
           </Routes>
         )}

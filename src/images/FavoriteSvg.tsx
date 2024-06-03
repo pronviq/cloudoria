@@ -6,7 +6,7 @@ const FavoriteSvg = ({ ...props }) => {
 
   return (
     <svg
-      {...props}
+      style={{ ...props }}
       viewBox="0 0 64 64"
       fill={props.isfill === "true" ? theme["--svg"] : "none"}
       xmlns="http://www.w3.org/2000/svg"

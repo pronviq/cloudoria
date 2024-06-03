@@ -1,21 +1,19 @@
-import React, { MouseEvent, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import "./Login.scss";
 import AuthService from "../../services/AuthService";
-import StringValidator from "../../utils/StringValidator";
 import { useNavigate } from "react-router-dom";
 import "./Registration.scss";
 import ChooseGender from "./ChooseGender";
 import { AxiosError, AxiosResponse } from "axios";
 import { AuthResponse } from "../../models/Auth.model";
-import { IUser } from "../../models/User.model";
 import { useAppDispatch } from "../../hooks/redux";
 import { setUser } from "../../redux/userSlice";
-import CloudSvg from "../../images/CloudSvg";
 import UserService from "../../services/UserService";
 import MyInput from "../ui/MyElements/MyInput";
 import EyeOpenSvg from "../../images/EyeOpenSvg";
 import EyeClosedSvg from "../../images/EyeClosedSvg";
 import MyButton from "../ui/MyElements/MyButton";
+import Title from "../ui/navbar/Title";
 
 interface IRegistration {
   setRotate: (n: number) => void;
@@ -28,10 +26,8 @@ const Registration: React.FC<IRegistration> = ({ setRotate }) => {
   const [usernameError, setUsernameError] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [passwordError, setPasswordError] = useState<string>("");
-  const [gender, setGender] = useState<string>("");
+  const [gender, setGender] = useState<string>("male");
   const [isVisible, setVisible] = useState<boolean>(false);
-
-  const warningColor = "rgba(255, 0, 0, 0.7)";
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -41,7 +37,19 @@ const Registration: React.FC<IRegistration> = ({ setRotate }) => {
   const passwordRef = useRef<HTMLInputElement>(null);
 
   async function registration() {
-    AuthService.registration(email, username, password, gender)
+    const { emailErr, passwordErr, usernameErr } = AuthService.validateReg(
+      email,
+      password,
+      username
+    );
+
+    if (emailErr) setEmailError(emailErr);
+    if (usernameErr) setUsernameError(usernameErr);
+    if (passwordErr) setPasswordError(passwordErr);
+
+    if (emailErr || usernameErr || passwordErr) return;
+
+    await AuthService.registration(email, username, password, gender)
       .then((response: AxiosResponse<AuthResponse>) => {
         const user = UserService.responseToUser(response);
         dispatch(setUser(user));
@@ -55,10 +63,7 @@ const Registration: React.FC<IRegistration> = ({ setRotate }) => {
 
   return (
     <article className="registration">
-      <div className="auth_title">
-        <CloudSvg width="45px" />
-        <h1 className="title_text">CloudStorage</h1>
-      </div>
+      <Title />
       <form action="" className="auth_form">
         <div className="email_cont">
           <MyInput

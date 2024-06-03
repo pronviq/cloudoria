@@ -6,6 +6,7 @@ import WindowsSvg from "../../images/WindowsSvg";
 import AndroidSvg from "../../images/AndroidSvg";
 import { getDate } from "../../utils/SessionUtil";
 import AuthService from "../../services/AuthService";
+import QuestionSvg from "../../images/QuestionSvg";
 
 interface ISess {
   session: ISession;
@@ -34,12 +35,15 @@ const Session: React.FC<ISess> = ({ session, i, sessions, setSessions }) => {
           <WindowsSvg height="30px" />
         ) : session.os === "Android" ? (
           <AndroidSvg />
-        ) : null}
+        ) : (
+          <QuestionSvg />
+        )}
       </div>
       <div className="session_about">
-        <div className="session_ip">{session.ip}</div>
+        <div className="session_ip">{session.ip || "127.0.0.0"}</div>
         <div className="session_info">
-          {session.os} &#8226; {session.browser} &#8226; {getDate(session.timestamp)}
+          {session.os || "OS"} &#8226; {session.browser || "Browser"} &#8226;{" "}
+          {getDate(session.timestamp)}
         </div>
       </div>
       {session.isCurrent ? (

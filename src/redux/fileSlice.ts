@@ -26,7 +26,9 @@ export const fileSlice = createSlice({
     },
 
     deleteSel(state) {
-      state.currentFiles = [];
+      const newFiles: IFile[] = [];
+      state.currentFiles.forEach((file) => (file.is_selected ? null : newFiles.push(file)));
+      state.currentFiles = newFiles;
     },
 
     selectAll(state) {

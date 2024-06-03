@@ -14,6 +14,7 @@ export interface AuthResponse {
   gender: string;
   root_directory: number;
   theme: ThemeType;
+  avatar: string;
 }
 
 export interface ISession {

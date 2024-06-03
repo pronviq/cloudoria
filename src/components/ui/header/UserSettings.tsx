@@ -47,16 +47,22 @@ const UserSettings: React.FC = () => {
   return (
     <div className="user_settings">
       <button onClick={() => setActive((p) => !p)} ref={btnRef} className="user_settings_btn">
-        {/* <img src="https://99px.ru/sstorage/53/2023/01/mid_348279_833663.jpg" alt="" /> */}
-        <AvatarSvg />
+        {user.avatar !== "empty" ? (
+          <img src={user.avatar} className="avatar" alt="" />
+        ) : (
+          <AvatarSvg />
+        )}
       </button>
 
       <AnimatePresence>
         {isActive && (
           <motion.div {...AnimatedDropDown} ref={contentRef} className={`user_settings_content`}>
             <div className="user_settings_info">
-              <AvatarSvg width="35px" />
-              {/* <img src="https://99px.ru/sstorage/53/2023/01/mid_348279_833663.jpg" alt="" /> */}
+              {user.avatar !== "empty" ? (
+                <img src={user.avatar} className="avatar" alt="" />
+              ) : (
+                <AvatarSvg width="35px" />
+              )}
               <div className="user_settings_about">
                 <p className="user_nickname">{user.username}</p>
                 <p className="user_email">{user.email}</p>
@@ -78,7 +84,7 @@ const UserSettings: React.FC = () => {
                     className="user_settings_item"
                     to={"/settings"}
                   >
-                    <SettingsSvg />
+                    <SettingsSvg width="16px" />
                     <p>Настройки</p>
                   </Link>
                 </button>

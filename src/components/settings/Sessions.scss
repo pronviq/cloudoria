@@ -3,19 +3,7 @@
   margin: 10px;
   padding: 4px;
   position: relative;
-}
-
-.sessions_bg {
-  opacity: 0.5;
-  pointer-events: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 5px;
-  background-color: var(--hover);
-  border: 1px solid;
+  overflow: hidden;
 }
 
 .sessions {
@@ -25,9 +13,13 @@
 }
 
 .sessions_title {
+  display: flex;
+  margin: 5px 5px 0 5px;
+  align-items: center;
+  height: 22px;
   font-size: 16px;
-  margin-top: 10px;
-  margin-left: 10px;
+  gap: 5px;
+  font-size: 14px;
 }
 
 .session {
@@ -65,6 +57,9 @@
 .session_info {
   font-size: 11px;
   opacity: 0.5;
+  max-width: 250px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .session_determine {
@@ -77,15 +72,21 @@
   opacity: 0.6;
   margin-left: 5px;
   border: none;
+
   &:active {
     border: none;
   }
   @media (hover: hover) {
     &:hover {
       opacity: 1;
+      background-color: transparent !important;
     }
   }
   @media (hover: none) {
+    &:hover {
+      background-color: transparent !important;
+    }
+
     &:active {
       opacity: 1;
     }

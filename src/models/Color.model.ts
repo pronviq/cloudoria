@@ -11,5 +11,5 @@ export enum Color {
 
   BEIGE = "#FCF7DE",
   LIGHT_GREEN = "#DEFDE0",
-  LIGHTBEIGE = "rgb(255, 242, 234)",
+  LIGHTBEIGE = "rgb(244, 231, 247)",
 }

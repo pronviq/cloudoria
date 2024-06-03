@@ -8,6 +8,13 @@
   margin-right: $headbar_padding;
 }
 
+.stack_start {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  height: 20px;
+}
+
 .stack_files {
   display: flex;
   align-items: center;
@@ -17,6 +24,7 @@
   .stack_file {
     white-space: nowrap;
     font-family: sans-serif;
+    opacity: 0.7;
     font-size: 14px;
     user-select: none;
   }
@@ -30,5 +38,17 @@
   margin-top: -2px;
   &:active {
     border: none;
+  }
+  @media (hover: hover) {
+    &:hover {
+      opacity: 1;
+      cursor: pointer;
+    }
+  }
+
+  @media (hover: none) {
+    &:active {
+      opacity: 1;
+    }
   }
 }

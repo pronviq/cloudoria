@@ -17,6 +17,12 @@ class StringValidator {
 
     return true;
   }
+
+  static validateUsername(username: string): boolean {
+    const regex = /^[a-zA-Z]+$/;
+    if (!regex.test(username) || username.length < 2 || username.length > 32) return false;
+    return true;
+  }
 }
 
 export default StringValidator;

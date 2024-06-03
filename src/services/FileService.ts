@@ -1,4 +1,4 @@
-import { AxiosResponse } from "axios";
+import { AxiosError, AxiosResponse } from "axios";
 import $api from "../api/AxiosApi";
 import { IFile, IUploadingFile } from "../models/File.model";
 import { deleteFile, switchFavorite, switchTrash } from "../redux/fileSlice";
@@ -9,7 +9,32 @@ import { changeProgress, makeError, pushUFile } from "../redux/uploadSlice";
 const dispatch = store.dispatch;
 
 export default class FileService {
-  static async setDirectory(file: IFile) {}
+  static async uploadAvatar(file: File) {
+    const formData = new FormData();
+
+    formData.append("file", file);
+
+    const response = await $api.post("/uploadavatar", formData, {
+      // onUploadProgress: (progressEvent) => {
+      //   const totalLength = progressEvent.total;
+      //   if (totalLength) {
+      //     let progress = Math.round((progressEvent.loaded * 100) / totalLength);
+      //     console.log(progress);
+      //   }
+      // },
+    });
+
+    return response.data;
+  }
+
+  static async downloadFile(file_id: string | number) {
+    const response = await $api.get(`/download?file_id=${file_id}`, {
+      responseType: "blob",
+    });
+
+    const blob = response.data;
+    return blob;
+  }
 
   static async searchFiles(q: string): Promise<AxiosResponse<IFile[]>> {
     return await $api.get<IFile[]>(`/searchfiles?q=${q}`);
@@ -51,10 +76,12 @@ export default class FileService {
       });
 
       return response.data;
-    } catch (error) {
-      // console.log(error);
-      dispatch(makeError(i_file));
-      return false;
+    } catch (error: any) {
+      let message = await error.response?.data;
+      if (!["Файл уже существует", "Недостаточно места"].includes(message) || !message)
+        message = "Попробуйте еще раз";
+      dispatch(makeError({ file: i_file, err: message }));
+      // return false;
     }
   }
 
@@ -103,7 +130,6 @@ export default class FileService {
 
   static async getFiles(parent_file: number) {
     const response = await $api.get<IFile[]>(`/getfiles?parent_file=${parent_file}`);
-    // console.log(response.data);
 
     return response.data;
   }

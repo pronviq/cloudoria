@@ -5,7 +5,7 @@ const ReloadSvg = ({ ...props }) => {
   const { theme } = useTheme();
 
   return (
-    <svg {...props} viewBox="0 0 24 24" fill="none">
+    <svg style={{ ...props }} viewBox="0 0 24 24" fill="none">
       <path
         fillRule="evenodd"
         clipRule="evenodd"

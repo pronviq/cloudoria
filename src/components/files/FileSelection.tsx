@@ -10,14 +10,16 @@ import GetSize from "../../utils/GetSize";
 import FileService from "../../services/FileService";
 import { updateSize } from "../../redux/userSlice";
 import CheckmarkSvg from "../../images/CheckmarkSvg";
+import DownloadSvg from "../../images/DownloadSvg";
+import TrashSvg from "../../images/TrashSvg";
+import BurnSvg from "../../images/BurnSvg";
+import ReloadSvg from "../../images/ReloadSvg";
 
 const FileSelection: React.FC = () => {
   const dispatch = useAppDispatch();
   const selected = useAppSelector((state) => state.fileReducer.selected);
   const location = useLocation();
   const files = useAppSelector((state) => state.fileReducer.currentFiles);
-
-  const downloadSelected = () => {};
 
   const switchTrashSelected = async () => {
     files.map((file, index) => {
@@ -40,6 +42,21 @@ const FileSelection: React.FC = () => {
     dispatch(dropSelection());
   };
 
+  const downloadSelected = () => {
+    files.forEach(async (file) => {
+      if (file.is_selected) {
+        const blob = await FileService.downloadFile(file.id);
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = file.name || "file";
+        link.click();
+        link.remove();
+      }
+    });
+    dispatch(dropSelection());
+  };
+
   const { size, unit } = GetSize(
     files.reduce((acc, curr) => (curr.is_selected ? acc + curr.size : acc), 0)
   );
@@ -50,7 +67,6 @@ const FileSelection: React.FC = () => {
       {selected > 0 && (
         <div className="filesel">
           <motion.div className="filesel_cont" {...AnimatedSelection}>
-            {/* <div className="filesel_cont"> */}
             <div onClick={() => dispatch(dropSelection())} className="filesel_drop">
               <CloseSvg />
             </div>
@@ -73,7 +89,15 @@ const FileSelection: React.FC = () => {
               }
               className="filesel_download"
             >
-              {location.pathname === "/trash" ? "Восстановить" : `Загрузить ${totalLength}`}
+              {location.pathname === "/trash" ? (
+                <>
+                  <ReloadSvg width="15px" /> Восстановить
+                </>
+              ) : (
+                <>
+                  <DownloadSvg width="15px" /> Загрузить {totalLength}
+                </>
+              )}
             </button>
             <button
               onClick={() =>
@@ -81,7 +105,16 @@ const FileSelection: React.FC = () => {
               }
               className="filesel_removeall"
             >
-              {location.pathname === "/trash" ? "Удалить" : "Переместить в корзину"}
+              {location.pathname === "/trash" ? (
+                <>
+                  <BurnSvg fill="red" width="15px" /> Удалить
+                </>
+              ) : (
+                <>
+                  <TrashSvg stroke="red" width="15px" />
+                  Переместить в корзину
+                </>
+              )}
             </button>
           </motion.div>
         </div>

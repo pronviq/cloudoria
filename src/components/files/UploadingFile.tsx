@@ -14,6 +14,8 @@ const UploadingFile: React.FC<{ file: IUploadingFile }> = ({ file }) => {
     dispatch(removeUFile(file));
   };
 
+  // console.log(file);
+
   const { size, unit } = GetSize(file.size);
   const name = file.name.replace(/\.[^.]*$/, "");
   const dot_split_array = file.name.split(".");
@@ -22,24 +24,26 @@ const UploadingFile: React.FC<{ file: IUploadingFile }> = ({ file }) => {
 
   return (
     <div className="ufile">
-      <div
-        style={{
-          width: file.error ? "100%" : file.progress + "%",
-          backgroundColor: file.error ? "rgba(255, 0, 0, 0.2)" : "",
-        }}
-        className="ufile_progress"
-      ></div>
       <FileSvg className="ufile_img" />
       <div className="ufile_info">
         <div className="ufile_naming">
           <div className="ufile_name">{name}</div>
           <div className="ufile_type">{type}</div>
         </div>
-        <div className="ufile_size">{size + unit}</div>
+        <div className="ufile_size">
+          {size + unit} {file.error}
+        </div>
       </div>
       <button onClick={handleRemove} className="ufile_close">
         <CloseSvg />
       </button>
+      <div
+        style={{
+          width: file.error ? "100%" : file.progress + "%",
+          backgroundColor: file.error ? "rgba(255, 0, 0, 0.2)" : "",
+        }}
+        className="ufile_progress"
+      />
     </div>
   );
 };

@@ -1,13 +1,9 @@
-import React, { MouseEvent, useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import "./Login.scss";
 import AuthService from "../../services/AuthService";
-import StringValidator from "../../utils/StringValidator";
-import useDebounce from "../../hooks/useDebounce";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AxiosError, AxiosResponse } from "axios";
 import { AuthResponse } from "../../models/Auth.model";
-import CloudSvg from "../../images/CloudSvg";
-import { IUser } from "../../models/User.model";
 import { useAppDispatch } from "../../hooks/redux";
 import { setUser } from "../../redux/userSlice";
 import UserService from "../../services/UserService";
@@ -15,6 +11,7 @@ import EyeOpenSvg from "../../images/EyeOpenSvg";
 import EyeClosedSvg from "../../images/EyeClosedSvg";
 import MyInput from "../ui/MyElements/MyInput";
 import MyButton from "../ui/MyElements/MyButton";
+import Title from "../ui/navbar/Title";
 
 interface ILogin {
   setRotate: (n: number) => void;
@@ -48,10 +45,7 @@ const Login: React.FC<ILogin> = ({ setRotate }) => {
 
   return (
     <article className="login">
-      <div className="auth_title">
-        <CloudSvg width="45px" />
-        <h1 className="title_text">CloudStorage</h1>
-      </div>
+      <Title />
       <form action="" className="auth_form">
         <MyInput
           reference={usernameRef}
@@ -117,7 +111,6 @@ const Login: React.FC<ILogin> = ({ setRotate }) => {
           />
         </div>
       </form>
-      <button className="forgot_password">Забыли пароль?</button>
     </article>
   );
 };

@@ -1,0 +1,55 @@
+.lfcontext_list {
+  position: absolute;
+  background-color: var(--background);
+
+  border: 1px dotted;
+  border-radius: 10px;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 4px;
+  width: 135px;
+  height: 115px;
+
+  animation: lf 0.1s linear 1;
+  list-style-type: none;
+}
+
+.lfcontext_hr {
+  opacity: 0.5;
+}
+
+.lfcontext_item {
+  font-size: 12px;
+  white-space: nowrap;
+  height: 20px;
+  width: 100%;
+  border: none;
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  gap: 4px;
+  user-select: none;
+  p {
+    font-family: sans-serif;
+  }
+  &.unactive {
+    opacity: 0.5;
+  }
+  &:active {
+    border: none;
+  }
+}
+
+@keyframes lf {
+  0% {
+    opacity: 0;
+    scale: 0.9;
+  }
+
+  100% {
+    opacity: 1;
+    scale: 1;
+  }
+}

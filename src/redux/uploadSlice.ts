@@ -39,12 +39,13 @@ export const uploadSlice = createSlice({
       }
       state.files.splice(index, 1);
     },
-    makeError(state, action: PayloadAction<IUploadingFile>) {
-      const { id } = action.payload;
+    makeError(state, action: PayloadAction<{ file: IUploadingFile; err: string }>) {
+      const { id } = action.payload.file;
       state.files.forEach((file) => {
         if (file.id === id) {
-          file.error = "err";
+          file.error = action.payload.err;
         }
+
         return file;
       });
     },

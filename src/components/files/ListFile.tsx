@@ -1,35 +1,36 @@
-import React, { ReactEventHandler, useRef, useState } from "react";
+import React, { MouseEvent, RefObject, useRef, useState } from "react";
 import "./ListFile.scss";
 import { IFile } from "../../models/File.model";
 import DirectorySvg from "../../images/DirectorySvg";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { setCurrentDir, switchSelection, updateStack } from "../../redux/fileSlice";
-import FavoriteSvg from "../../images/FavoriteSvg";
-import TrashSvg from "../../images/TrashSvg";
-import FileService from "../../services/FileService";
-import ReloadSvg from "../../images/ReloadSvg";
-import BurnSvg from "../../images/BurnSvg";
 import GetSize from "../../utils/GetSize";
 import JustFileSvg from "../../images/JustFileSvg";
 import { AnimatePresence, motion } from "framer-motion";
 import { AnimatedListFile } from "../../models/Animation.model";
 import FileSvg from "../../images/FileSvg";
 import { API_URL } from "../../api/AxiosApi";
+import DotsSvg from "../../images/DotsSvg";
+import { setContextMenu } from "../../redux/contextSlice";
 
 interface FileInterface {
   file: IFile;
   index: number;
   duration: number;
+  filesRef: RefObject<HTMLElement>;
 }
 
-const ListFile: React.FC<FileInterface> = ({ file, index, duration }) => {
+export interface IContextMenu {
+  x: number | null;
+  y: number | null;
+}
+
+const ListFile: React.FC<FileInterface> = ({ file, index, duration, filesRef }) => {
   const dispatch = useAppDispatch();
   const stack = useAppSelector((state) => state.fileReducer.stack);
-  const selected = useAppSelector((state) => state.fileReducer.selected);
+  const selected = useAppSelector((s) => s.fileReducer.selected);
 
   let isMouseDown = false;
-  const [isSelected, setSelected] = useState<boolean>(false);
-  let selectionRef = useRef<NodeJS.Timeout>();
 
   const setDir = (file: IFile) => {
     if (file.is_trash || file.type !== "dir") return;
@@ -39,44 +40,30 @@ const ListFile: React.FC<FileInterface> = ({ file, index, duration }) => {
     dispatch(updateStack(newStack));
   };
 
-  const handleFavorite = async (e: Event) => {
+  const handleClick = () => {
+    if (selected > 0) return dispatch(switchSelection({ index }));
+    if (file.type === "dir") setDir(file);
+  };
+
+  const handleContextMenu = (e: MouseEvent<HTMLElement>) => {
     e.stopPropagation();
-    await FileService.switchFavorite(file, index);
-  };
-
-  const handleTrash = async (e: Event) => {
-    e.stopPropagation();
-    await FileService.switchTrash(file, index);
-  };
-
-  const handleDelete = async (e: Event) => {
-    e.stopPropagation();
-    await FileService.deleteFile(file, index);
-  };
-
-  const handleDown = () => {
-    isMouseDown = true;
-    clearTimeout(selectionRef.current);
-    selectionRef.current = setTimeout(() => {
-      if (isMouseDown && !selected) {
-        handleSelect();
-        setSelected(true);
-      }
-    }, 500);
-  };
-
-  const handleSelect = () => {
-    dispatch(switchSelection({ index }));
-  };
-
-  const handleUp = () => {
+    e.preventDefault();
     isMouseDown = false;
-    if (selected === 0) {
-      setDir(file);
-    } else if (!isSelected) {
-      handleSelect();
+
+    const clientRect = filesRef.current?.getBoundingClientRect();
+    let x = 0;
+    let y = 0;
+
+    if (clientRect) {
+      x = e.clientX - clientRect?.x;
+      y = e.clientY - clientRect?.y;
+
+      if (x + 135 > window.innerWidth - clientRect?.x) x -= 135;
+      const overflowY = window.innerHeight - e.clientY - 115;
+      if (overflowY < 0) y += overflowY;
+
+      dispatch(setContextMenu({ file, index, x, y }));
     }
-    setSelected(false);
   };
 
   const { size, unit } = GetSize(file.size);
@@ -90,10 +77,10 @@ const ListFile: React.FC<FileInterface> = ({ file, index, duration }) => {
     <AnimatePresence>
       <motion.div transition={{ duration: duration }} {...AnimatedListFile}>
         <button
-          onPointerUp={handleUp}
-          onPointerDown={handleDown}
+          onClick={handleClick}
           className="listfile"
-          style={{ backgroundColor: file.is_selected ? "rgba(80, 94, 253, 0.3)" : "" }}
+          style={{ backgroundColor: file.is_selected ? "rgba(0, 123, 255, 0.3)" : "" }}
+          onContextMenu={handleContextMenu}
         >
           {type === "dir" ? (
             <DirectorySvg className="listfile_file" size={25} />
@@ -118,41 +105,10 @@ const ListFile: React.FC<FileInterface> = ({ file, index, duration }) => {
             <div className="listfile_name">{name}</div>
             <div className="listfile_type">{ext}</div>
           </div>
-          <div className="listfile_date">{file.timestamp.slice(0, 10)} </div>
-          <div className="listfile_time">{file.timestamp.slice(11, 16)}</div>
           <div className="listfile_size">{size}</div>
           <div className="listfile_unit">{unit}</div>
-          {!file.is_trash ? (
-            <>
-              <div
-                data-title={file.is_favorite ? "Удалить из избранного" : "Добавить в избранное"}
-                className="listfile_svg"
-              >
-                <FavoriteSvg
-                  isfill={file.is_favorite.toString()}
-                  onMouseDown={(e: Event) => e.stopPropagation()}
-                  onMouseUp={(e: Event) => e.stopPropagation()}
-                  onClick={handleFavorite}
-                />
-              </div>
-              <div data-title="Переместить в корзину" className="listfile_svg">
-                <TrashSvg
-                  onMouseDown={(e: Event) => e.stopPropagation()}
-                  onMouseUp={(e: Event) => e.stopPropagation()}
-                  onClick={handleTrash}
-                />
-              </div>
-            </>
-          ) : (
-            <>
-              <div data-title="Восстановить файл" className="listfile_svg">
-                <ReloadSvg onClick={handleTrash} />
-              </div>
-              <div data-title="Удалить навсегда" className="listfile_svg">
-                <BurnSvg onClick={handleDelete} />
-              </div>
-            </>
-          )}
+          <div className="listfile_date">{file.timestamp.slice(0, 10)} </div>
+          <div className="listfile_time">{file.timestamp.slice(11, 16)}</div>
         </button>
       </motion.div>
     </AnimatePresence>

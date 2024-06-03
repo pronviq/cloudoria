@@ -8,8 +8,8 @@ interface IChooseGender {
 }
 
 const ChooseGender: React.FC<IChooseGender> = ({ gender, setGender }) => {
-  const [isMale, setMale] = useState(false);
-  const [isFemale, setFemale] = useState(false);
+  const [isMale, setMale] = useState(gender === "male");
+  const [isFemale, setFemale] = useState(gender === "female");
 
   return (
     <div className="choose_gender">

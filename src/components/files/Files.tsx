@@ -1,13 +1,13 @@
-import React, { memo, useEffect, useState } from "react";
+import React, { memo, useEffect, useRef } from "react";
 import "./Files.scss";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import ListFile from "./ListFile";
 import SimpleBar from "simplebar-react";
 import FileService from "../../services/FileService";
 import { setCurrentFiles, setLoading } from "../../redux/fileSlice";
-import UserService from "../../services/UserService";
-import AuthService from "../../services/AuthService";
 import { useLocation } from "react-router-dom";
+import LfContext from "./LfContext";
+import StormSvg from "../../images/StormSvg";
 
 const Files: React.FC = () => {
   const files = useAppSelector((state) => state.fileReducer.currentFiles);
@@ -18,6 +18,7 @@ const Files: React.FC = () => {
 
   const dispatch = useAppDispatch();
   const location = useLocation();
+  const filesRef = useRef<HTMLDivElement>(null);
 
   const fetchFiles = async () => {
     try {
@@ -64,18 +65,32 @@ const Files: React.FC = () => {
   }
 
   return (
-    <div className="files">
-      <SimpleBar className="files_simplebar" style={{ maxHeight: "100%", height: "100%" }}>
-        {files?.map(
-          (file, i) =>
-            ((file.is_trash && location.pathname === "/trash") ||
-              (!file.is_trash && location.pathname !== "/trash")) && (
-              <ListFile duration={(0.5 / files.length) * (i + 1)} index={i} key={i} file={file} />
-            )
-        )}
-      </SimpleBar>
+    <div ref={filesRef} className="files">
+      <LfContext />
+      {files.length > 0 ? (
+        <SimpleBar className="files_simplebar" style={{ maxHeight: "100%", height: "100%" }}>
+          {files?.map(
+            (file, i) =>
+              ((file.is_trash && location.pathname === "/trash") ||
+                (!file.is_trash && location.pathname !== "/trash")) && (
+                <ListFile
+                  duration={(0.5 / files.length) * (i + 1)}
+                  index={i}
+                  key={i}
+                  file={file}
+                  filesRef={filesRef}
+                />
+              )
+          )}
+        </SimpleBar>
+      ) : (
+        <div className="files_notfound">
+          <StormSvg height="50px" />
+          <p>Ничего не найдено</p>
+        </div>
+      )}
     </div>
   );
 };
 
-export default Files;
+export default memo(Files);

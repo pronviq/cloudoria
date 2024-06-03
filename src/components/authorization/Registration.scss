@@ -3,7 +3,7 @@
 .registration {
   display: flex;
   width: 250px;
-  height: 350px;
+  height: 320px;
   border-radius: 20px;
   flex-direction: column;
   box-shadow: 0 0 10px -5px;
@@ -11,7 +11,8 @@
   transform: translateZ(-$auth_translateZ) rotateY(180deg);
   margin-left: -250px;
   background-color: var(--background);
-  padding-top: 50px;
+  padding-top: 25px;
+  backdrop-filter: blur(40px);
 }
 
 .registration_buttons {

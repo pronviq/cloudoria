@@ -33,6 +33,10 @@
   border: none;
   border-radius: 6px;
   font-family: sans-serif;
+  display: flex;
+  font-size: 10px;
+  align-items: center;
+  gap: 4px;
   &:hover {
     background-color: transparent;
   }

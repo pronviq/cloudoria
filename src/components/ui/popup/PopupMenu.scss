@@ -1,0 +1,37 @@
+@import "../../../styles/Variables.scss";
+
+.popupmenu_page {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  left: 0;
+  pointer-events: none;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popupmenu_bg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  backdrop-filter: blur(0.5px) brightness(80%);
+  width: 100%;
+  pointer-events: all;
+  height: 100%;
+}
+
+.popupmenu_content {
+  background-color: var(--background);
+  background: linear-gradient(to bottom, #c850c0, #4158d0, #ffc5c5);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.changeusername {
+  width: 300px;
+  height: 150px;
+  background-color: var(--background);
+}

@@ -13,7 +13,7 @@ export const AnimatedListFile = {
 
 export const AnimatedLoadingStack = {
   initial: { height: "0px", opacity: 0 },
-  animate: { height: "300px", opacity: 1 },
+  animate: { height: "calc(min(300px, 50vh))", opacity: 1 },
   exit: { height: "0px", opacity: 0 },
   transition: { duration: 0.2 },
 };
@@ -25,9 +25,16 @@ export const AnimatedSelection = {
   transition: { duration: 0.2 },
 };
 
-export const AnimatedCreateDir = {
-  // initial: { transform: "rotate(180deg)" },
-  // animate: { transform: "rotate(0deg)" },
-  // exit: { transform: "rotate(90deg)" },
-  // transition: { duration: 0.2 },
+export const AnimatedPopup = {
+  initial: { marginTop: "-800px", opacity: 0 },
+  animate: { marginTop: "-20vh", opacity: 1 },
+  exit: { marginTop: "-800px", opacity: 0 },
+  transition: { duration: 0.2 },
+};
+
+export const AnimatedPopupBG = {
+  initial: { marginTop: "-0px", opacity: 0 },
+  animate: { marginTop: "0px", opacity: 1 },
+  exit: { marginTop: "-0px", opacity: 0 },
+  transition: { duration: 0.2 },
 };

@@ -10,6 +10,7 @@ export interface IUser {
   isAuth: boolean;
   root_directory: number;
   theme: ThemeType;
+  avatar: string;
 }
 
 export interface IUserProperty {
