@@ -2,8 +2,7 @@ import axios, { AxiosInstance, AxiosResponse } from "axios";
 import store from "../redux/store";
 import { initialState, setUser } from "../redux/userSlice";
 
-// export const API_URL = "http://45.12.75.100:711/api";
-export const API_URL = "http://192.168.0.12:711/api";
+export const API_URL = "http://45.12.75.100:711/api";
 
 const $api: AxiosInstance = axios.create({
   baseURL: API_URL,
