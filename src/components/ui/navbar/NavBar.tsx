@@ -4,9 +4,7 @@ import FreeSpace from "./FreeSpace";
 import TrashSvg from "../../../images/TrashSvg";
 import FavoriteSvg from "../../../images/FavoriteSvg";
 import FilesSvg from "../../../images/FilesSvg";
-import CloudSvg from "../../../images/CloudSvg";
 import UploadSvg from "../../../images/UploadSvg";
-import CreateDir from "./CreateDir";
 import { Link } from "react-router-dom";
 import FileService from "../../../services/FileService";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
@@ -64,7 +62,7 @@ const NavBar: React.FC = () => {
         <button className="upload_btn">
           <label htmlFor="file_upload">
             <div className="upload_title">Загрузить</div>
-            <UploadSvg />
+            <UploadSvg height="100%" />
           </label>
         </button>
         <button onClick={() => dispatch(setName("directory"))} className="upload_btn">

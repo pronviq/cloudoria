@@ -38,3 +38,25 @@ export const AnimatedPopupBG = {
   exit: { marginTop: "-0px", opacity: 0 },
   transition: { duration: 0.2 },
 };
+
+export const AnimatedUploading = {
+  initial: {
+    height: "10px",
+    width: "100px",
+    transform: "rotateY(0deg)",
+    opacity: 0,
+  },
+  animate: {
+    height: "200px",
+    width: "240px",
+    transform: "rotateY(0deg)",
+    opacity: 1,
+  },
+  exit: {
+    height: "10px",
+    width: "100px",
+    transform: "rotateY(0deg)",
+    opacity: 0,
+  },
+  transition: { duration: 0.2 },
+};

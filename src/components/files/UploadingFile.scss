@@ -50,6 +50,9 @@
 }
 
 .ufile_size {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
   font-size: 10px;
   opacity: $unactive_opacity;
 }

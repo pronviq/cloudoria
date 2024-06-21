@@ -31,7 +31,6 @@ const Files: React.FC = () => {
       } else if (location.pathname === "/trash") {
         const response = await FileService.getTrash();
         const data = response.data;
-        // console.log("data is", data);
 
         dispatch(setCurrentFiles(data));
       } else if (
@@ -39,6 +38,7 @@ const Files: React.FC = () => {
         (location.pathname === "/favorites" && stack.length > 0)
       ) {
         const data = await FileService.getFiles(currentDir);
+
         dispatch(setCurrentFiles(data));
       }
     } catch (error) {
@@ -51,8 +51,6 @@ const Files: React.FC = () => {
   useEffect(() => {
     fetchFiles();
   }, [location, currentDir]);
-
-  // console.log(files);
 
   if (isLoading) {
     return (

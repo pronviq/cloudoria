@@ -1,7 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { IFile, IFiles } from "../models/File.model";
-import { updateSize } from "./userSlice";
-import store from "./store";
 
 const initialState: IFiles = {
   currentDir: -1,

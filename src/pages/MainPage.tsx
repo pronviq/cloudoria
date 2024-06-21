@@ -6,6 +6,7 @@ import UploadingFiles from "../components/files/UploadingFiles";
 import { useAppSelector } from "../hooks/redux";
 import PopupMenu from "../components/ui/popup/PopupMenu";
 import UserService from "../services/UserService";
+import MobileUploading from "../components/files/MobileUploading";
 
 const MainPage: React.FC = () => {
   const uploadingFiles = useAppSelector((state) => state.uploadReducer.files);

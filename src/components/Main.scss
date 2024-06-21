@@ -22,3 +22,19 @@
   border-radius: 5px;
   border: 1px solid;
 }
+
+.main_outlet {
+  width: 100%;
+  height: calc(100% - $header_height);
+  position: relative;
+  height: calc(100% - $header_height);
+}
+
+.main_outlet_content {
+  height: calc(100% - $header_height);
+}
+
+.main_outlet_footer {
+  height: $header_height;
+  width: 100%;
+}

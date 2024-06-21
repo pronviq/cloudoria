@@ -28,7 +28,7 @@ const App: React.FC = () => {
 
   const { isLoading } = useQuery({
     queryFn: checkAuth,
-    refetchOnWindowFocus: false,
+    refetchOnWindowFocus: true,
   });
 
   async function checkAuth() {

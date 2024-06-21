@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import "./UploadingFiles.scss";
 import SimpleBar from "simplebar-react";
-import CloseSvg from "../../images/CloseSvg";
 import { AnimatePresence, motion } from "framer-motion";
-import { AnimatedDropDown, AnimatedLoadingStack } from "../../models/Animation.model";
+import { AnimatedLoadingStack } from "../../models/Animation.model";
 import { useAppSelector } from "../../hooks/redux";
 import UploadingFile from "./UploadingFile";
 import ArrowSvg from "../../images/ArrowSvg";

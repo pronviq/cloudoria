@@ -14,6 +14,7 @@ import EyeOpenSvg from "../../images/EyeOpenSvg";
 import EyeClosedSvg from "../../images/EyeClosedSvg";
 import MyButton from "../ui/MyElements/MyButton";
 import Title from "../ui/navbar/Title";
+import { setCurrentDir } from "../../redux/fileSlice";
 
 interface IRegistration {
   setRotate: (n: number) => void;
@@ -53,6 +54,7 @@ const Registration: React.FC<IRegistration> = ({ setRotate }) => {
       .then((response: AxiosResponse<AuthResponse>) => {
         const user = UserService.responseToUser(response);
         dispatch(setUser(user));
+        dispatch(setCurrentDir(user.root_directory));
         localStorage.setItem("token", response.data?.access);
         navigate("/");
       })
@@ -123,7 +125,10 @@ const Registration: React.FC<IRegistration> = ({ setRotate }) => {
             </button>
           }
           onKeyDown={(e) => {
-            if (e.key === "Enter") e.preventDefault();
+            if (e.key === "Enter") {
+              e.preventDefault();
+              registration();
+            }
           }}
         />
         <ChooseGender gender={gender} setGender={setGender} />

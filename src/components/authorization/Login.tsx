@@ -12,6 +12,7 @@ import EyeClosedSvg from "../../images/EyeClosedSvg";
 import MyInput from "../ui/MyElements/MyInput";
 import MyButton from "../ui/MyElements/MyButton";
 import Title from "../ui/navbar/Title";
+import { setCurrentDir } from "../../redux/fileSlice";
 
 interface ILogin {
   setRotate: (n: number) => void;
@@ -34,6 +35,8 @@ const Login: React.FC<ILogin> = ({ setRotate }) => {
       .then((response: AxiosResponse<AuthResponse>) => {
         const user = UserService.responseToUser(response);
         dispatch(setUser(user));
+        dispatch(setCurrentDir(user.root_directory));
+
         localStorage.setItem("token", response.data?.access);
 
         navigate("/");
