@@ -4,6 +4,7 @@ import { initialState, setUser } from "../redux/userSlice";
 
 // export const API_URL = "http://45.12.75.100:711/api";
 export const API_URL = "https://cloudoria.ru:711/api";
+let a = 0;
 
 const $api: AxiosInstance = axios.create({
   baseURL: API_URL,
