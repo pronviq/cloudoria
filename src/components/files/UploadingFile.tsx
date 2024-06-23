@@ -14,8 +14,6 @@ const UploadingFile: React.FC<{ file: IUploadingFile }> = ({ file }) => {
     dispatch(removeUFile(file));
   };
 
-  // console.log(file);
-
   const { size, unit } = GetSize(file.size);
   const name = file.name.replace(/\.[^.]*$/, "");
   const dot_split_array = file.name.split(".");

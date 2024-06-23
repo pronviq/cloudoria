@@ -1,0 +1,48 @@
+.loginpage_bg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: -1;
+  background-color: var(--background);
+}
+
+@keyframes bubbles {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.loginpage_bg-bubbles {
+  display: flex;
+  justify-content: space-evenly;
+  animation: bubbles 15s linear 1;
+}
+
+@keyframes bubble {
+  0% {
+    transform: translateY(100vh) scale(0);
+  }
+
+  100% {
+    transform: translateY(0vh) scale(0.3);
+  }
+}
+
+.loginpage_bg-bubble {
+  width: 30px;
+  height: 30px;
+  background: #4fc3dc;
+  margin: 0 4px;
+  border-radius: 30%;
+  box-shadow: 0 0 5px 10px #4fc3dc44;
+  animation: bubble ease-in infinite;
+  animation-duration: calc(140s / var(--i));
+  &:nth-child(even) {
+    background-color: #ff2d75;
+    box-shadow: 0 0 5px 10px #ff2d7544;
+  }
+}

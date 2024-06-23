@@ -12,14 +12,20 @@ import Loader from "./components/Loader";
 import "./styles/Simplebar.scss";
 import UserService from "./services/UserService";
 import { setCurrentDir } from "./redux/fileSlice";
-import Files from "./components/files/Files";
-import AuthPage from "./pages/AuthPage";
-import MainPage from "./pages/MainPage";
-import Settings from "./pages/Settings";
 
-// const AuthPage = lazy(() => import("./pages/AuthPage"));
-// const Settings = lazy(() => import("./pages/Settings"));
-// const MainPage = lazy(() => import("./pages/MainPage"));
+// import Files from "./components/files/Files";
+// import AuthPage from "./pages/AuthPage";
+// import MainPage from "./pages/MainPage";
+// import Settings from "./pages/Settings";
+// import Login from "./pages/Login";
+// import RegPage from "./pages/RegPage";
+
+const Files = lazy(() => import("./components/files/Files"));
+const AuthPage = lazy(() => import("./pages/AuthPage"));
+const MainPage = lazy(() => import("./pages/MainPage"));
+const Settings = lazy(() => import("./pages/Settings"));
+const Login = lazy(() => import("./pages/login/Login"));
+const RegPage = lazy(() => import("./pages/RegPage"));
 
 const App: React.FC = () => {
   const { theme, setCurrentTheme } = useTheme();
@@ -70,6 +76,9 @@ const App: React.FC = () => {
           </Routes>
         ) : (
           <Routes>
+            <Route element={<Login />} path="/login" />
+            <Route element={<RegPage />} path="/registration" />
+
             <Route element={<AuthPage />} path="/auth" />
             <Route element={<Redirect to="/auth" />} path="*" />
           </Routes>

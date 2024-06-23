@@ -1,0 +1,46 @@
+@import "../../styles/Variables.scss";
+
+.inputfield {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.inputfield_title {
+  color: #4fc3dc;
+  font-size: 16px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.inputfield_content {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.inputfield_content-status {
+  width: 20px;
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  margin-top: 2px;
+  padding-top: 2px;
+  justify-content: center;
+  height: 20px;
+}
+
+.inputfield_content-input {
+  width: 100%;
+  border-radius: 2px;
+  border: none;
+  border-bottom: 1px solid;
+  font-size: 14px;
+  padding: 4px 6px 4px 6px;
+  color: white;
+  &:focus {
+    border: none;
+    border-bottom: 1px solid;
+  }
+}
