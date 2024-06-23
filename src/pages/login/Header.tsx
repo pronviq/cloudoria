@@ -3,8 +3,9 @@ import CloudSvg from "../../images/CloudSvg";
 import UserAddSvg from "../../images/UserAddSvg";
 import "./Header.scss";
 import { startTransition } from "react";
+import KeySvg from "../../images/KeySvg";
 
-const Header = () => {
+const Header = ({ type }: { type: string }) => {
   const navigate = useNavigate();
 
   return (
@@ -13,20 +14,37 @@ const Header = () => {
         <CloudSvg height="40px" />
         Cloudoria
       </Link>
-      <div className="loginpage_header-toreg">
-        Нет аккаунта?
-        <Link
-          onClick={(e) => {
-            e.stopPropagation();
-            e.preventDefault();
-            startTransition(() => navigate("/registration"));
-          }}
-          to={"/registration"}
-        >
-          Регистрация
-          <UserAddSvg marginLeft="2px" height="18px" />
-        </Link>
-      </div>
+      {type === "login" ? (
+        <div className="loginpage_header-toreg">
+          Нет аккаунта?
+          <Link
+            onClick={(e) => {
+              e.stopPropagation();
+              e.preventDefault();
+              startTransition(() => navigate("/registration"));
+            }}
+            to={"/registration"}
+          >
+            Регистрация
+            <UserAddSvg marginLeft="2px" height="18px" />
+          </Link>
+        </div>
+      ) : (
+        <div className="loginpage_header-toreg">
+          Уже есть аккаунт?
+          <Link
+            onClick={(e) => {
+              e.stopPropagation();
+              e.preventDefault();
+              startTransition(() => navigate("/login"));
+            }}
+            to={"/login"}
+          >
+            Вход
+            <KeySvg marginLeft="2px" height="18px" />
+          </Link>
+        </div>
+      )}
     </header>
   );
 };

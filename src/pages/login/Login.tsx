@@ -10,7 +10,7 @@ const LoginPage: React.FC = () => {
     <div className="loginpage">
       <Background />
       <div className="loginpage_container">
-        <Header />
+        <Header type="login" />
         <Main />
         <Footer />
       </div>

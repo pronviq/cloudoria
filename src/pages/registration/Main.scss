@@ -1,11 +1,11 @@
-.loginpage_main {
+.regpage_main {
   width: 100%;
   height: calc(100% - 50px * 2);
   display: flex;
   justify-content: center;
 }
 
-.loginpage_main-container {
+.regpage_main-container {
   background-color: #111f3f80;
   margin-top: 15vh;
   width: 350px;
@@ -18,18 +18,18 @@
   gap: 14px;
 }
 
-.loginpage_main-title {
+.regpage_main-title {
   width: 100%;
   display: flex;
   align-items: center;
   p {
     color: lightslategray;
-    width: 170px;
+    width: 190px;
     white-space: nowrap;
     letter-spacing: 3px;
     overflow: hidden;
     font-size: 14px;
-    animation: typing 1s steps(15) 1;
+    animation: typing 1s steps(17) 1;
   }
   div {
     width: 1px;
@@ -39,22 +39,62 @@
   }
 }
 
-.loginpage_main-footer {
+.regpage_main-choosegender {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  p {
+    font-size: 12px;
+    color: #4fc3dc;
+    font-weight: 600;
+  }
+  div {
+    display: flex;
+    gap: 12px;
+    padding-left: 20px;
+    height: 26px;
+    button {
+      display: flex;
+      font-size: 10px;
+      padding: 4px;
+      border-radius: 4px;
+      border: none;
+      align-items: center;
+      color: whitesmoke;
+      font-weight: 600;
+      gap: 4px;
+      &:active {
+        border: none;
+      }
+    }
+  }
+}
+
+.regpage_main-footer {
   display: flex;
 }
 
-.loginpage_main-loader {
+.regpage_main-loader {
   width: 20px;
   height: 20px;
   margin-left: auto;
   margin-right: 20px;
 }
 
-.loginpage_main-confirm {
+.regpage_main-confirm {
+  border-radius: 4px;
+  padding: 4px 6px 4px 6px;
+  font-size: 12px;
+  color: limegreen;
+}
+
+.regpage_main-noconfirm {
   border-radius: 4px;
   padding: 4px 6px 4px 6px;
   font-size: 12px;
   color: lightslategray;
+  user-select: none;
+  border: 1px solid lightslategray;
 }
 
 @keyframes cursor {

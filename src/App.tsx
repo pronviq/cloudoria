@@ -12,6 +12,7 @@ import Loader from "./components/Loader";
 import "./styles/Simplebar.scss";
 import UserService from "./services/UserService";
 import { setCurrentDir } from "./redux/fileSlice";
+import Registration from "./pages/registration/Registration";
 
 // import Files from "./components/files/Files";
 // import AuthPage from "./pages/AuthPage";
@@ -38,18 +39,17 @@ const App: React.FC = () => {
   });
 
   async function checkAuth() {
-    await AuthService.refresh()
-      .then((response: AxiosResponse<AuthResponse>) => {
-        const user = UserService.responseToUser(response);
-        localStorage.setItem("token", response.data.access);
-
-        dispatch(setUser(user));
-        setCurrentTheme(user.theme);
-        dispatch(setCurrentDir(user.root_directory));
-      })
-      .catch(() => {
-        dispatch(setUser(initialState));
-      });
+    // await AuthService.refresh()
+    // .then((response: AxiosResponse<AuthResponse>) => {
+    //   const user = UserService.responseToUser(response);
+    //   localStorage.setItem("token", response.data.access);
+    //   dispatch(setUser(user));
+    //   setCurrentTheme(user.theme);
+    //   dispatch(setCurrentDir(user.root_directory));
+    // })
+    // .catch(() => {
+    //   dispatch(setUser(initialState));
+    // });
   }
 
   if (isLoading)
@@ -77,7 +77,7 @@ const App: React.FC = () => {
         ) : (
           <Routes>
             <Route element={<Login />} path="/login" />
-            <Route element={<RegPage />} path="/registration" />
+            <Route element={<Registration />} path="/registration" />
 
             <Route element={<AuthPage />} path="/auth" />
             <Route element={<Redirect to="/auth" />} path="*" />

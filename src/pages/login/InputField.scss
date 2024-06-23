@@ -9,8 +9,9 @@
 
 .inputfield_title {
   color: #4fc3dc;
-  font-size: 16px;
+  font-size: 12px;
   font-weight: 600;
+  letter-spacing: 1px;
   white-space: nowrap;
 }
 
@@ -24,23 +25,47 @@
   width: 20px;
   display: flex;
   align-items: center;
-  font-size: 20px;
-  margin-top: 2px;
-  padding-top: 2px;
+  font-size: 16px;
   justify-content: center;
   height: 20px;
 }
 
-.inputfield_content-input {
+.inputfield_content-row {
   width: 100%;
+  display: flex;
+  position: relative;
+}
+
+.inputfield_content-input {
   border-radius: 2px;
+  width: 100%;
   border: none;
   border-bottom: 1px solid;
-  font-size: 14px;
-  padding: 4px 6px 4px 6px;
+  font-size: 12px;
+  padding: 4px;
   color: white;
   &:focus {
     border: none;
     border-bottom: 1px solid;
   }
+}
+
+.inputfield_content-eye {
+  width: 20px;
+  padding: 3px;
+  height: 20px;
+  border-radius: 4px;
+  position: absolute;
+  right: 0;
+  opacity: 0.8;
+  border: none;
+  &:active {
+    border: none;
+  }
+}
+
+.inputfield_error {
+  color: red;
+  font-size: 9px;
+  margin-left: 25px;
 }

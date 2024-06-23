@@ -1,8 +1,4 @@
-import { useTheme } from "../contexts/theme/Theme.context";
-
 const UserAddSvg = ({ ...props }) => {
-  const { theme } = useTheme();
-
   return (
     <svg style={{ ...props }} viewBox="0 0 24 24" fill="none">
       <path
