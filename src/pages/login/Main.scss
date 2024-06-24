@@ -2,7 +2,8 @@
   width: 100%;
   height: calc(100% - 50px * 2);
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
 .loginpage_main-container {
@@ -67,4 +68,11 @@
   from {
     width: 0;
   }
+}
+
+.loginpage_main-error {
+  width: 350px;
+  padding: 10px;
+  font-size: 10px;
+  color: pink;
 }

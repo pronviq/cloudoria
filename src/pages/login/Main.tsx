@@ -17,6 +17,7 @@ const Main = () => {
   const [bothError, setBothError] = useState<string>("");
   const [isLoading, setLoading] = useState<boolean>(false);
   const [isDone, setIsDone] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
 
   const loginRef = useRef<HTMLInputElement>(null);
   const passRef = useRef<HTMLInputElement>(null);
@@ -36,7 +37,14 @@ const Main = () => {
         navigate("/");
       })
       .catch((error: AxiosError) => {
-        setBothError(error.response?.data as string);
+        console.log(error.response);
+
+        const err = (error.response?.data as string) || (error.message as string);
+        if (err === "Неверное имя или пароль") {
+          setBothError(err);
+        } else {
+          setError(err);
+        }
         setLoading(false);
       });
   }
@@ -45,7 +53,11 @@ const Main = () => {
     setTimeout(() => {
       setIsDone(true);
     }, 1200);
-  });
+  }, []);
+
+  useEffect(() => {
+    loginRef.current?.focus();
+  }, [isDone]);
 
   return (
     <main className="loginpage_main">
@@ -59,8 +71,11 @@ const Main = () => {
             <InputField
               reference={loginRef}
               value={login}
-              onChange={setLogin}
-              error={bothError}
+              onChange={(val) => {
+                setBothError("");
+                setLogin(val);
+              }}
+              error={bothError ? true : ""}
               type="text"
               title="Введите имя или e-mail"
               onKeyDown={(e) => {
@@ -73,7 +88,10 @@ const Main = () => {
             <InputField
               reference={passRef}
               value={pass}
-              onChange={setPass}
+              onChange={(val) => {
+                setBothError("");
+                setPass(val);
+              }}
               error={bothError}
               type="password"
               title="Введите пароль"
@@ -93,6 +111,7 @@ const Main = () => {
           </>
         )}
       </div>
+      <div className="loginpage_main-error">{error}</div>
     </main>
   );
 };

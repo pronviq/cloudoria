@@ -2,7 +2,8 @@
   width: 100%;
   height: calc(100% - 50px * 2);
   display: flex;
-  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .regpage_main-container {

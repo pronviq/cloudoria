@@ -13,6 +13,16 @@ interface IRegistration {
 }
 
 export default class AuthService {
+  static veryfyEmail = async ({ email }: { email: string }) => {
+    const response = await $api.post("/verifyemail", { email });
+    return response;
+  };
+
+  static veryfyUsername = async ({ username }: { username: string }) => {
+    const response = await $api.post("/verifyusername", { username });
+    return response;
+  };
+
   static login: ILogin = async (user_info, password) => {
     const response = await $api.post<AuthResponse>("/login", {
       user_info,

@@ -10,7 +10,15 @@ const Header = ({ type }: { type: string }) => {
 
   return (
     <header className="loginpage_header">
-      <Link to={"/"} className="loginpage_header-logo">
+      <Link
+        onClick={(e) => {
+          e.stopPropagation();
+          e.preventDefault();
+          startTransition(() => navigate("/"));
+        }}
+        to={"/"}
+        className="loginpage_header-logo"
+      >
         <CloudSvg height="40px" />
         Cloudoria
       </Link>

@@ -1,6 +1,6 @@
 {
-  "name": "react_auth2.0",
-  "version": "0.5",
+  "name": "cloudoria",
+  "version": "1.0",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.4",

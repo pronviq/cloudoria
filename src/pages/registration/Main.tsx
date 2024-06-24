@@ -25,6 +25,7 @@ const Main = () => {
   const [isLoading, setLoading] = useState<boolean>(false);
   const [isDone, setIsDone] = useState<boolean>(false);
   const [gender, setGender] = useState<string>("male");
+  const [error, setError] = useState<string>("");
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -33,10 +34,8 @@ const Main = () => {
     const value = arr[0];
     if (!value) return;
 
-    // запрос на проверку занятости
-
     if (value.length < 8 || value.length > 32) {
-      setPassError("Длина пароля должна быть от 8 до 32 символов");
+      setPassError("Длина пароля должна быть от 6 до 32 символов");
     } else {
       setPassError(false);
     }
@@ -46,8 +45,6 @@ const Main = () => {
     const value = arr[0];
     const latinAlphabetRegex = /^[a-zA-Z]+$/;
     if (!value) return;
-
-    // запрос на проверку занятости
 
     if (value.length < 2 || value.length > 16) {
       setUsernameError("Длина никнейма должна быть от 2 до 16 символов");
@@ -104,7 +101,14 @@ const Main = () => {
       })
       .catch((error: AxiosError) => {
         setLoading(false);
-        setEmailError(error.response?.data as string);
+        const err = (error.response?.data as string) || (error.message as string);
+        if (err === "Почта занята") {
+          setEmailError(err);
+        } else if (err === "Такое имя уже занято") {
+          setUsernameError(err);
+        } else {
+          setError(err);
+        }
       });
   };
 
@@ -112,7 +116,11 @@ const Main = () => {
     setTimeout(() => {
       setIsDone(true);
     }, 1200);
-  });
+  }, []);
+
+  useEffect(() => {
+    emailRef.current?.focus();
+  }, [isDone]);
 
   return (
     <main className="regpage_main">
@@ -133,7 +141,7 @@ const Main = () => {
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
                   e.preventDefault();
-                  passRef.current?.focus();
+                  usernameRef.current?.focus();
                 }
               }}
             />
@@ -197,6 +205,7 @@ const Main = () => {
           </>
         )}
       </div>
+      <div className="loginpage_main-error">{error}</div>
     </main>
   );
 };

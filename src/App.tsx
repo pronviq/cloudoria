@@ -12,21 +12,13 @@ import Loader from "./components/Loader";
 import "./styles/Simplebar.scss";
 import UserService from "./services/UserService";
 import { setCurrentDir } from "./redux/fileSlice";
-import Registration from "./pages/registration/Registration";
-
-// import Files from "./components/files/Files";
-// import AuthPage from "./pages/AuthPage";
-// import MainPage from "./pages/MainPage";
-// import Settings from "./pages/Settings";
-// import Login from "./pages/Login";
-// import RegPage from "./pages/RegPage";
 
 const Files = lazy(() => import("./components/files/Files"));
-const AuthPage = lazy(() => import("./pages/AuthPage"));
 const MainPage = lazy(() => import("./pages/MainPage"));
 const Settings = lazy(() => import("./pages/Settings"));
+const StartPage = lazy(() => import("./pages/StartPage"));
 const Login = lazy(() => import("./pages/login/Login"));
-const RegPage = lazy(() => import("./pages/RegPage"));
+const Registration = lazy(() => import("./pages/registration/Registration"));
 
 const App: React.FC = () => {
   const { theme, setCurrentTheme } = useTheme();
@@ -39,17 +31,17 @@ const App: React.FC = () => {
   });
 
   async function checkAuth() {
-    // await AuthService.refresh()
-    // .then((response: AxiosResponse<AuthResponse>) => {
-    //   const user = UserService.responseToUser(response);
-    //   localStorage.setItem("token", response.data.access);
-    //   dispatch(setUser(user));
-    //   setCurrentTheme(user.theme);
-    //   dispatch(setCurrentDir(user.root_directory));
-    // })
-    // .catch(() => {
-    //   dispatch(setUser(initialState));
-    // });
+    await AuthService.refresh()
+      .then((response: AxiosResponse<AuthResponse>) => {
+        const user = UserService.responseToUser(response);
+        localStorage.setItem("token", response.data.access);
+        dispatch(setUser(user));
+        setCurrentTheme(user.theme);
+        dispatch(setCurrentDir(user.root_directory));
+      })
+      .catch(() => {
+        dispatch(setUser(initialState));
+      });
   }
 
   if (isLoading)
@@ -78,9 +70,9 @@ const App: React.FC = () => {
           <Routes>
             <Route element={<Login />} path="/login" />
             <Route element={<Registration />} path="/registration" />
+            <Route element={<StartPage />} path="/" />
 
-            <Route element={<AuthPage />} path="/auth" />
-            <Route element={<Redirect to="/auth" />} path="*" />
+            <Route element={<Redirect to="/" />} path="*" />
           </Routes>
         )}
       </BrowserRouter>
