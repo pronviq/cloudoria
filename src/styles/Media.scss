@@ -75,6 +75,10 @@
 
 @media only screen and (max-width: 512px) {
   // mobile
+  .startpage_main-title {
+    font-size: 18px;
+    letter-spacing: 1px;
+  }
   .ufile_size,
   .ufile_name,
   .ufile_type {

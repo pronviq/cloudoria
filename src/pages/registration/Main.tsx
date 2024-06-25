@@ -34,7 +34,7 @@ const Main = () => {
     const value = arr[0];
     if (!value) return;
 
-    if (value.length < 8 || value.length > 32) {
+    if (value.length < 6 || value.length > 32) {
       setPassError("Длина пароля должна быть от 6 до 32 символов");
     } else {
       setPassError(false);
