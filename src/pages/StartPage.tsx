@@ -4,12 +4,14 @@ import Footer from "./login/Footer";
 import "./StartPage.scss";
 import MyButton from "../components/ui/MyElements/MyButton";
 import { startTransition } from "react";
+import DotsBackground from "./DotsBackground";
 
 const StartPage = () => {
   const navigate = useNavigate();
 
   return (
     <div className="startpage">
+      <DotsBackground />
       <header className="startpage_header">
         <Link
           onClick={(e) => {

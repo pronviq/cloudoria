@@ -12,7 +12,7 @@
   align-items: center;
   height: 22px;
   gap: 5px;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .safety {
@@ -65,13 +65,13 @@
 }
 
 .safety_item {
-  font-size: 12px;
+  font-size: 14px;
   grid-template-columns: 28px 60px 130px 25px;
   display: grid;
   align-items: center;
   height: 30px;
   p {
-    font-size: 10px;
+    font-size: 12px;
     opacity: 0.8;
     white-space: nowrap;
     overflow: hidden;

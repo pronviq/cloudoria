@@ -9,7 +9,7 @@
 
 .inputfield_title {
   color: #4fc3dc;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
   letter-spacing: 1px;
   white-space: nowrap;
@@ -25,7 +25,7 @@
   width: 20px;
   display: flex;
   align-items: center;
-  font-size: 16px;
+  font-size: 18px;
   justify-content: center;
   height: 20px;
 }
@@ -41,7 +41,7 @@
   width: 100%;
   border: none;
   border-bottom: 1px solid;
-  font-size: 12px;
+  font-size: 14px;
   padding: 4px;
   color: white;
   &:focus {
@@ -66,6 +66,6 @@
 
 .inputfield_error {
   color: red;
-  font-size: 9px;
+  font-size: 10px;
   margin-left: 25px;
 }

@@ -5,7 +5,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import Main from "./Main";
 
-const LoginPage: React.FC = () => {
+const Login: React.FC = () => {
   return (
     <div className="loginpage">
       <Background />
@@ -18,4 +18,4 @@ const LoginPage: React.FC = () => {
   );
 };
 
-export default LoginPage;
+export default Login;

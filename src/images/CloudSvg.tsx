@@ -3,26 +3,13 @@ const CloudSvg = ({ ...props }) => {
     <svg style={{ ...props }} viewBox="0 0 1024 1024" fill="none">
       <defs>
         <radialGradient r="2.2507" cy="0.78595" cx="0.83984" spreadMethod="pad" id="svg_33">
-          <stop offset="0.09766" stop-opacity="0.99609" stop-color="#7f00ff" />
-          <stop offset="0.29688" stop-opacity="0.98828" stop-color="#ff56ff" />
-          <stop offset="0.51563" stop-opacity="0.99609" stop-color="#ffff00" />
-          <stop offset="NaN" stop-opacity="0" stop-color="0" />
-          <stop offset="NaN" stop-opacity="0" stop-color="0" />
-          <stop offset="NaN" stop-opacity="0" stop-color="0" />
-          <stop offset="NaN" stop-opacity="0" stop-color="0" />
-          <stop offset="NaN" stop-opacity="0" stop-color="0" />
-          <stop offset="NaN" stop-opacity="0" stop-color="0" />
-          <stop offset="NaN" stop-opacity="0" stop-color="0" />
-          <stop offset="NaN" stop-opacity="0" stop-color="0" />
-          <stop offset="NaN" stop-opacity="0" stop-color="0" />
-          <stop offset="NaN" stop-opacity="0" stop-color="0" />
-          <stop offset="NaN" stop-opacity="0" stop-color="0" />
-          <stop offset="NaN" stop-opacity="0" stop-color="0" />
-          <stop offset="NaN" stop-opacity="0" stop-color="0" />
+          <stop offset="0.09766" stopOpacity="0.99609" stopColor="#7f00ff" />
+          <stop offset="0.29688" stopOpacity="0.98828" stopColor="#ff56ff" />
+          <stop offset="0.51563" stopOpacity="0.99609" stopColor="#ffff00" />
         </radialGradient>
         <radialGradient r="1.04219" cy="0.78204" cx="0.625" spreadMethod="pad" id="svg_34">
-          <stop offset="0.71484" stop-opacity="0.98828" stop-color="#7f00ff" />
-          <stop offset="1" stop-opacity="0.99609" stop-color="#ff00ff" />
+          <stop offset="0.71484" stopOpacity="0.98828" stopColor="#7f00ff" />
+          <stop offset="1" stopOpacity="0.99609" stopColor="#ff00ff" />
         </radialGradient>
       </defs>
       <g>

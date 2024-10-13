@@ -34,7 +34,7 @@ const UserSettings: React.FC = () => {
     await AuthService.logout()
       .then((_) => {
         dispatch(setUser(initialState));
-        navigate("/auth");
+        startTransition(() => navigate("/auth"));
       })
       .catch((error) => navigate("/auth"));
   };
@@ -76,10 +76,7 @@ const UserSettings: React.FC = () => {
                 <button>
                   <Link
                     onClick={(e) => {
-                      e.stopPropagation();
-                      e.preventDefault();
                       setActive(false);
-                      startTransition(() => navigate("/settings"));
                     }}
                     className="user_settings_item"
                     to={"/settings"}

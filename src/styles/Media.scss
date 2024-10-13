@@ -79,17 +79,12 @@
     font-size: 18px;
     letter-spacing: 1px;
   }
-  .ufile_size,
-  .ufile_name,
-  .ufile_type {
-    font-family: sans-serif !important;
-  }
+
   .mobileuploading {
     display: block !important;
   }
   .stack_start,
   .stack_file {
-    font-family: sans-serif !important;
     font-size: 12px !important;
   }
   .nav,
@@ -110,11 +105,12 @@
     display: none;
   }
   .listfile {
+    font-size: 10px !important;
     grid-template-columns: 40px 1fr 30px 30px !important;
   }
-  .listfile_size,
-  .listfile_unit {
-    font-family: sans-serif;
+
+  .listfile_info {
+    font-size: 12px !important;
   }
 
   .filesel {

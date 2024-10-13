@@ -8,14 +8,21 @@ import AuthService from "./services/AuthService";
 import { AxiosResponse } from "axios";
 import { AuthResponse } from "./models/Auth.model";
 import { initialState, setUser } from "./redux/userSlice";
-import Loader from "./components/Loader";
+import { SpinnerLoader } from "./components/Loader";
 import "./styles/Simplebar.scss";
 import UserService from "./services/UserService";
 import { setCurrentDir } from "./redux/fileSlice";
 
-const Files = lazy(() => import("./components/files/Files"));
+import Files from "./components/files/Files";
+import Settings from "./pages/Settings";
+// import MainPage from "./pages/MainPage";
+// import StartPage from "./pages/StartPage";
+// import Login from "./pages/login/Login";
+// import Registration from "./pages/registration/Registration";
+
+// const Files = lazy(() => import("./components/files/Files"));
+// const Settings = lazy(() => import("./pages/Settings"));
 const MainPage = lazy(() => import("./pages/MainPage"));
-const Settings = lazy(() => import("./pages/Settings"));
 const StartPage = lazy(() => import("./pages/StartPage"));
 const Login = lazy(() => import("./pages/login/Login"));
 const Registration = lazy(() => import("./pages/registration/Registration"));
@@ -46,8 +53,8 @@ const App: React.FC = () => {
 
   if (isLoading)
     return (
-      <div style={{ ...(theme as React.CSSProperties) }} className="app">
-        <Loader />
+      <div style={{ backgroundColor: theme["--background"], ...theme }} className="app">
+        <SpinnerLoader />
       </div>
     );
 
@@ -56,7 +63,6 @@ const App: React.FC = () => {
       <BrowserRouter>
         {user.isAuth ? (
           <Routes>
-            {/* <Route element={<AuthPage />} path="/auth" /> */}
             <Route element={<MainPage />} path="/">
               <Route element={<Settings />} path="/settings" />
               <Route element={<Files />} path="/favorites" />

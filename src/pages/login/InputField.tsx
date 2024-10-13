@@ -56,6 +56,7 @@ const InputField: React.FC<IInputField> = ({
             style={{
               borderColor: error ? "red" : error === false ? "lime" : "white",
               color: error ? "red" : error === false ? "lime" : "white",
+              paddingRight: type === "password" ? "25px" : "",
             }}
             type={isPassword ? "password" : "text"}
             className={"inputfield_content-input" + (className ? ` ${className}` : "")}

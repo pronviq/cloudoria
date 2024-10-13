@@ -36,17 +36,16 @@
 .upload_btn {
   border-radius: 8px;
   margin-top: 10px;
-  padding: 2px;
+  padding: 3px;
   border: 1px dashed;
   width: $nav_content_width;
   display: flex;
-  align-items: center;
   justify-content: center;
   height: 30px;
 }
 
 .upload_title {
-  font-size: 14px;
+  font-size: 16px;
   margin-right: 5px;
 }
 
@@ -70,11 +69,10 @@
 }
 
 .navlist_item {
-  font-size: 14px;
+  font-size: 16px;
   height: 22px;
   display: flex;
   position: relative;
-  align-items: center;
   margin-top: 2px;
   p {
     margin-left: 4px;
@@ -96,7 +94,6 @@ label[for="file_upload"] {
   height: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
   &:hover {
     cursor: pointer;
   }

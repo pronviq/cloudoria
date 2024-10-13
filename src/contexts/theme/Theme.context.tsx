@@ -9,8 +9,8 @@ interface ThemeContextProps {
 }
 
 export const ThemeContext = React.createContext<ThemeContextProps>({
-  themeType: "dark",
-  theme: THEMES["dark"],
+  themeType: "light",
+  theme: THEMES["light"],
 } as ThemeContextProps);
 
 interface ThemeProviderProps {
@@ -18,7 +18,7 @@ interface ThemeProviderProps {
 }
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
-  const [currentTheme, setCurrentTheme] = useState<ThemeType>("dark");
+  const [currentTheme, setCurrentTheme] = useState<ThemeType>("light");
   return (
     <ThemeContext.Provider
       value={{
